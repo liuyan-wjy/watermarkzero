@@ -23,55 +23,15 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "HowTo",
-          "name": "How to remove Gemini watermarks in batch",
-          "description": "Process multiple supported Gemini images locally in the WatermarkZero browser queue.",
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Select multiple Gemini images",
-              "text": "Choose the original supported JPG, PNG, or WebP exports."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Run the local batch",
-              "text": "Let the browser process each supported visible watermark without uploading the image files."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Review and download",
-              "text": "Inspect the results and download the completed files together."
-            }
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Can I remove Gemini watermarks from multiple images at once?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. WatermarkZero accepts multiple supported image files and processes them through a browser queue."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Are batch images uploaded?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No. The image cleanup runs locally in your browser."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Does batch mode remove SynthID?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No. Batch mode targets only the supported visible Gemini watermark and does not claim to remove SynthID."
-              }
-            }
-          ]
+          "@type": "WebPage",
+          "name": "Batch Gemini Watermark Remover",
+          "url": "https://watermarkzero.org/batch-gemini-watermark-remover/",
+          "description": "A local browser workflow for processing multiple Gemini images and downloading completed files together.",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "WatermarkZero",
+            "url": "https://watermarkzero.org/"
+          }
         },
         {
           "@type": "BreadcrumbList",
@@ -98,12 +58,8 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
-    h1, h2, h3 { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
   </style>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
@@ -194,6 +150,7 @@
           <p class="mt-3 text-sm leading-7 text-slate-600">A skipped file remains visible so you can retry with a better source.</p>
         </article>
       </div>
+      <p class="mt-6 text-xs leading-6 text-slate-500">Capabilities checked July 2026 against the current <a href="https://github.com/liuyan-wjy/watermarkzero" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">WatermarkZero source</a>: multiple-file input, local queue processing, skipped-file reporting, and ZIP download.</p>
     </section>
 
     <section class="mt-10 grid gap-6 lg:grid-cols-2">

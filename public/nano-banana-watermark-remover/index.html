@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nano Banana Watermark Remover | Nano Banana 2 &amp; Pro</title>
-  <meta name="description" content="Remove the visible Nano Banana watermark from supported Gemini, Nano Banana Pro, and Nano Banana 2 images locally in your browser.">
+  <meta name="description" content="Check and remove the visible corner mark from compatible Nano Banana, Nano Banana Pro, and Nano Banana 2 exports locally in your browser.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://watermarkzero.org/nano-banana-watermark-remover/">
   <meta name="theme-color" content="#10B981">
@@ -34,35 +34,6 @@
           }
         },
         {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Does the remover work with Nano Banana 2 and Nano Banana Pro?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "It can process supported images that use the visible Gemini sparkle pattern. Use the original export and check the before-and-after preview because edited or resized files may not match."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Does it remove SynthID?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No. WatermarkZero removes only the visible corner mark on supported images. It does not claim to remove Google's invisible SynthID provenance signal."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Are Nano Banana images uploaded to a server?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No. Image processing runs locally in the browser."
-              }
-            }
-          ]
-        },
-        {
           "@type": "BreadcrumbList",
           "itemListElement": [
             {
@@ -87,12 +58,8 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
-    h1, h2, h3 { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
   </style>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
@@ -118,7 +85,7 @@
         <div class="p-8 sm:p-10 lg:p-12">
           <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Nano Banana image cleanup</p>
           <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Nano Banana watermark remover</h1>
-          <p class="mt-5 text-base leading-8 text-slate-600">Remove the visible Gemini sparkle from supported Nano Banana, Nano Banana Pro, and Nano Banana 2 image exports. Processing stays in your browser, so the image is not sent to a remote cleanup queue.</p>
+          <p class="mt-5 text-base leading-8 text-slate-600">Check a Nano Banana, Nano Banana Pro, or Nano Banana 2 export for the visible Gemini sparkle. Compatible files are processed in your browser and are not sent to a remote cleanup queue.</p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Remove Nano Banana watermark</a>
             <a href="/blog/visible-gemini-watermark-vs-synthid/" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-300 hover:text-emerald-700">Visible mark vs SynthID</a>
@@ -131,25 +98,26 @@
         </div>
         <div class="grid grid-cols-2 gap-3 bg-slate-900 p-4 sm:p-6">
           <figure class="overflow-hidden rounded-2xl bg-white">
-            <img src="/examples/product-before.webp" alt="Nano Banana image before visible watermark removal" class="h-full min-h-64 w-full object-cover" width="640" height="480">
-            <figcaption class="p-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Before</figcaption>
+            <img src="/examples/product-before.webp" alt="Gemini-generated product image before visible watermark removal" class="h-full min-h-64 w-full object-cover" width="640" height="480">
+            <figcaption class="p-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Example before</figcaption>
           </figure>
           <figure class="overflow-hidden rounded-2xl bg-white">
-            <img src="/examples/product-after.webp" alt="Nano Banana image after visible watermark removal" class="h-full min-h-64 w-full object-cover" width="640" height="480">
-            <figcaption class="p-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">After</figcaption>
+            <img src="/examples/product-after.webp" alt="Same Gemini-generated product image after visible watermark removal" class="h-full min-h-64 w-full object-cover" width="640" height="480">
+            <figcaption class="p-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Example after</figcaption>
           </figure>
         </div>
       </div>
     </section>
 
     <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
-      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Model coverage</p>
-      <h2 class="mt-3 text-3xl font-bold text-slate-900">One page for the Nano Banana image family</h2>
-      <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-600">Nano Banana is the common name for Google's Gemini image models. This tool targets the visible sparkle placed on supported consumer exports; it does not change how the model generated the image.</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Compatibility check</p>
+      <h2 class="mt-3 text-3xl font-bold text-slate-900">Check the visible mark, not just the model name</h2>
+      <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-600">Google currently uses the Nano Banana, Nano Banana Pro, and Nano Banana 2 names for Gemini image models. WatermarkZero checks the exported file's visible corner pattern, so a model name alone does not guarantee a match.</p>
+      <p class="mt-3 text-xs leading-6 text-slate-500">Model names checked July 2026 against <a href="https://blog.google/innovation-and-ai/technology/ai/nano-banana-2/" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">Google's Nano Banana 2 announcement</a>.</p>
       <div class="mt-7 overflow-hidden rounded-3xl border border-slate-200">
         <div class="grid grid-cols-[1fr_1.1fr] bg-slate-900 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white">
-          <span>Search name</span>
-          <span>What to upload</span>
+          <span>Image model</span>
+          <span>Best source file</span>
         </div>
         <div class="grid grid-cols-[1fr_1.1fr] gap-4 border-b border-slate-200 px-5 py-4 text-sm">
           <strong class="text-slate-900">Nano Banana</strong>
@@ -157,11 +125,11 @@
         </div>
         <div class="grid grid-cols-[1fr_1.1fr] gap-4 border-b border-slate-200 px-5 py-4 text-sm">
           <strong class="text-slate-900">Nano Banana Pro</strong>
-          <span class="text-slate-600">Supported visible-watermark exports; preview before downloading.</span>
+          <span class="text-slate-600">Original Pro export with the visible corner mark still intact.</span>
         </div>
         <div class="grid grid-cols-[1fr_1.1fr] gap-4 px-5 py-4 text-sm">
           <strong class="text-slate-900">Nano Banana 2</strong>
-          <span class="text-slate-600">Supported Gemini exports that retain the expected visible mark.</span>
+          <span class="text-slate-600">Original Nano Banana 2 export; verify the before-and-after preview.</span>
         </div>
       </div>
     </section>
@@ -175,7 +143,7 @@
       <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 2</p>
         <h2 class="mt-3 text-2xl font-bold text-slate-900">Process locally</h2>
-        <p class="mt-3 text-sm leading-7 text-slate-600">Select the image in WatermarkZero. The browser checks for supported visible Gemini watermark patterns.</p>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Select the image in WatermarkZero. The browser checks whether the visible Gemini mark matches a known pattern.</p>
       </article>
       <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 3</p>
@@ -207,7 +175,7 @@
         </article>
         <article class="rounded-3xl bg-slate-50 p-6">
           <h3 class="text-lg font-bold text-slate-900">Can I clean several images?</h3>
-          <p class="mt-3 text-sm leading-7 text-slate-600">Yes. Use the batch queue for multiple supported exports.</p>
+          <p class="mt-3 text-sm leading-7 text-slate-600">Yes. Use the batch queue for multiple compatible exports.</p>
         </article>
         <article class="rounded-3xl bg-slate-50 p-6">
           <h3 class="text-lg font-bold text-slate-900">What if it is skipped?</h3>

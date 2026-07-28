@@ -18,10 +18,6 @@ const LOCALIZED_HOME_PATHS = [
   '/zh-tw/'
 ];
 
-const LOCALIZED_HOME_PATHS_WITHOUT_SLASH = new Set(
-  LOCALIZED_HOME_PATHS.filter((path) => path !== '/').map((path) => path.slice(0, -1))
-);
-
 const SITEMAP_PATHS = [
   ...LOCALIZED_HOME_PATHS,
   '/gemini-watermark-remover/',
@@ -44,8 +40,18 @@ const SITEMAP_PATHS = [
   '/blog/lossless-gemini-watermark-removal/'
 ];
 const NOINDEX_PATHS = new Set(['/privacy/', '/terms/', '/privacy.html', '/terms.html']);
+const TRAILING_SLASH_PATHS = new Set(
+  [...SITEMAP_PATHS, '/privacy/', '/terms/']
+    .filter((path) => path !== '/' && path.endsWith('/'))
+    .map((path) => path.slice(0, -1))
+);
+const LEGACY_PATH_REDIRECTS = new Map([
+  ['/privacy.html', '/privacy/'],
+  ['/terms.html', '/terms/']
+]);
 const OG_IMAGE_PATH = '/og-cover.png';
 const GOOGLE_TAG_SCRIPT_ORIGIN = 'https://www.googletagmanager.com';
+const CLOUDFLARE_INSIGHTS_ORIGIN = 'https://static.cloudflareinsights.com';
 const GOOGLE_ANALYTICS_ORIGINS = [
   'https://www.google-analytics.com',
   'https://region1.google-analytics.com'
@@ -77,6 +83,7 @@ function withHeaders(response, options = {}) {
   const headers = new Headers(response.headers);
   const { robotsTag = '' } = options;
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('X-Frame-Options', 'SAMEORIGIN');
   if (robotsTag) {
@@ -87,7 +94,7 @@ function withHeaders(response, options = {}) {
   if (contentType.includes('text/html')) {
     headers.set(
       'Content-Security-Policy',
-      `default-src 'self'; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com ${GOOGLE_TAG_SCRIPT_ORIGIN} ${AD_SCRIPT_ORIGINS.join(' ')}; connect-src 'self' ${GOOGLE_ANALYTICS_ORIGINS.join(' ')} https:; frame-src 'self' https:; worker-src 'self' blob:; base-uri 'self'; form-action 'self';`
+      `default-src 'self'; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com ${GOOGLE_TAG_SCRIPT_ORIGIN} ${CLOUDFLARE_INSIGHTS_ORIGIN} ${AD_SCRIPT_ORIGINS.join(' ')}; connect-src 'self' ${GOOGLE_ANALYTICS_ORIGINS.join(' ')} https:; frame-src 'self' https:; worker-src 'self' blob:; base-uri 'self'; form-action 'self';`
     );
   }
 
@@ -179,9 +186,14 @@ export default {
     const url = new URL(request.url);
     const siteOrigin = resolveSiteOrigin(env, url);
     const canonicalRequest = isCanonicalRequest(url, siteOrigin);
-    const apexHostname = new URL(siteOrigin).hostname;
+    const siteUrl = new URL(siteOrigin);
+    const apexHostname = siteUrl.hostname;
+    const redirectOrigin = canonicalRequest ? siteOrigin : url.origin;
 
-    if (url.hostname === `www.${apexHostname}`) {
+    if (
+      (url.protocol === 'http:' && siteUrl.protocol === 'https:' && url.hostname === apexHostname) ||
+      url.hostname === `www.${apexHostname}`
+    ) {
       return Response.redirect(`${siteOrigin}${url.pathname}${url.search}`, 301);
     }
 
@@ -209,88 +221,13 @@ export default {
       });
     }
 
-    if (url.pathname === '/privacy' || url.pathname === '/privacy.html') {
-      return Response.redirect(`${url.origin}/privacy/`, 301);
+    const legacyTarget = LEGACY_PATH_REDIRECTS.get(url.pathname);
+    if (legacyTarget) {
+      return Response.redirect(`${redirectOrigin}${legacyTarget}${url.search}`, 301);
     }
 
-    if (url.pathname === '/terms' || url.pathname === '/terms.html') {
-      return Response.redirect(`${url.origin}/terms/`, 301);
-    }
-
-    if (url.pathname === '/blog') {
-      return Response.redirect(`${url.origin}/blog/`, 301);
-    }
-
-    if (LOCALIZED_HOME_PATHS_WITHOUT_SLASH.has(url.pathname)) {
-      return Response.redirect(`${url.origin}${url.pathname}/`, 301);
-    }
-
-    if (url.pathname === '/gemini-watermark-remover') {
-      return Response.redirect(`${url.origin}/gemini-watermark-remover/`, 301);
-    }
-
-    if (url.pathname === '/remove-gemini-watermark') {
-      return Response.redirect(`${url.origin}/remove-gemini-watermark/`, 301);
-    }
-
-    if (url.pathname === '/remove-gemini-watermark-from-image') {
-      return Response.redirect(`${url.origin}/remove-gemini-watermark-from-image/`, 301);
-    }
-
-    if (url.pathname === '/nano-banana-watermark-remover') {
-      return Response.redirect(`${url.origin}/nano-banana-watermark-remover/`, 301);
-    }
-
-    if (url.pathname === '/batch-gemini-watermark-remover') {
-      return Response.redirect(`${url.origin}/batch-gemini-watermark-remover/`, 301);
-    }
-
-    if (url.pathname === '/blog/how-gemini-watermarks-work') {
-      return Response.redirect(`${url.origin}/blog/how-gemini-watermarks-work/`, 301);
-    }
-
-    if (url.pathname === '/blog/how-to-remove-gemini-watermark') {
-      return Response.redirect(`${url.origin}/blog/how-to-remove-gemini-watermark/`, 301);
-    }
-
-    if (url.pathname === '/blog/remove-gemini-watermark-online') {
-      return Response.redirect(`${url.origin}/blog/remove-gemini-watermark-online/`, 301);
-    }
-
-    if (url.pathname === '/blog/gemini-logo-remover') {
-      return Response.redirect(`${url.origin}/blog/gemini-logo-remover/`, 301);
-    }
-
-    if (url.pathname === '/blog/gemini-watermark-remover-test-results') {
-      return Response.redirect(`${url.origin}/blog/gemini-watermark-remover-test-results/`, 301);
-    }
-
-    if (url.pathname === '/blog/visible-gemini-watermark-vs-synthid') {
-      return Response.redirect(`${url.origin}/blog/visible-gemini-watermark-vs-synthid/`, 301);
-    }
-
-    if (url.pathname === '/blog/gemini-watermark-remover-troubleshooting') {
-      return Response.redirect(`${url.origin}/blog/gemini-watermark-remover-troubleshooting/`, 301);
-    }
-
-    if (url.pathname === '/blog/free-gemini-watermark-remover') {
-      return Response.redirect(`${url.origin}/blog/free-gemini-watermark-remover/`, 301);
-    }
-
-    if (url.pathname === '/blog/gemini-watermark-remover-github') {
-      return Response.redirect(`${url.origin}/blog/gemini-watermark-remover-github/`, 301);
-    }
-
-    if (url.pathname === '/blog/gemini-watermark-remover-extension') {
-      return Response.redirect(`${url.origin}/blog/gemini-watermark-remover-extension/`, 301);
-    }
-
-    if (url.pathname === '/blog/gemini-watermark-remover-pdf') {
-      return Response.redirect(`${url.origin}/blog/gemini-watermark-remover-pdf/`, 301);
-    }
-
-    if (url.pathname === '/blog/lossless-gemini-watermark-removal') {
-      return Response.redirect(`${url.origin}/blog/lossless-gemini-watermark-removal/`, 301);
+    if (TRAILING_SLASH_PATHS.has(url.pathname)) {
+      return Response.redirect(`${redirectOrigin}${url.pathname}/${url.search}`, 301);
     }
 
     const assetResponse = await env.ASSETS.fetch(request);
