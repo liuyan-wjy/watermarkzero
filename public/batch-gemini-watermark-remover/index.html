@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batch Gemini Watermark Remover | Local Bulk Processing</title>
+  <meta name="description" content="Remove visible Gemini watermarks from multiple supported images with a local browser batch queue, ZIP download, and no image uploads.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://watermarkzero.org/batch-gemini-watermark-remover/">
+  <meta name="theme-color" content="#10B981">
+  <meta property="og:title" content="Batch Gemini Watermark Remover">
+  <meta property="og:description" content="Process multiple supported Gemini images locally in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://watermarkzero.org/batch-gemini-watermark-remover/">
+  <meta property="og:image" content="https://watermarkzero.org/og-cover.png">
+  <meta property="og:image:alt" content="Batch Gemini watermark remover">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Batch Gemini Watermark Remover">
+  <meta name="twitter:description" content="Local bulk cleanup for supported Gemini images.">
+  <meta name="twitter:image" content="https://watermarkzero.org/og-cover.png">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How to remove Gemini watermarks in batch",
+          "description": "Process multiple supported Gemini images locally in the WatermarkZero browser queue.",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Select multiple Gemini images",
+              "text": "Choose the original supported JPG, PNG, or WebP exports."
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Run the local batch",
+              "text": "Let the browser process each supported visible watermark without uploading the image files."
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Review and download",
+              "text": "Inspect the results and download the completed files together."
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Can I remove Gemini watermarks from multiple images at once?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. WatermarkZero accepts multiple supported image files and processes them through a browser queue."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are batch images uploaded?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The image cleanup runs locally in your browser."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does batch mode remove SynthID?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Batch mode targets only the supported visible Gemini watermark and does not claim to remove SynthID."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://watermarkzero.org/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Batch Gemini Watermark Remover",
+              "item": "https://watermarkzero.org/batch-gemini-watermark-remover/"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    h1, h2, h3 { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <a href="/" class="text-sm font-bold tracking-tight text-emerald-600 md:text-xl">Watermark<span class="text-slate-700">Zero</span></a>
+      <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
+        <a href="/#uploadArea" class="hover:text-emerald-600">Upload</a>
+        <a href="/blog/" class="hover:text-emerald-600">Guides</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <nav aria-label="Breadcrumb" class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+      <a href="/" class="hover:text-emerald-600">Home</a>
+      <span class="mx-2 text-slate-300">/</span>
+      <span>Batch Gemini Watermark Remover</span>
+    </nav>
+
+    <section class="mt-6 rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-slate-50 p-8 shadow-sm sm:p-10 lg:p-12">
+      <div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Bulk image workflow</p>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">Batch Gemini watermark remover</h1>
+          <p class="mt-5 text-base leading-8 text-slate-600">Select multiple supported Gemini images, process the visible corner watermark in a local browser queue, review the results, and download the finished set. No image upload or account is required.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Select multiple images</a>
+            <a href="/nano-banana-watermark-remover/" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-300 hover:text-emerald-700">Nano Banana support</a>
+          </div>
+        </div>
+        <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Batch checklist</p>
+          <div class="mt-5 space-y-3">
+            <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-5 py-4">
+              <span class="text-sm font-semibold text-slate-900">Original exports</span>
+              <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">Best</span>
+            </div>
+            <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-5 py-4">
+              <span class="text-sm font-semibold text-slate-900">JPG, PNG, WebP</span>
+              <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">Supported</span>
+            </div>
+            <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-5 py-4">
+              <span class="text-sm font-semibold text-slate-900">Remote uploads</span>
+              <span class="rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-700">None</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-10 grid gap-6 md:grid-cols-3">
+      <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 1</p>
+        <h2 class="mt-3 text-2xl font-bold text-slate-900">Choose the batch</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Select several original Gemini exports at once. Mixed JPG, PNG, and WebP files are accepted.</p>
+      </article>
+      <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 2</p>
+        <h2 class="mt-3 text-2xl font-bold text-slate-900">Watch the queue</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Each file is checked and processed locally. Unsupported images are skipped instead of being blindly repainted.</p>
+      </article>
+      <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 3</p>
+        <h2 class="mt-3 text-2xl font-bold text-slate-900">Review and download</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Inspect important images, then download the completed outputs together when the queue is done.</p>
+      </article>
+    </section>
+
+    <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Why local batch processing</p>
+      <h2 class="mt-3 text-3xl font-bold text-slate-900">Fewer uploads, fewer repetitive clicks</h2>
+      <div class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <article class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-lg font-bold text-slate-900">Private by design</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">Image pixels remain on the device during processing.</p>
+        </article>
+        <article class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-lg font-bold text-slate-900">Purpose-built</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">The queue uses the same visible Gemini watermark restoration path for every supported file.</p>
+        </article>
+        <article class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-lg font-bold text-slate-900">No signup</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">Open the tool, select the batch, and process it without creating an account.</p>
+        </article>
+        <article class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-lg font-bold text-slate-900">Clear failures</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">A skipped file remains visible so you can retry with a better source.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mt-10 grid gap-6 lg:grid-cols-2">
+      <article class="rounded-[2rem] border border-emerald-200 bg-emerald-50 p-8 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Good batch</p>
+        <h2 class="mt-3 text-3xl font-bold text-slate-900">Original files from one workflow</h2>
+        <ul class="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+          <li>Visible Gemini sparkle is still intact.</li>
+          <li>Images were not resized, cropped, or recompressed.</li>
+          <li>You own the files or have permission to edit them.</li>
+        </ul>
+      </article>
+      <article class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Review carefully</p>
+        <h2 class="mt-3 text-3xl font-bold text-slate-900">Screenshots and edited copies</h2>
+        <ul class="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+          <li>Scaling can move the mark away from its expected position.</li>
+          <li>Compression can leave a faint edge around the restored area.</li>
+          <li>Hidden SynthID is outside the tool's scope.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">FAQ</p>
+      <h2 class="mt-3 text-3xl font-bold text-slate-900">Batch processing questions</h2>
+      <div class="mt-7 grid gap-5 lg:grid-cols-3">
+        <article class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-lg font-bold text-slate-900">How many files can I select?</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">Select a practical batch for your device. Very large files or batches may use more browser memory.</p>
+        </article>
+        <article class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-lg font-bold text-slate-900">Does it work offline?</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">Processing is local after the page and required assets have loaded. Keep the tab open until downloads finish.</p>
+        </article>
+        <article class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-lg font-bold text-slate-900">Why was one file skipped?</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">The watermark may be cropped, resized, compressed, or unsupported. See <a href="/blog/gemini-watermark-remover-troubleshooting/" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">troubleshooting</a>.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mt-10 rounded-[2rem] bg-slate-900 p-8 text-white shadow-sm sm:p-10">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-300">Start the queue</p>
+          <h2 class="mt-3 text-3xl font-bold">Process your Gemini image batch locally</h2>
+          <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Test one original export first, then select the rest when the result looks right.</p>
+        </div>
+        <a href="/#uploadArea" class="inline-flex shrink-0 items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-400">Open batch remover</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-12 border-t border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p>Use only on images you own or are allowed to edit.</p>
+      <div class="flex gap-4">
+        <a href="/privacy/" class="hover:text-emerald-700">Privacy</a>
+        <a href="/terms/" class="hover:text-emerald-700">Terms</a>
+        <a href="/blog/" class="hover:text-emerald-700">Guides</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

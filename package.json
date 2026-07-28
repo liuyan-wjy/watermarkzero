@@ -1,0 +1,85 @@
+{
+  "name": "@pilio/gemini-watermark-remover",
+  "description": "Automatically removes watermarks from Gemini AI generated images",
+  "version": "1.0.10",
+  "author": "GargantuaX",
+  "sideEffects": false,
+  "files": [
+    "bin/",
+    "skills/",
+    "src/cli/",
+    "src/core/",
+    "src/sdk/",
+    "README.md",
+    "README_zh.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GargantuaX/gemini-watermark-remover.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "gwr": "./bin/gwr.mjs"
+  },
+  "types": "./src/sdk/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/sdk/index.d.ts",
+      "import": "./src/sdk/index.js"
+    },
+    "./browser": {
+      "types": "./src/sdk/browser.d.ts",
+      "import": "./src/sdk/browser.js"
+    },
+    "./image-data": {
+      "types": "./src/sdk/image-data.d.ts",
+      "import": "./src/sdk/image-data.js"
+    },
+    "./node": {
+      "types": "./src/sdk/node.d.ts",
+      "import": "./src/sdk/node.js"
+    }
+  },
+  "scripts": {
+    "dev": "node build.js",
+    "build": "node build.js --prod",
+    "clean": "node scripts/clean.js",
+    "clean:all": "node scripts/clean.js --include-profile",
+    "build:extension": "node scripts/package-chrome-extension.js --prod",
+    "generate:extension-store-assets": "node scripts/generate-extension-store-assets.js",
+    "convert:samples:webp": "node scripts/convert-samples-to-webp.js",
+    "generate:social-assets": "node scripts/generate-social-assets.js",
+    "test": "node scripts/sync-i18n-json.js && node --test tests/**/*.test.js",
+    "test:sdk-smoke": "node --test tests/sdk/packageMetadata.test.js tests/sdk/packagePack.test.js tests/sdk/typeDeclarations.test.js tests/sdk/consumerRuntime.test.js tests/sdk/typescriptConsumer.test.js tests/sdk/smokeAutomation.test.js",
+    "probe:tm": "node scripts/tampermonkey-smoke.js run",
+    "probe:tm:freshness": "node scripts/tampermonkey-freshness.js",
+    "probe:tm:profile": "node scripts/open-tampermonkey-profile.js",
+    "probe:tm:setup": "node scripts/tampermonkey-smoke.js setup",
+    "probe:real-page:compare": "node scripts/real-page-pixel-compare.js",
+    "benchmark:samples": "node scripts/sample-benchmark.js",
+    "benchmark:userscript": "node scripts/userscript-benchmark.js",
+    "cli:smoke": "node bin/gwr.mjs --help",
+    "serve": "pnpm dlx serve dist",
+    "export:samples": "node scripts/export-fixed-samples.js",
+    "calibrate:preview-alpha": "node scripts/calibrate-preview-alpha.js"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "medium-zoom": "^1.1.0",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "esbuild": "^0.24.0",
+    "playwright": "^1.58.2",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.11.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

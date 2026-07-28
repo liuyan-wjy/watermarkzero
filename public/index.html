@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini Watermark Remover Online | Remove Gemini Watermark Locally</title>
+  <meta name="description" content="Remove the visible Gemini watermark online with local browser processing. No upload, no signup, batch-friendly, and designed specifically for Gemini-generated images.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://watermarkzero.org/">
+  <meta name="theme-color" content="#10B981">
+  <meta property="og:title" content="Gemini Watermark Remover Online">
+  <meta property="og:description" content="Remove the visible Gemini watermark online with local browser processing and reverse alpha restoration.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://watermarkzero.org/">
+  <meta property="og:image" content="https://watermarkzero.org/og-cover.png">
+  <meta property="og:image:alt" content="Before and after Gemini watermark removal sample images">
+  <meta name="twitter:title" content="Gemini Watermark Remover Online">
+  <meta name="twitter:description" content="Remove the visible Gemini watermark online with local browser processing and reverse alpha restoration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://watermarkzero.org/og-cover.png">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Gemini Watermark Remover",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A browser-based tool that removes the visible Gemini watermark locally using reverse alpha restoration."
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I remove the Gemini watermark online without uploading my image?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. This tool processes supported Gemini images directly in your browser so the image does not need to be uploaded to a remote server."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this Gemini logo remover work on every image?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is designed for the visible Gemini watermark pattern in supported Gemini-generated outputs and may skip non-Gemini or unsupported images."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool remove hidden watermarks like SynthID?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It only targets the visible Gemini watermark in the lower-right corner and does not remove hidden or steganographic watermarking systems."
+          }
+        }
+      ]
+    }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script>
+    (function () {
+      const allowedHosts = new Set(['watermarkzero.org', 'www.watermarkzero.org']);
+      if (!allowedHosts.has(window.location.hostname)) return;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XV8TF2MBMM';
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function gtag(){ window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-XV8TF2MBMM');
+    })();
+  </script>
+
+  
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-hover': '#059669',
+            dark: '#1F2937',
+            success: '#10B981',
+            warn: '#F59E0B',
+            err: '#EF4444',
+            info: '#3B82F6',
+          },
+          boxShadow: {
+            'soft': '0 4px 20px -2px rgba(16, 185, 129, 0.1)',
+            'card': '0 0 20px rgba(0,0,0,0.05)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    h1, h2, h3, h4 { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+    .font-mono, code, pre { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+
+    .step-arrow::after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 15px solid #F3F4F6;
+      z-index: 10;
+    }
+    @media (min-width: 768px) {
+      .step-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -24px;
+        top: 0;
+        bottom: 0;
+        width: 24px;
+        background-color: inherit;
+        clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+        z-index: 20;
+      }
+      .step-item:not(:first-child) {
+        clip-path: polygon(0% 0%, 200% 0%, 100% 100%, 0% 100%, 24px 50%);
+      }
+    }
+    body.loading { opacity: 0; }
+    body { transition: opacity 0s; }
+
+    .medium-zoom-overlay,
+    .medium-zoom-image--opened {
+      z-index: 999;
+    }
+    .medium-zoom-overlay {
+      backdrop-filter: blur(4px);
+    }
+    details[open] summary svg {
+      transform: rotate(180deg);
+    }
+    .badge-marquee {
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-marquee::before,
+    .badge-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 72px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .badge-marquee::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0) 100%);
+    }
+    .badge-marquee::after {
+      right: 0;
+      background: linear-gradient(270deg, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0) 100%);
+    }
+    .dark .badge-marquee::before {
+      background: linear-gradient(90deg, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0) 100%);
+    }
+    .dark .badge-marquee::after {
+      background: linear-gradient(270deg, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0) 100%);
+    }
+    .badge-marquee-track {
+      display: flex;
+      width: max-content;
+      align-items: center;
+      gap: 1rem;
+      animation: badge-marquee-scroll 28s linear infinite;
+      will-change: transform;
+    }
+    .badge-marquee:hover .badge-marquee-track {
+      animation-play-state: paused;
+    }
+    .badge-marquee-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-right: 1rem;
+      flex-shrink: 0;
+    }
+    .badge-marquee-group > a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 4.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(16, 185, 129, 0.14);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 12px 30px -24px rgba(15, 23, 42, 0.35);
+    }
+    .dark .badge-marquee-group > a {
+      border-color: rgba(255, 255, 255, 0.1);
+      background: rgba(31, 41, 55, 0.9);
+      box-shadow: none;
+    }
+    .badge-marquee-group > a > img {
+      display: block;
+      height: auto;
+      max-width: 100%;
+    }
+    @keyframes badge-marquee-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .badge-marquee-track {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen loading transition-colors duration-200">
+
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-1">
+        <svg class="h-10 w-10 text-indigo-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 3-1.9 5.8-5.8 1.9 5.8 1.9 1.9 5.8 1.9-5.8 5.8-1.9-5.8-1.9Z"></path>
+        </svg>
+        <div class="text-sm font-bold tracking-tight text-primary md:text-xl">
+          <a href="./" class="hover:text-primary transition-colors" title="Gemini Watermark Remover">Gemini <span class="text-gray-700 font-medium">Watermark Remover</span></a>
+        </div>
+      </div>
+      <nav class="flex gap-2 md:gap-6 text-sm font-medium text-gray-600 items-center">
+        <a href="#uploadArea" class="hidden md:inline-block hover:text-primary transition-colors" data-i18n="nav.upload">Upload</a>
+        <a href="#how-it-works" class="hidden md:inline-block hover:text-primary transition-colors" data-i18n="nav.how">How it works</a>
+        <a href="#faq" class="hidden md:inline-block hover:text-primary transition-colors" data-i18n="nav.faq">FAQ</a>
+        <a href="/blog/" class="hidden md:inline-block hover:text-primary transition-colors" data-i18n="nav.articles">Articles</a>
+        <button id="themeToggle" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 dark:text-gray-400">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+        <select id="langSwitch" class="w-[10.75rem] px-2.5 py-1.5 text-sm text-nowrap border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors md:w-[12.5rem] md:px-3 md:py-1">
+          <option value="en-US">🇺🇸 English</option>
+          <option value="es-ES">🇪🇸 Español</option>
+          <option value="fr-FR">🇫🇷 Français</option>
+          <option value="ja-JP">🇯🇵 日本語</option>
+          <option value="ko-KR">🇰🇷 한국어</option>
+          <option value="de-DE">🇩🇪 Deutsch</option>
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="nb-NO">🇳🇴 Norsk (Bokmål)</option>
+          <option value="nl-NL">🇳🇱 Nederlands</option>
+          <option value="sv-SE">🇸🇪 Svenska</option>
+          <option value="da-DK">🇩🇰 Dansk</option>
+          <option value="fi-FI">🇫🇮 Suomi</option>
+          <option value="he-IL">🇮🇱 עברית</option>
+          <option value="ar-SA">🇸🇦 العربية</option>
+          <option value="zh-CN">🇨🇳 简体中文</option>
+          <option value="zh-TW">🇹🇼 繁體中文</option>
+        </select>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <section class="relative px-4 pb-10 pt-12 text-center overflow-hidden md:pt-16 md:pb-12 lg:pt-24 lg:pb-20">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-50 via-white to-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 -z-10 transition-colors duration-200"></div>
+      
+      <p class="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white/90 px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-slate-600 shadow-sm dark:border-gray-700 dark:bg-gray-800/90 dark:text-gray-300" data-i18n="main.badge">Local-only Gemini cleanup</p>
+      <h1 class="bg-clip-text bg-gradient-to-br font-extrabold from-slate-900 to-slate-700 dark:from-white dark:to-gray-300 mb-6 md:text-6xl text-3xl text-transparent tracking-tighter" data-i18n="main.title">
+        Gemini Watermark Remover
+      </h1>
+      <p class="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-10" data-i18n="main.subtitle">
+        Remove the visible Gemini watermark online with local browser processing, reverse alpha restoration, and zero image uploads.
+      </p>
+      <div class="mx-auto mb-8 flex max-w-3xl flex-wrap justify-center gap-3 text-sm md:mb-10">
+        <span class="rounded-full bg-slate-900 px-4 py-2 text-white dark:bg-white dark:text-slate-900" data-i18n="chip.local">100% local</span>
+        <span class="rounded-full border border-slate-200 px-4 py-2 text-slate-700 dark:border-gray-700 dark:text-gray-200" data-i18n="chip.visible">Visible Gemini watermark only</span>
+        <span class="rounded-full border border-slate-200 px-4 py-2 text-slate-700 dark:border-gray-700 dark:text-gray-200" data-i18n="chip.batch">Batch friendly</span>
+        <span class="rounded-full border border-slate-200 px-4 py-2 text-slate-700 dark:border-gray-700 dark:text-gray-200" data-i18n="chip.openSource">Open-source algorithm</span>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-soft p-2 md:p-3 border border-emerald-100 dark:border-gray-700 transition-colors duration-200">
+        <div id="uploadArea" class="group relative flex flex-col items-center justify-center w-full min-h-[15rem] md:h-64 border-2 border-dashed border-emerald-200 dark:border-gray-600 rounded-xl bg-emerald-50/30 dark:bg-gray-700/30 hover:bg-emerald-50 dark:hover:bg-gray-700/50 hover:border-emerald-400 dark:hover:border-emerald-500 transition-all cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200/70 dark:focus-visible:ring-emerald-900/50" role="button" tabindex="0" aria-controls="fileInput" aria-describedby="uploadHelp uploadHint uploadReassurance">
+          <div class="flex flex-col items-center justify-center pt-6 pb-6">
+            <div class="w-14 h-14 bg-white/90 dark:bg-gray-700 rounded-full flex items-center justify-center shadow-sm mb-6 group-hover:scale-105 transition-transform duration-300">
+              <svg class="w-7 h-7 text-primary dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M 22.498 20.365 L 22.498 4.247 C 22.498 2.983 21.461 1.946 20.197 1.946 L 4.079 1.946 C 2.815 1.946 1.778 2.983 1.778 4.247 L 1.778 20.365 C 1.778 21.629 2.815 22.666 4.079 22.666 L 20.197 22.666 C 21.461 22.666 22.498 21.629 22.498 20.365 Z M 8.111 14.032 L 10.987 17.483 L 15.014 12.306 L 20.197 19.214 L 4.079 19.214 L 8.111 14.032 Z" fill="currentColor"></path></svg>
+            </div>
+            <div class="pointer-events-none inline-flex items-center rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-600/20 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-emerald-700">
+              <span data-i18n="upload.cta">Upload Gemini Image</span>
+            </div>
+            <p id="uploadHelp" class="mt-5 mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" data-i18n="upload.text">or drag and drop images here</p>
+            <p id="uploadHint" class="mt-1 text-xs leading-none text-gray-400/85 dark:text-gray-500/85" data-i18n="upload.hint">Supports JPG, PNG, and WebP</p>
+            <p id="uploadReassurance" class="mt-4 text-[11px] leading-none text-emerald-700/70 dark:text-emerald-300/70" data-i18n="upload.reassurance">Runs locally in your browser. No signup required.</p>
+          </div>
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple class="hidden" />
+        </div>
+      </div>
+      <p class="mx-auto mt-3 max-w-3xl text-xs leading-6 text-slate-500 dark:text-gray-400 md:mt-4 md:text-sm" data-i18n="main.note">Use this gemini watermark remover for supported Gemini-generated images. The image stays on-device and the tool skips hidden watermarking systems such as SynthID.</p>
+
+      <div class="mx-auto mt-6 max-w-5xl md:mt-8">
+        <article class="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-5">
+          <div class="grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+            <div class="text-left">
+              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300" data-i18n="proof.eyebrow">Proof near the top</p>
+              <h2 class="mt-3 text-2xl font-bold text-slate-900 dark:text-white" data-i18n="proof.title">See a real Gemini watermark removal result before you upload</h2>
+              <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="proof.desc">This sample was generated with Gemini, then processed locally with the same reverse alpha restoration engine used by the uploader above.</p>
+              <a href="#examples" class="mt-4 inline-flex items-center text-sm font-semibold text-emerald-700 transition hover:text-emerald-600 dark:text-emerald-300 dark:hover:text-emerald-200" data-i18n="proof.link">See more examples</a>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <figure class="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <figcaption class="mb-2 inline-flex rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white dark:bg-white dark:text-slate-900" data-i18n="label.before">Before</figcaption>
+                <img src="/examples/product-before.webp" alt="Gemini image with the visible watermark on a stone surface before restoration." loading="lazy" data-zoomable class="w-full rounded-xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+              <figure class="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <figcaption class="mb-2 inline-flex rounded-full bg-emerald-600 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white" data-i18n="label.after">After</figcaption>
+                <img src="/examples/product-after.webp" alt="Same Gemini image after local watermark removal on the stone surface." loading="lazy" data-zoomable class="w-full rounded-xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="max-w-6xl mx-auto px-4 mb-8 md:mb-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-10 text-center">
+        <div class="step-item relative bg-emerald-50 dark:bg-gray-800 h-16 md:h-24 flex items-center justify-start px-6 md:pl-16 rounded-lg md:rounded-none md:first:rounded-l-lg md:last:rounded-r-lg border border-transparent dark:border-gray-700 transition-colors">
+          <div class="w-8 h-8 rounded-full bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-bold flex items-center justify-center mr-3 text-sm">1</div>
+          <span class="font-medium flex-1 md:flex-none text-gray-800 dark:text-gray-200" data-i18n="step.1">Select Original Image</span>
+        </div>
+        <div class="step-item relative bg-emerald-50 dark:bg-gray-800 h-16 md:h-24 flex items-center justify-start px-6 md:pl-16 rounded-lg md:rounded-none border border-transparent dark:border-gray-700 transition-colors">
+          <div class="w-8 h-8 rounded-full bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-bold flex items-center justify-center mr-3 text-sm">2</div>
+          <span class="font-medium flex-1 md:flex-none text-gray-800 dark:text-gray-200" data-i18n="step.2">Detect and Restore</span>
+        </div>
+        <div class="step-item relative bg-emerald-50 dark:bg-gray-800 h-16 md:h-24 flex items-center justify-start px-6 md:pl-16 rounded-lg md:rounded-none md:last:rounded-r-lg border border-transparent dark:border-gray-700 transition-colors">
+          <div class="w-8 h-8 rounded-full bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-bold flex items-center justify-center mr-3 text-sm">3</div>
+          <span class="font-medium flex-1 md:flex-none text-gray-800 dark:text-gray-200" data-i18n="step.3">Download Clean Image</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="singlePreview" class="max-w-7xl mx-auto px-4 pb-24" style="display: none;">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <div class="flex-1 space-y-8">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-card overflow-hidden border border-gray-100 dark:border-gray-700">
+                <div class="bg-gray-50 dark:bg-gray-900 px-6 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                  <h3 class="font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span> <span data-i18n="preview.compare">对比预览</span>
+                  </h3>
+                  <div class="flex gap-4">
+                      <span id="originalInfo" class="text-xs text-gray-400 font-mono"></span>
+                      <span id="processedInfo" class="text-xs text-emerald-600 font-mono" style="display: none;"></span>
+                  </div>
+                </div>
+
+                <div class="relative w-full overflow-hidden bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI2Y5ZmRmZCI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZjJmMmYyIi8+PHJlY3QgeD0iMTAiIHk9IjEwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiNmMmYyZjIiLz48L3N2Zz4=')] select-none group">
+                    <div id="comparisonContainer" class="relative mx-auto w-fit max-w-full" style="max-height: 60vh;">
+                         <!-- Original Image (Background) -->
+                        <img id="originalImage" class="block w-auto h-auto max-w-full max-h-[60vh] object-contain object-right-bottom" draggable="false" />
+
+                         <!-- Processed Image (Overlay) -->
+                        <div id="processedOverlay" class="absolute top-0 left-0 h-full w-[50%] overflow-hidden border-r-2 border-white/80 shadow-[0_0_10px_rgba(0,0,0,0.3)] box-content z-10" style="display: none;">
+                             <img id="processedImage" class="block h-full max-w-none object-contain object-right-bottom" draggable="false" />
+                        </div>
+
+                        <!-- Slider Handle -->
+                        <div id="sliderHandle" class="absolute top-0 bottom-0 w-10 -ml-5 z-20 cursor-col-resize flex items-center justify-center group-hover:opacity-100 transition-opacity" style="left: 50%; display: none;">
+                            <div class="w-1 h-full bg-white/50 backdrop-blur-[2px]"></div>
+                            <div class="absolute w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-200">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l-3 3 3 3m8-6l3 3-3 3"></path></svg>
+                            </div>
+                        </div>
+
+                         <!-- Labels -->
+                        <div class="absolute top-4 left-4 bg-black/50 text-white text-xs px-2 py-1 rounded backdrop-blur-sm pointer-events-none z-30" data-i18n="preview.result">处理后</div>
+                        <div class="absolute top-4 right-4 bg-black/50 text-white text-xs px-2 py-1 rounded backdrop-blur-sm pointer-events-none z-30" data-i18n="preview.original">原图</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full lg:w-80 flex-shrink-0">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 p-6 sticky top-24 transition-colors">
+            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-6" data-i18n="panel.title">操作面板</h4>
+
+            <div class="space-y-3">
+              <button id="copyBtn" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2" style="display: none;">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-1 10H8m4-3H8m1.5 6H8"></path></svg>
+                <span data-i18n="btn.copy">复制结果</span>
+              </button>
+
+              <button id="downloadBtn" class="w-full py-3.5 px-4 bg-gray-900 hover:bg-black dark:bg-primary dark:hover:bg-primary-hover text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2" style="display: none;">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span data-i18n="btn.download">下载结果</span>
+              </button>
+
+              <button id="resetBtn" class="w-full py-3.5 px-4 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <span data-i18n="btn.reset">重置 / 更换图片</span>
+              </button>
+            </div>
+
+            <div id="statusMessage" class="mt-6 text-sm text-gray-500 dark:text-gray-400 min-h-[1.25rem]"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="multiPreview" class="max-w-7xl mx-auto px-4 pb-24 scroll-mt-24" style="display: none;">
+      <div class="mb-6 flex justify-between items-center">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">
+          <span id="progressText">处理进度: 0/0</span>
+        </h3>
+        <button id="downloadAllBtn" class="py-2.5 px-6 bg-gray-900 hover:bg-gray-800 dark:bg-primary dark:hover:bg-primary-hover text-white rounded-xl font-medium transition-all flex items-center gap-2" style="display: none;">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          <span data-i18n="btn.downloadAll">全部下载</span>
+        </button>
+      </div>
+      <div id="imageList" class="space-y-4"></div>
+    </section>
+
+    <section class="bg-gray-50 dark:bg-gray-900 py-16 border-t border-gray-100 dark:border-gray-800 transition-colors">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-6 md:mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white" data-i18n="feature.title">Why This Gemini Watermark Remover Works</h2>
+          <p class="mx-auto mt-4 max-w-3xl text-sm leading-7 text-slate-500 dark:text-gray-400" data-i18n="feature.subtitle">The tool is designed around the visible Gemini logo watermark. Instead of repainting pixels with AI guesses, it uses reverse alpha blending, Gemini-size detection, and local verification before removing the mark.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 text-primary rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2" data-i18n="feature.speed.title">极速处理</h4>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed" data-i18n="feature.speed.desc">基于现代浏览器技术加速处理，毫秒级响应，无需等待排队</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2" data-i18n="feature.privacy.title">隐私安全</h4>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed" data-i18n="feature.privacy.desc">纯前端运行，图片数据不离机，绝不上传服务器</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z M6 6l12 12"></path>
+              </svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2" data-i18n="feature.free.title">完全免费</h4>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed" data-i18n="feature.free.desc">无次数限制，无隐藏付费，即开即用</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-16 dark:bg-gray-900">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600" data-i18n="algorithm.eyebrow">Algorithm note</p>
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white" data-i18n="algorithm.title">Reverse alpha restoration, not generic AI repainting</h2>
+          <p class="mt-5 text-sm leading-7 text-slate-600 dark:text-gray-300" data-i18n="algorithm.desc">Gemini applies a semi-transparent visible logo in the lower-right corner. This site estimates the watermark position from known Gemini output patterns, reconstructs the alpha map, and then solves the reverse blending equation to recover the underlying pixels where possible.</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-gray-900">
+              <p class="text-sm font-semibold text-slate-900 dark:text-white" data-i18n="algorithm.observed.title">Observed</p>
+              <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400" data-i18n="algorithm.observed.desc">Visible lower-right Gemini watermark with known size patterns.</p>
+            </div>
+            <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-gray-900">
+              <p class="text-sm font-semibold text-slate-900 dark:text-white" data-i18n="algorithm.restored.title">Restored</p>
+              <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400" data-i18n="algorithm.restored.desc">Supported areas are reconstructed locally in your browser without uploading the image.</p>
+            </div>
+          </div>
+        </div>
+        <aside class="rounded-3xl border border-amber-200 bg-amber-50 p-8 shadow-sm dark:border-amber-700/50 dark:bg-amber-950/20">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-amber-700 dark:text-amber-300" data-i18n="limits.eyebrow">Limits</p>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white" data-i18n="limits.title">What this tool does not do</h2>
+          <ul class="mt-5 space-y-3 text-sm leading-6 text-slate-700 dark:text-gray-300">
+            <li data-i18n="limits.item.visible">It targets the visible Gemini watermark only.</li>
+            <li data-i18n="limits.item.hidden">It does not remove hidden watermarks such as SynthID.</li>
+            <li data-i18n="limits.item.unsupported">It may skip non-Gemini images or unsupported Gemini variations.</li>
+            <li data-i18n="limits.item.generic">It is not a generic watermark eraser for every image on the internet.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="examples" class="bg-gradient-to-b from-slate-50 via-white to-white py-16 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="examples.eyebrow">Real sample results</p>
+            <h2 class="mt-3 text-3xl font-bold text-slate-900 dark:text-white" data-i18n="examples.title">Before and after Gemini watermark removal</h2>
+          </div>
+          <p class="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="examples.desc">These sample images were generated with Gemini and processed locally with the same Gemini watermark remover engine used on this page. Click any image to inspect the lower-right restoration area.</p>
+        </div>
+
+        <div class="grid gap-8">
+          <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/5">
+            <div class="flex flex-col gap-3 border-b border-slate-200 p-6 dark:border-white/10 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="examples.one.eyebrow">Example 01</p>
+                <h3 class="mt-3 text-2xl font-bold text-slate-900 dark:text-white" data-i18n="examples.one.title">Portrait scene with dense foliage detail</h3>
+              </div>
+              <p class="max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="examples.one.desc">A realistic portrait where the visible Gemini watermark sits on top of layered leaves in the lower-right corner.</p>
+            </div>
+            <div class="grid gap-px bg-slate-200 dark:bg-white/10 md:grid-cols-2">
+              <figure class="bg-white p-4 dark:bg-gray-900">
+                <div class="mb-3 inline-flex rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white dark:bg-white dark:text-slate-900" data-i18n="label.before">Before</div>
+                <img src="/examples/portrait-before.webp" alt="Gemini-generated portrait in a greenhouse with the visible Gemini watermark in the lower-right corner." loading="lazy" data-zoomable class="w-full rounded-2xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+              <figure class="bg-white p-4 dark:bg-gray-900">
+                <div class="mb-3 inline-flex rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white" data-i18n="label.after">After</div>
+                <img src="/examples/portrait-after.webp" alt="Same Gemini-generated portrait after local Gemini watermark removal." loading="lazy" data-zoomable class="w-full rounded-2xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+            </div>
+          </article>
+
+          <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/5">
+            <div class="flex flex-col gap-3 border-b border-slate-200 p-6 dark:border-white/10 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="examples.two.eyebrow">Example 02</p>
+                <h3 class="mt-3 text-2xl font-bold text-slate-900 dark:text-white" data-i18n="examples.two.title">Product still life with stone texture</h3>
+              </div>
+              <p class="max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="examples.two.desc">A skincare-style tabletop shot where the watermark overlaps natural stone grain and soft shadow, making the restoration easy to judge.</p>
+            </div>
+            <div class="grid gap-px bg-slate-200 dark:bg-white/10 md:grid-cols-2">
+              <figure class="bg-white p-4 dark:bg-gray-900">
+                <div class="mb-3 inline-flex rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white dark:bg-white dark:text-slate-900" data-i18n="label.before">Before</div>
+                <img src="/examples/product-before.webp" alt="Gemini-generated skincare product still life with the visible Gemini watermark on the lower-right stone surface." loading="lazy" data-zoomable class="w-full rounded-2xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+              <figure class="bg-white p-4 dark:bg-gray-900">
+                <div class="mb-3 inline-flex rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white" data-i18n="label.after">After</div>
+                <img src="/examples/product-after.webp" alt="Same Gemini-generated product still life after local Gemini watermark removal." loading="lazy" data-zoomable class="w-full rounded-2xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+            </div>
+          </article>
+
+          <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/5">
+            <div class="flex flex-col gap-3 border-b border-slate-200 p-6 dark:border-white/10 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="examples.three.eyebrow">Example 03</p>
+                <h3 class="mt-3 text-2xl font-bold text-slate-900 dark:text-white" data-i18n="examples.three.title">Bedroom interior with fabric folds</h3>
+              </div>
+              <p class="max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="examples.three.desc">A bright interior scene where the Gemini watermark sits over linen texture and soft folds in the lower-right bedding area.</p>
+            </div>
+            <div class="grid gap-px bg-slate-200 dark:bg-white/10 md:grid-cols-2">
+              <figure class="bg-white p-4 dark:bg-gray-900">
+                <div class="mb-3 inline-flex rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white dark:bg-white dark:text-slate-900" data-i18n="label.before">Before</div>
+                <img src="/examples/interior-before.webp" alt="Gemini-generated bedroom interior with the visible Gemini watermark in the lower-right bedding area." loading="lazy" data-zoomable class="w-full rounded-2xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+              <figure class="bg-white p-4 dark:bg-gray-900">
+                <div class="mb-3 inline-flex rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white" data-i18n="label.after">After</div>
+                <img src="/examples/interior-after.webp" alt="Same Gemini-generated bedroom interior after local Gemini watermark removal." loading="lazy" data-zoomable class="w-full rounded-2xl border border-slate-200 shadow-sm dark:border-white/10" />
+              </figure>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-8 dark:bg-gray-900" aria-label="Advertisement">
+      <div class="mx-auto grid max-w-5xl gap-5 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div class="min-h-[120px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/80 p-4 text-center shadow-sm dark:border-white/10 dark:bg-white/5">
+          <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 dark:text-slate-500" data-i18n="ad.label">Advertisement</p>
+          <script async="async" data-cfasync="false" src="https://pl29298869.profitablecpmratenetwork.com/ad3fc016db2c47cb93c006aa533aa3e2/invoke.js"></script>
+          <div id="container-ad3fc016db2c47cb93c006aa533aa3e2"></div>
+        </div>
+        <div class="mx-auto overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/80 p-3 text-center shadow-sm dark:border-white/10 dark:bg-white/5">
+          <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 dark:text-slate-500" data-i18n="ad.label">Advertisement</p>
+          <div class="mx-auto flex h-[250px] w-[300px] max-w-full items-center justify-center overflow-hidden">
+            <script>
+              atOptions = {
+                'key' : 'a8b061ba722babe0f7ffa8245d8f80de',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script src="https://www.highperformanceformat.com/a8b061ba722babe0f7ffa8245d8f80de/invoke.js"></script>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn" class="bg-gradient-to-b from-emerald-50 via-white to-slate-50 py-16 text-slate-900 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.eyebrow">Support content</p>
+            <h2 class="mt-3 text-3xl font-bold" data-i18n="learn.title">Helpful reading for Gemini watermark removal</h2>
+          </div>
+          <div class="flex max-w-2xl flex-col items-start gap-4 md:items-end">
+            <p class="text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="learn.desc">These pages support the main tool page and answer the common intent behind searches like remove gemini watermark, gemini logo remover, and gemini watermark remover online.</p>
+            <a href="/blog/" class="inline-flex items-center rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:border-emerald-300 hover:text-emerald-600 dark:border-emerald-300/30 dark:bg-white/5 dark:text-emerald-300" data-i18n="learn.browse">Browse all articles</a>
+          </div>
+        </div>
+        <div class="mb-8 grid gap-4 md:grid-cols-3">
+          <a href="/gemini-watermark-remover/" class="group rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.landing.eyebrow">Landing page</p>
+            <h3 class="mt-3 text-xl font-bold" data-i18n="learn.landing.title">Gemini watermark remover</h3>
+            <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300" data-i18n="learn.landing.desc">A focused product page for the main Gemini watermark remover search intent.</p>
+          </a>
+          <a href="/remove-gemini-watermark/" class="group rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.howto.eyebrow">How-to page</p>
+            <h3 class="mt-3 text-xl font-bold" data-i18n="learn.howto.title">Remove Gemini watermark</h3>
+            <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300" data-i18n="learn.howto.desc">A direct task page for users who want the safest removal workflow first.</p>
+          </a>
+          <a href="/remove-gemini-watermark-from-image/" class="group rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.image.eyebrow">Image page</p>
+            <h3 class="mt-3 text-xl font-bold" data-i18n="learn.image.title">Remove Gemini watermark from image</h3>
+            <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300" data-i18n="learn.image.desc">A long-tail page for JPG, PNG, and WebP image cleanup searches.</p>
+          </a>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <a href="/blog/how-gemini-watermarks-work/" class="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50 dark:hover:bg-white/10">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.article1.eyebrow">Article 01</p>
+            <h3 class="mt-4 text-2xl font-bold" data-i18n="learn.article1.title">How Gemini watermarks work</h3>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="learn.article1.desc">A plain-English walkthrough of visible Gemini watermark placement, reverse alpha restoration, and why generic inpainting is a different problem.</p>
+            <span class="mt-6 inline-flex text-sm font-medium text-slate-900 dark:text-white" data-i18n="learn.article1.link">Read the article</span>
+          </a>
+          <a href="/blog/how-to-remove-gemini-watermark/" class="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50 dark:hover:bg-white/10">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.article2.eyebrow">Article 02</p>
+            <h3 class="mt-4 text-2xl font-bold" data-i18n="learn.article2.title">How to remove Gemini watermark safely</h3>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="learn.article2.desc">A practical guide for using the online tool, checking whether an image is supported, and understanding the most common failure cases.</p>
+            <span class="mt-6 inline-flex text-sm font-medium text-slate-900 dark:text-white" data-i18n="learn.article2.link">Read the guide</span>
+          </a>
+          <a href="/blog/remove-gemini-watermark-online/" class="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50 dark:hover:bg-white/10">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.article3.eyebrow">Article 03</p>
+            <h3 class="mt-4 text-2xl font-bold" data-i18n="learn.article3.title">Remove Gemini watermark online</h3>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="learn.article3.desc">A short landing page for people who want a browser-based Gemini watermark remover online without remote image uploads.</p>
+            <span class="mt-6 inline-flex text-sm font-medium text-slate-900 dark:text-white" data-i18n="learn.article3.link">Open the page</span>
+          </a>
+          <a href="/blog/gemini-logo-remover/" class="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50 dark:hover:bg-white/10">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="learn.article4.eyebrow">Article 04</p>
+            <h3 class="mt-4 text-2xl font-bold" data-i18n="learn.article4.title">Gemini logo remover</h3>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="learn.article4.desc">A focused page for users who think in terms of the Gemini logo mark and want a remover built for that exact lower-right overlay.</p>
+            <span class="mt-6 inline-flex text-sm font-medium text-slate-900 dark:text-white" data-i18n="learn.article4.link">Read the page</span>
+          </a>
+        </div>
+        <div class="mt-8 rounded-[2rem] border border-emerald-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="evidence.eyebrow">Evidence and support</p>
+              <h3 class="mt-2 text-2xl font-bold" data-i18n="evidence.title">Proof pages for safer Gemini watermark cleanup</h3>
+            </div>
+            <p class="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300" data-i18n="evidence.desc">Use these pages when you want test notes, scope boundaries, or help with unsupported images before trying another file.</p>
+          </div>
+          <div class="mt-5 grid gap-4 md:grid-cols-3">
+            <a href="/blog/gemini-watermark-remover-test-results/" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-emerald-300 hover:bg-emerald-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50">
+              <p class="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-300" data-i18n="evidence.tests.eyebrow">Tests</p>
+              <h4 class="mt-2 text-lg font-bold" data-i18n="evidence.tests.title">Gemini watermark remover test results</h4>
+              <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300" data-i18n="evidence.tests.desc">Compatibility guidance for formats, screenshots, crops, and failure cases.</p>
+            </a>
+            <a href="/blog/visible-gemini-watermark-vs-synthid/" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-emerald-300 hover:bg-emerald-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50">
+              <p class="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-300" data-i18n="evidence.scope.eyebrow">Scope</p>
+              <h4 class="mt-2 text-lg font-bold" data-i18n="evidence.scope.title">Visible Gemini watermark vs SynthID</h4>
+              <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300" data-i18n="evidence.scope.desc">Why visible watermark cleanup is different from hidden AI provenance signals.</p>
+            </a>
+            <a href="/blog/gemini-watermark-remover-troubleshooting/" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-emerald-300 hover:bg-emerald-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-300/50">
+              <p class="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-300" data-i18n="evidence.fixes.eyebrow">Fixes</p>
+              <h4 class="mt-2 text-lg font-bold" data-i18n="evidence.fixes.title">Troubleshooting unsupported images</h4>
+              <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300" data-i18n="evidence.fixes.desc">What to try when detection fails, artifacts remain, or mobile processing is slow.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="bg-white py-16 dark:bg-gray-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600" data-i18n="faq.eyebrow">FAQ</p>
+          <h2 class="mt-3 text-3xl font-bold text-slate-900 dark:text-white" data-i18n="faq.title">Questions about this Gemini watermark remover</h2>
+        </div>
+        <div class="mt-10 space-y-4">
+          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-gray-700 dark:bg-gray-800" open>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-lg font-semibold text-slate-900 dark:text-white">
+              <span data-i18n="faq.q1">Can I remove the Gemini watermark online without uploading my image?</span>
+              <svg class="h-5 w-5 shrink-0 transition-transform" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="m5 7 5 5 5-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-gray-300" data-i18n="faq.a1">Yes. This gemini watermark remover runs locally in your browser. The image stays on-device, so you can remove the visible Gemini watermark online without sending the file to a remote processing server.</p>
+          </details>
+          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-lg font-semibold text-slate-900 dark:text-white">
+              <span data-i18n="faq.q2">Does this gemini logo remover work on every image?</span>
+              <svg class="h-5 w-5 shrink-0 transition-transform" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="m5 7 5 5 5-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-gray-300" data-i18n="faq.a2">No. It is designed for supported Gemini-generated images that contain the visible lower-right watermark pattern. If detection is not confident, the tool will skip removal instead of making destructive edits.</p>
+          </details>
+          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-lg font-semibold text-slate-900 dark:text-white">
+              <span data-i18n="faq.q3">What is the difference between remove Gemini watermark and hidden watermark removal?</span>
+              <svg class="h-5 w-5 shrink-0 transition-transform" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="m5 7 5 5 5-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-gray-300" data-i18n="faq.a3">This site focuses on the visible Gemini watermark only. It does not remove hidden watermarking systems such as SynthID and should not be described as a universal hidden-watermark remover.</p>
+          </details>
+          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-lg font-semibold text-slate-900 dark:text-white">
+              <span data-i18n="faq.q4">Is batch processing supported?</span>
+              <svg class="h-5 w-5 shrink-0 transition-transform" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="m5 7 5 5 5-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-gray-300" data-i18n="faq.a4">Yes. You can drag multiple images into the uploader, let the queue process them locally, and then download the results together as a ZIP file.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="bg-white py-4 dark:bg-gray-900" aria-label="Advertisement">
+    <div class="mx-auto max-w-7xl px-0 text-center sm:px-4">
+      <p class="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 dark:text-slate-500" data-i18n="ad.label">Advertisement</p>
+      <div class="mx-auto flex h-[50px] w-[320px] max-w-full justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50/80 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <script>
+          atOptions = {
+            'key' : '2efd21744adbc6fc3b0bb5a2ea4d2edd',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/2efd21744adbc6fc3b0bb5a2ea4d2edd/invoke.js"></script>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-6 dark:bg-gray-900/80" aria-label="Featured badges">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-[2rem] border border-emerald-100 bg-slate-50/95 px-3 py-4 shadow-sm dark:border-white/10 dark:bg-gray-900">
+        <div class="mb-3 flex flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300" data-i18n="badges.eyebrow">Featured on</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="badges.desc">Badges will keep expanding as the site gets listed in more directories.</p>
+        </div>
+        <div class="badge-marquee">
+          <div class="badge-marquee-track">
+            <div class="badge-marquee-group">
+              <a href="https://dofollow.tools" target="_blank"><img src="https://dofollow.tools/badge/badge_light.svg" alt="Featured on Dofollow.Tools" width="200" height="54" /></a>
+              <a href="https://toolfame.com/item/gemini-watermark-remover-watermarkzeroorg" target="_blank" rel="noopener noreferrer">
+                <img src="https://toolfame.com/badge-light.svg" alt="Featured on toolfame.com" style="height: 54px; width: auto;" />
+              </a>
+              <a href="https://turbo0.com/item/gemini-watermark-remover-watermakzero" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.turbo0.com/badge-listed-light.svg" alt="Listed on Turbo0" style="height: 54px; width: auto;" />
+              </a>
+              <a href="https://dang.ai/" target="_blank" ><img src="https://cdn.prod.website-files.com/63d8afd87da01fb58ea3fbcb/6487e2868c6c8f93b4828827_dang-badge.png" alt="Dang.ai" style="width: 150px; height: 54px;" width="150" height="54"/></a>
+              <a href="https://startupfa.me/s/gemini-watermark-remover?utm_source=watermarkzero.org" target="_blank"><img src="https://startupfa.me/badges/featured-badge.webp" alt="Watermark Remover - Featured on Startup Fame" width="171" height="54" /></a>
+              <a href="https://fazier.com" target="_blank"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light" width=120 alt="Fazier badge" /></a>
+            </div>
+            <div class="badge-marquee-group" aria-hidden="true">
+              <a href="https://dofollow.tools" target="_blank"><img src="https://dofollow.tools/badge/badge_light.svg" alt="Featured on Dofollow.Tools" width="200" height="54" /></a>
+              <a href="https://toolfame.com/item/gemini-watermark-remover-watermarkzeroorg" target="_blank" rel="noopener noreferrer">
+                <img src="https://toolfame.com/badge-light.svg" alt="Featured on toolfame.com" style="height: 54px; width: auto;" />
+              </a>
+              <a href="https://turbo0.com/item/gemini-watermark-remover-watermakzero" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.turbo0.com/badge-listed-light.svg" alt="Listed on Turbo0" style="height: 54px; width: auto;" />
+              </a>
+              <a href="https://dang.ai/" target="_blank" ><img src="https://cdn.prod.website-files.com/63d8afd87da01fb58ea3fbcb/6487e2868c6c8f93b4828827_dang-badge.png" alt="Dang.ai" style="width: 150px; height: 54px;" width="150" height="54"/></a>
+              <a href="https://startupfa.me/s/gemini-watermark-remover?utm_source=watermarkzero.org" target="_blank"><img src="https://startupfa.me/badges/featured-badge.webp" alt="Watermark Remover - Featured on Startup Fame" width="171" height="54" /></a>
+              <a href="https://fazier.com" target="_blank"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light" width=120 alt="Fazier badge" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-emerald-600 text-white py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-emerald-100 text-sm mb-4" data-i18n="footer.desc">
+        Open-source Gemini watermark remover for the visible Gemini logo watermark only. Use responsibly and follow applicable laws and platform terms.
+      </p>
+      <div class="space-x-4 text-sm font-medium">
+        <a href="/privacy/" class="hover:text-white transition-colors" data-i18n="footer.privacy">Privacy</a>
+        <a href="/terms/" class="hover:text-white transition-colors" data-i18n="footer.terms">Terms of Use</a>
+        <a href="/gemini-watermark-remover/" class="hover:text-white transition-colors" data-i18n="footer.remover">Remover</a>
+        <a href="/remove-gemini-watermark/" class="hover:text-white transition-colors" data-i18n="footer.removeWatermark">Remove Watermark</a>
+        <a href="/blog/" class="hover:text-white transition-colors" data-i18n="footer.blog">Blog</a>
+        <a href="/blog/how-gemini-watermarks-work/" class="hover:text-white transition-colors" data-i18n="footer.how">How it works</a>
+        <a href="https://github.com/GargantuaX/gemini-watermark-remover" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub</a>
+      </div>
+      <div class="mt-8 text-xs text-emerald-200 border-t border-emerald-500 pt-4">
+        <p data-i18n="footer.copyright">&copy; Gemini Watermark Remover. Released under the MIT License.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="loadingOverlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm z-[60] hidden flex items-center justify-center">
+    <div class="flex flex-col items-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+      <p class="text-gray-600 font-medium" data-i18n="loading.text">正在处理...</p>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

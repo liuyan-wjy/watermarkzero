@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini Watermark Remover | WatermarkZero</title>
+  <meta name="description" content="Use a browser-based Gemini watermark remover for supported images. Remove the visible lower-right Gemini watermark locally with no image upload.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://watermarkzero.org/gemini-watermark-remover/">
+  <meta name="theme-color" content="#10B981">
+  <meta property="og:title" content="Gemini Watermark Remover">
+  <meta property="og:description" content="Remove the visible Gemini watermark from supported images with local browser processing.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://watermarkzero.org/gemini-watermark-remover/">
+  <meta property="og:image" content="https://watermarkzero.org/og-cover.png">
+  <meta property="og:image:alt" content="Gemini Watermark Remover by WatermarkZero">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gemini Watermark Remover">
+  <meta name="twitter:description" content="A local browser tool for removing the visible Gemini watermark from supported images.">
+  <meta name="twitter:image" content="https://watermarkzero.org/og-cover.png">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Gemini Watermark Remover",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "Web",
+          "url": "https://watermarkzero.org/gemini-watermark-remover/",
+          "description": "A browser-based Gemini watermark remover for supported images with local processing and no remote image upload.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Local browser processing",
+            "Visible Gemini watermark removal",
+            "JPG, PNG, and WebP support",
+            "Batch-friendly workflow"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What does this Gemini watermark remover do?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It removes the visible lower-right Gemini watermark from supported Gemini-generated images using local browser processing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the image upload to a server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The cleanup runs in your browser, so the selected image stays on your device."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does it remove hidden watermarks such as SynthID?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. WatermarkZero focuses on the visible Gemini watermark only and does not remove hidden watermarking systems."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://watermarkzero.org/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Gemini Watermark Remover",
+              "item": "https://watermarkzero.org/gemini-watermark-remover/"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script>
+    (function () {
+      const allowedHosts = new Set(['watermarkzero.org', 'www.watermarkzero.org']);
+      if (!allowedHosts.has(window.location.hostname)) return;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XV8TF2MBMM';
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function gtag(){ window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-XV8TF2MBMM');
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    h1, h2, h3 { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <a href="/" class="text-sm font-bold tracking-tight text-emerald-600 md:text-xl">Gemini <span class="font-medium text-slate-700">Watermark Remover</span></a>
+      <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
+        <a href="/#uploadArea" class="hover:text-emerald-600">Upload</a>
+        <a href="/blog/" class="hover:text-emerald-600">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <nav aria-label="Breadcrumb" class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+      <a href="/" class="hover:text-emerald-600">Home</a>
+      <span class="mx-2 text-slate-300">/</span>
+      <span>Gemini Watermark Remover</span>
+    </nav>
+
+    <section class="mt-6 overflow-hidden rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-slate-50 p-8 shadow-sm sm:p-10 lg:p-12">
+      <div class="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Local visible watermark cleanup</p>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">Gemini watermark remover for supported images</h1>
+          <p class="mt-5 max-w-2xl text-base leading-8 text-slate-600">WatermarkZero is a focused Gemini watermark remover for the visible lower-right mark on supported Gemini-generated images. The image is processed locally in your browser, so you can test, compare, and download without sending private files to a remote queue.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700">Upload a Gemini image</a>
+            <a href="/blog/how-gemini-watermarks-work/" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-300 hover:text-emerald-700">How the watermark works</a>
+          </div>
+        </div>
+        <div class="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="rounded-2xl border border-dashed border-emerald-300 bg-emerald-50 p-6">
+            <p class="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-700">Best fit</p>
+            <ul class="mt-5 space-y-4 text-sm leading-7 text-slate-700">
+              <li><strong>Use it for:</strong> supported Gemini images with the visible Gemini watermark.</li>
+              <li><strong>Do not use it for:</strong> hidden watermark systems, generic logos, signatures, or third-party marks.</li>
+              <li><strong>Privacy model:</strong> local browser processing with no server-side image upload.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-10 grid gap-6 md:grid-cols-3">
+      <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">01</p>
+        <h2 class="mt-3 text-2xl font-bold text-slate-900">Specific to Gemini</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">The page is built around the visible Gemini watermark pattern instead of broad inpainting. That makes the promise clearer and keeps expectations honest.</p>
+      </article>
+      <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">02</p>
+        <h2 class="mt-3 text-2xl font-bold text-slate-900">Private by default</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">The browser does the work locally. This is useful for creators, marketers, and designers who do not want drafts uploaded to another service.</p>
+      </article>
+      <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">03</p>
+        <h2 class="mt-3 text-2xl font-bold text-slate-900">Fast proof</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Preview the result before downloading, then decide whether the image is good enough for your next workflow.</p>
+      </article>
+    </section>
+
+    <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+      <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Use case fit</p>
+          <h2 class="mt-3 text-3xl font-bold text-slate-900">Who this tool is for</h2>
+          <p class="mt-4 text-sm leading-7 text-slate-600">WatermarkZero is most useful for people who already have a Gemini-generated image and need a quick, private way to clean the visible corner mark before evaluating the image in a real workflow. That includes indie makers preparing website mockups, marketers testing ad concepts, designers sorting visual directions, and creators organizing reference images.</p>
+          <p class="mt-4 text-sm leading-7 text-slate-600">It is not meant to be a universal watermark editor. The narrower scope is intentional: the tool focuses on a known visible Gemini mark and avoids claiming support for hidden provenance systems, unrelated logos, signatures, or arbitrary stock-photo watermarks.</p>
+        </div>
+        <div class="rounded-3xl bg-slate-50 p-6">
+          <h3 class="text-xl font-bold text-slate-900">Best results checklist</h3>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-600">
+            <li>Use the original Gemini export when possible.</li>
+            <li>Avoid cropping or resizing the lower-right corner before cleanup.</li>
+            <li>Inspect the result at normal size, not only in a small preview.</li>
+            <li>If the file is skipped, read the troubleshooting page instead of forcing edits.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+      <div class="max-w-3xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Workflow</p>
+        <h2 class="mt-3 text-3xl font-bold text-slate-900">How to use this Gemini watermark remover</h2>
+      </div>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">1. Choose the original image</h3>
+          <p class="mt-2 text-sm leading-7 text-slate-600">Use the cleanest Gemini export you have. Heavy compression, cropping, or rescaling can make detection harder.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">2. Upload locally</h3>
+          <p class="mt-2 text-sm leading-7 text-slate-600">Click the uploader on the homepage or drag supported JPG, PNG, and WebP files into the drop zone.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">3. Preview and download</h3>
+          <p class="mt-2 text-sm leading-7 text-slate-600">Review the before-after preview and download the result only when the visible Gemini watermark cleanup looks right.</p>
+        </div>
+      </div>
+      <div class="mt-8">
+        <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Try Gemini Watermark Remover</a>
+      </div>
+    </section>
+
+    <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Quality notes</p>
+      <h2 class="mt-3 text-3xl font-bold text-slate-900">Why local cleanup still needs human review</h2>
+      <p class="mt-4 text-sm leading-7 text-slate-600">The browser can process the image, but you still make the final quality decision. Some backgrounds hide a restored corner very well, while others make even a small mismatch noticeable. Smooth gradients, fabric, leaves, and product surfaces all reveal artifacts in different ways.</p>
+      <p class="mt-4 text-sm leading-7 text-slate-600">For casual drafts, a small improvement may be enough. For public pages, client work, or portfolio assets, compare the before and after carefully. If the visible mark was too distorted to restore cleanly, it is better to regenerate the image in Gemini or return to a higher-quality source than to publish a blurred repair.</p>
+    </section>
+
+    <section class="mt-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+      <div class="rounded-[2rem] border border-emerald-200 bg-emerald-50 p-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Related intent pages</p>
+        <div class="mt-5 space-y-4 text-sm leading-7">
+          <a href="/remove-gemini-watermark/" class="block rounded-2xl bg-white p-4 font-semibold text-slate-900 shadow-sm transition hover:text-emerald-700">Remove Gemini watermark</a>
+          <a href="/remove-gemini-watermark-from-image/" class="block rounded-2xl bg-white p-4 font-semibold text-slate-900 shadow-sm transition hover:text-emerald-700">Remove Gemini watermark from image</a>
+          <a href="/blog/gemini-logo-remover/" class="block rounded-2xl bg-white p-4 font-semibold text-slate-900 shadow-sm transition hover:text-emerald-700">Gemini logo remover guide</a>
+        </div>
+      </div>
+      <div class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">FAQ</p>
+        <div class="mt-5 space-y-4">
+          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-5" open>
+            <summary class="cursor-pointer text-base font-semibold text-slate-900">What does this Gemini watermark remover do?</summary>
+            <p class="mt-3 text-sm leading-7 text-slate-600">It removes the visible lower-right Gemini watermark from supported Gemini-generated images using local browser processing.</p>
+          </details>
+          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <summary class="cursor-pointer text-base font-semibold text-slate-900">Does the image upload to a server?</summary>
+            <p class="mt-3 text-sm leading-7 text-slate-600">No. The cleanup runs in your browser, so the selected image stays on your device.</p>
+          </details>
+          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <summary class="cursor-pointer text-base font-semibold text-slate-900">Does it remove hidden watermarks such as SynthID?</summary>
+            <p class="mt-3 text-sm leading-7 text-slate-600">No. WatermarkZero focuses on the visible Gemini watermark only and does not remove hidden watermarking systems.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-12 bg-emerald-600 py-8 text-white">
+    <div class="mx-auto max-w-6xl px-4 text-center text-sm sm:px-6">
+      <p class="text-emerald-100">Open-source Gemini watermark remover for the visible Gemini logo watermark only. Use responsibly and follow applicable laws and platform terms.</p>
+      <div class="mt-4 flex flex-wrap justify-center gap-4 font-medium">
+        <a href="/" class="hover:text-white">Tool</a>
+        <a href="/blog/" class="hover:text-white">Blog</a>
+        <a href="/privacy/" class="hover:text-white">Privacy</a>
+        <a href="/terms/" class="hover:text-white">Terms</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

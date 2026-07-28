@@ -1,0 +1,22 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 220 54" height="54" width="220">
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g xmlns="http://www.w3.org/2000/svg" transform="translate(-100.000000, -23.000000)">
+      <g transform="translate(100.000000, 23.000000)">
+        <rect xmlns="http://www.w3.org/2000/svg" rx="10" height="53" width="219" y="0.5" x="0.5" fill="#FFFFFF" stroke-width="1" stroke="#FF6154"/>
+        <text font-family="Helvetica-Bold, Helvetica" font-size="9" font-weight="bold" fill="#FF6154">
+          <tspan x="53" y="20">FEATURED ON</tspan>
+        </text>
+        <text font-family="Helvetica-Bold, Helvetica" font-size="21" font-weight="bold" fill="#FF6154">
+          <tspan x="52" y="40">ToolFame.com</tspan>
+        </text>
+        <g xmlns="http://www.w3.org/2000/svg" transform="translate(11.000000, 12.000000)">
+          <circle cx="15.5" cy="15.5" r="15.5" fill="#FF5555"/>
+          <g fill="white">
+            <rect x="9.5" y="7.9" width="12.1" height="2.8"/>
+            <rect x="14.3" y="10.4" width="2.5" height="13.7"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gemini Watermark Remover</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="hero">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span>
+        </div>
+        <div>
+          <p class="eyebrow">Local-first cleanup</p>
+          <h1>Gemini Watermark Remover</h1>
+          <p class="hero-copy">
+            Remove the visible Gemini watermark from supported images without
+            uploading files.
+          </p>
+        </div>
+      </header>
+
+      <section
+        class="drop-zone"
+        id="dropZone"
+        aria-label="Upload a Gemini image"
+      >
+        <input
+          id="fileInput"
+          class="file-input"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+        />
+        <button class="upload-button" id="uploadButton" type="button">
+          Upload Gemini image
+        </button>
+        <p class="drop-copy">or drag and drop a JPG, PNG, or WebP file here</p>
+        <p class="privacy-note">Runs locally in this extension popup.</p>
+      </section>
+
+      <p class="status" id="status" role="status" aria-live="polite">
+        Select a supported Gemini-generated image to begin.
+      </p>
+
+      <section class="preview-grid" id="previewGrid" hidden>
+        <figure>
+          <figcaption>Original</figcaption>
+          <img id="originalPreview" alt="Original uploaded image preview" />
+        </figure>
+        <figure>
+          <figcaption>Processed</figcaption>
+          <img id="processedPreview" alt="Processed image preview" />
+        </figure>
+      </section>
+
+      <button class="download-button" id="downloadButton" type="button" hidden>
+        Download result
+      </button>
+
+      <aside class="scope-note">
+        <strong>Visible Gemini watermark only.</strong>
+        This extension does not remove hidden SynthID signals and is not a
+        generic copyright-removal tool.
+      </aside>
+
+      <footer class="footer-links">
+        <a href="https://watermarkzero.org" target="_blank" rel="noopener noreferrer">
+          Open web version
+        </a>
+        <a href="https://watermarkzero.org/privacy/" target="_blank" rel="noopener noreferrer">
+          Privacy
+        </a>
+        <a href="https://watermarkzero.org" target="_blank" rel="noopener noreferrer">
+          Support
+        </a>
+      </footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

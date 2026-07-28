@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini Watermark Remover Test Results | WatermarkZero</title>
+  <meta name="description" content="See practical Gemini watermark remover test results by image type, format, watermark position, and failure case before using the online tool.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://watermarkzero.org/blog/gemini-watermark-remover-test-results/">
+  <meta name="theme-color" content="#10B981">
+  <meta property="og:title" content="Gemini Watermark Remover Test Results">
+  <meta property="og:description" content="A practical compatibility and test-results page for the visible Gemini watermark remover.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://watermarkzero.org/blog/gemini-watermark-remover-test-results/">
+  <meta property="og:image" content="https://watermarkzero.org/og-cover.png">
+  <meta property="og:image:alt" content="Before and after Gemini watermark removal sample images">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gemini Watermark Remover Test Results">
+  <meta name="twitter:description" content="A practical compatibility and test-results page for the visible Gemini watermark remover.">
+  <meta name="twitter:image" content="https://watermarkzero.org/og-cover.png">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "headline": "Gemini Watermark Remover Test Results",
+          "description": "See practical Gemini watermark remover test results by image type, format, watermark position, and failure case before using the online tool.",
+          "image": "https://watermarkzero.org/og-cover.png",
+          "datePublished": "2026-05-12",
+          "dateModified": "2026-05-12",
+          "author": {
+            "@type": "Organization",
+            "name": "Gemini Watermark Remover"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Gemini Watermark Remover",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://watermarkzero.org/apple-touch-icon.png"
+            }
+          },
+          "mainEntityOfPage": "https://watermarkzero.org/blog/gemini-watermark-remover-test-results/"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://watermarkzero.org/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://watermarkzero.org/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Gemini Watermark Remover Test Results",
+              "item": "https://watermarkzero.org/blog/gemini-watermark-remover-test-results/"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script>
+    (function () {
+      const allowedHosts = new Set(['watermarkzero.org', 'www.watermarkzero.org']);
+      if (!allowedHosts.has(window.location.hostname)) return;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XV8TF2MBMM';
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function gtag(){ window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-XV8TF2MBMM');
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    h1, h2, h3 { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <a href="/" class="text-sm font-bold tracking-tight text-emerald-600 md:text-xl">Gemini <span class="font-medium text-slate-700">Watermark Remover</span></a>
+      <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
+        <a href="/" class="hover:text-emerald-600">Tool</a>
+        <a href="/blog/" class="hover:text-emerald-600">Articles</a>
+        <a href="/blog/gemini-watermark-remover-troubleshooting/" class="hover:text-emerald-600">Troubleshooting</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+    <nav aria-label="Breadcrumb" class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+      <a href="/" class="hover:text-emerald-600">Home</a>
+      <span class="mx-2 text-slate-300">/</span>
+      <a href="/blog/" class="hover:text-emerald-600">Blog</a>
+      <span class="mx-2 text-slate-300">/</span>
+      <span>Test Results</span>
+    </nav>
+
+    <section class="mt-6 rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-white via-emerald-50 to-slate-50 p-8 shadow-sm sm:p-10">
+      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Practical tests</p>
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Gemini watermark remover test results</h1>
+      <p class="mt-5 max-w-3xl text-sm leading-7 text-slate-600 sm:text-base">Most Gemini watermark remover pages say the tool works. This page is different: it documents what WatermarkZero is expected to handle well, where the visible Gemini watermark removal can fail, and which source files give the cleanest result.</p>
+      <div class="mt-6 flex flex-wrap gap-3 text-sm">
+        <span class="rounded-full bg-slate-900 px-4 py-2 text-white">visible Gemini watermark</span>
+        <span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-700">JPG / PNG / WebP</span>
+        <span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-700">browser processing</span>
+        <span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-700">failure cases included</span>
+      </div>
+    </section>
+
+    <section class="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50/90 p-6 shadow-sm">
+      <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Try your own file</p>
+          <h2 class="mt-3 text-2xl font-bold text-slate-900">Use these results as a pre-flight checklist</h2>
+          <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-600">If your file matches the strongest test patterns below, upload it to the local browser tool and compare the result before downloading.</p>
+        </div>
+        <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Upload a Gemini image</a>
+      </div>
+    </section>
+
+    <article class="mt-10 space-y-8">
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">Compatibility summary</h2>
+        <div class="mt-5 overflow-x-auto">
+          <table class="w-full min-w-[720px] border-separate border-spacing-0 text-left text-sm">
+            <thead>
+              <tr class="text-xs uppercase tracking-[0.18em] text-slate-500">
+                <th class="border-b border-slate-200 pb-3 pr-4">Source condition</th>
+                <th class="border-b border-slate-200 pb-3 pr-4">Expected result</th>
+                <th class="border-b border-slate-200 pb-3">Why it matters</th>
+              </tr>
+            </thead>
+            <tbody class="align-top text-slate-600">
+              <tr>
+                <td class="border-b border-slate-100 py-4 pr-4 font-medium text-slate-900">Original Gemini export, lower-right visible mark intact</td>
+                <td class="border-b border-slate-100 py-4 pr-4">Best candidate</td>
+                <td class="border-b border-slate-100 py-4">The tool can estimate the known watermark area and reverse the blended overlay more confidently.</td>
+              </tr>
+              <tr>
+                <td class="border-b border-slate-100 py-4 pr-4 font-medium text-slate-900">JPG, PNG, or WebP file with no heavy crop</td>
+                <td class="border-b border-slate-100 py-4 pr-4">Usually supported</td>
+                <td class="border-b border-slate-100 py-4">These are the intended browser input formats for the online Gemini watermark remover.</td>
+              </tr>
+              <tr>
+                <td class="border-b border-slate-100 py-4 pr-4 font-medium text-slate-900">Screenshot of a Gemini image</td>
+                <td class="border-b border-slate-100 py-4 pr-4">Mixed</td>
+                <td class="border-b border-slate-100 py-4">Screenshots can change scale, margins, and compression, which weakens watermark detection.</td>
+              </tr>
+              <tr>
+                <td class="border-b border-slate-100 py-4 pr-4 font-medium text-slate-900">Image already cropped around the bottom-right corner</td>
+                <td class="border-b border-slate-100 py-4 pr-4">Often unsupported</td>
+                <td class="border-b border-slate-100 py-4">The expected position cues may be gone, so a safe remover should avoid guessing.</td>
+              </tr>
+              <tr>
+                <td class="py-4 pr-4 font-medium text-slate-900">Generic watermark, stock photo logo, or hidden watermark</td>
+                <td class="py-4 pr-4">Not the target</td>
+                <td class="py-4">WatermarkZero is a Gemini-specific visible watermark remover, not a universal watermark eraser.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">How these tests are evaluated</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">The goal is not to claim that every Gemini image will work. The goal is to describe the conditions that make visible watermark cleanup reliable. For each sample, the original export is opened in the browser, processed locally, and then compared against the source at normal size and at a closer crop around the lower-right corner.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">A result is treated as useful when the marked area no longer draws attention, the background texture still feels continuous, and the image does not show a square patch where the watermark used to be. A result is treated as questionable when a star outline, bright edge, blocky compression, or cloudy blur remains visible after processing.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">This is also why the tool may skip some files. A skipped file can be a better outcome than a forced edit, especially when the image is for a product page, portfolio, listing, or marketing asset where corner artifacts are easy to notice.</p>
+      </section>
+
+      <section class="grid gap-6 md:grid-cols-3">
+        <figure class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+          <img src="/examples/product-before.webp" alt="Gemini product photo example before visible watermark removal" loading="lazy" class="aspect-[4/3] w-full rounded-2xl object-cover">
+          <figcaption class="mt-4 text-sm leading-6 text-slate-600"><strong class="text-slate-900">Product mockup:</strong> clean background and stable lower-right mark make this a strong test case.</figcaption>
+        </figure>
+        <figure class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+          <img src="/examples/interior-before.webp" alt="Gemini interior image example before visible watermark removal" loading="lazy" class="aspect-[4/3] w-full rounded-2xl object-cover">
+          <figcaption class="mt-4 text-sm leading-6 text-slate-600"><strong class="text-slate-900">Interior scene:</strong> textured bedding makes the restored area easier to inspect for artifacts.</figcaption>
+        </figure>
+        <figure class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+          <img src="/examples/portrait-before.webp" alt="Gemini portrait example before visible watermark removal" loading="lazy" class="aspect-[4/3] w-full rounded-2xl object-cover">
+          <figcaption class="mt-4 text-sm leading-6 text-slate-600"><strong class="text-slate-900">Portrait scene:</strong> foliage and soft gradients expose whether the result leaves a visible halo.</figcaption>
+        </figure>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">Example notes from the sample images</h2>
+        <div class="mt-5 grid gap-4 md:grid-cols-3">
+          <div class="rounded-2xl bg-slate-50 p-5">
+            <h3 class="text-lg font-bold text-slate-900">Product photo</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">The clean tabletop and soft shadows make the corner easier to inspect. If the result is good here, the remaining area should look like natural surface texture rather than a pasted repair.</p>
+          </div>
+          <div class="rounded-2xl bg-slate-50 p-5">
+            <h3 class="text-lg font-bold text-slate-900">Interior scene</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Bedding, curtains, and warm light are a useful stress test. Fine texture can reveal whether the restoration is too smooth or whether the watermark outline is still visible.</p>
+          </div>
+          <div class="rounded-2xl bg-slate-50 p-5">
+            <h3 class="text-lg font-bold text-slate-900">Portrait scene</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">The foliage and greenhouse background make halos easier to catch. A good result should not pull the viewer's eye away from the person in the image.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">What we measure before calling a result good</h2>
+        <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-600">
+          <li><strong>Detection confidence:</strong> the visible Gemini watermark should be found in the expected lower-right region.</li>
+          <li><strong>Edge cleanliness:</strong> the star edges should not leave a bright outline or a smudged square.</li>
+          <li><strong>Texture continuity:</strong> fabric, foliage, table grain, and soft gradients should remain believable after restoration.</li>
+          <li><strong>Fail-safe behavior:</strong> unsupported images should be skipped rather than aggressively edited.</li>
+        </ul>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">Unsupported cases are part of the test</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">A useful test page should include failure cases, not only attractive examples. The most common weak inputs are screenshots, social-media downloads, heavily compressed JPG files, and images where the lower-right corner has already been cropped. Those files may still look like Gemini images to a person, but the visible mark may no longer match the expected scale and margin.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">If the remover cannot find the mark confidently, the safer behavior is to stop. That protects the original image from an obvious corner repair. For users, the practical fix is simple: try the original Gemini export first, avoid editing the corner before cleanup, and compare the preview at full size before downloading the final file.</p>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">Why this page is useful for searchers</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">A searcher who types <strong>gemini watermark remover</strong> often wants proof, not another promise. This page gives that proof in a practical way: it explains which files are strong candidates, which files are weak candidates, and why the tool is intentionally narrow.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">That narrowness is part of the product value. The remover is designed around the visible Gemini watermark pattern; if you need a hidden watermark explanation, read the related SynthID guide instead.</p>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">Related reading</h2>
+        <div class="mt-4 grid gap-3 text-sm leading-7 text-slate-600 md:grid-cols-2">
+          <a href="/blog/visible-gemini-watermark-vs-synthid/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Visible Gemini watermark vs SynthID</a>
+          <a href="/blog/gemini-watermark-remover-troubleshooting/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Gemini watermark remover troubleshooting</a>
+          <a href="/blog/how-gemini-watermarks-work/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">How Gemini watermarks work</a>
+          <a href="/blog/how-to-remove-gemini-watermark/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">How to remove Gemini watermark safely</a>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
