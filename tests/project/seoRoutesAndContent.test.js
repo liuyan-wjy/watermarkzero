@@ -3,6 +3,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
 
 import siteWorker from '../../worker.mjs';
+import { TRANSLATIONS } from '../../src/i18n/translations.js';
 
 const SITE_ORIGIN = 'https://watermarkzero.org';
 
@@ -123,11 +124,16 @@ test('homepage search snippet stays within common preview limits', async () => {
   const home = await readFile('public/index.html', 'utf8');
   const title = home.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
   const description = home.match(/<meta name="description" content="([^"]+)">/i)?.[1] || '';
+  const dictionary = TRANSLATIONS['en-US'];
 
   assert.equal(
     description,
     'Remove the visible Gemini watermark online for free. Images stay in your browser for local processing, with no uploads or signup and batch support.'
   );
+  assert.equal(dictionary.title, title);
+  assert.equal(dictionary['meta.description'], description);
+  assert.equal(dictionary['meta.og.title'], title);
+  assert.equal(dictionary['meta.og.description'], description);
   assert.ok(title.length <= 60, `${title.length}/60`);
   assert.ok(description.length <= 160, `${description.length}/160`);
 });

@@ -1,8 +1,8 @@
 const base = {
-  "title": "Gemini Watermark Remover Online | Remove Gemini Watermark Locally",
-  "meta.description": "Remove the visible Gemini watermark online with local browser processing. No upload, no signup, batch-friendly, and designed specifically for Gemini-generated images.",
-  "meta.og.title": "Gemini Watermark Remover Online",
-  "meta.og.description": "Remove the visible Gemini watermark online with local browser processing and reverse alpha restoration.",
+  "title": "Free Gemini Watermark Remover Online | Remove Locally",
+  "meta.description": "Remove the visible Gemini watermark online for free. Images stay in your browser for local processing, with no uploads or signup and batch support.",
+  "meta.og.title": "Free Gemini Watermark Remover Online | Remove Locally",
+  "meta.og.description": "Remove the visible Gemini watermark online for free. Images stay in your browser for local processing, with no uploads or signup and batch support.",
   "header.title": "Gemini Watermark Remover",
   "nav.upload": "Upload",
   "nav.how": "How it works",
