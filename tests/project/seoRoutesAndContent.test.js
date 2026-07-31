@@ -105,7 +105,7 @@ test('landing-page structured data omits unsupported rich-result boilerplate', a
 
 test('core content pages use distinct titles instead of repeating the main keyword', async () => {
   const expectedTitles = new Map([
-    ['public/index.html', 'Gemini Watermark Remover Online | Remove Gemini Watermark Locally'],
+    ['public/index.html', 'Free Gemini Watermark Remover Online | Remove Locally'],
     ['public/gemini-watermark-remover/index.html', 'WatermarkZero Features | Supported Gemini Images'],
     ['public/remove-gemini-watermark/index.html', 'How to Remove a Visible Gemini Watermark Safely'],
     ['public/remove-gemini-watermark-from-image/index.html', 'Gemini Image File Support | JPG, PNG & WebP'],
@@ -117,6 +117,19 @@ test('core content pages use distinct titles instead of repeating the main keywo
     const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].replaceAll('&amp;', '&');
     assert.equal(title, expectedTitle, file);
   }
+});
+
+test('homepage search snippet stays within common preview limits', async () => {
+  const home = await readFile('public/index.html', 'utf8');
+  const title = home.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
+  const description = home.match(/<meta name="description" content="([^"]+)">/i)?.[1] || '';
+
+  assert.equal(
+    description,
+    'Remove the visible Gemini watermark online for free. Images stay in your browser for local processing, with no uploads or signup and batch support.'
+  );
+  assert.ok(title.length <= 60, `${title.length}/60`);
+  assert.ok(description.length <= 160, `${description.length}/160`);
 });
 
 test('homepage links directly to the Nano Banana and batch workflows', async () => {
