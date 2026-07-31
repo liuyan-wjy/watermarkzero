@@ -1,0 +1,35 @@
+# WatermarkZero
+
+> WatermarkZero is a free, open-source browser tool for removing the visible Gemini logo watermark from supported Gemini-generated images. Images are processed locally in the browser and are not uploaded to WatermarkZero.
+
+WatermarkZero specializes in reversing a known visible overlay pattern rather than repainting the area with generative AI.
+
+Important notes:
+- The tool targets the visible Gemini logo watermark only.
+- It does not remove SynthID or other hidden provenance signals.
+- Results depend on the watermark pattern and image dimensions. Unsupported files may be skipped without modification.
+- Users should only edit images they own or are authorized to modify.
+
+## Primary pages
+
+- [Gemini Watermark Remover](https://watermarkzero.org/): Main browser tool for uploading, processing, previewing, and downloading a supported image.
+- [Features and supported images](https://watermarkzero.org/gemini-watermark-remover/): Product capabilities, processing model, supported images, and limitations.
+- [Safe removal guide](https://watermarkzero.org/remove-gemini-watermark/): Step-by-step workflow and guidance for avoiding unnecessary quality loss.
+- [Image file support](https://watermarkzero.org/remove-gemini-watermark-from-image/): Supported JPG, PNG, and WebP inputs and practical file-handling notes.
+- [Nano Banana watermark remover](https://watermarkzero.org/nano-banana-watermark-remover/): Compatibility guidance for images associated with Nano Banana models.
+- [Batch Gemini watermark remover](https://watermarkzero.org/batch-gemini-watermark-remover/): Local multi-file queue, skipped-file reporting, and ZIP download workflow.
+
+## Technical and trust resources
+
+- [How Gemini watermarks work](https://watermarkzero.org/blog/how-gemini-watermarks-work/): Explanation of visible overlay blending and reverse alpha restoration.
+- [Visible Gemini watermark vs SynthID](https://watermarkzero.org/blog/visible-gemini-watermark-vs-synthid/): Distinguishes the removable visible logo from hidden provenance signals.
+- [Test results](https://watermarkzero.org/blog/gemini-watermark-remover-test-results/): Documented support patterns, observed results, and failure cases.
+- [Troubleshooting](https://watermarkzero.org/blog/gemini-watermark-remover-troubleshooting/): Reasons an image may be skipped or produce an imperfect result.
+- [GitHub source](https://github.com/liuyan-wjy/watermarkzero): Source code and implementation details for the website and watermark-removal engine.
+
+## Optional
+
+- [Blog index](https://watermarkzero.org/blog/): Additional guides, comparisons, and support articles.
+- [Privacy policy](https://watermarkzero.org/privacy/): Privacy practices for the website.
+- [Terms of use](https://watermarkzero.org/terms/): Conditions and user responsibilities.
+- [XML sitemap](https://watermarkzero.org/sitemap.xml): Complete list of indexable site pages.

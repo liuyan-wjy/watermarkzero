@@ -142,3 +142,26 @@ test('landing-page JSON-LD remains valid after schema cleanup', async () => {
     }
   }
 });
+
+test('llms.txt follows the proposed format and links core site resources', async () => {
+  const llms = await readFile('public/llms.txt', 'utf8');
+
+  assert.match(llms, /^# WatermarkZero\n\n> \S/);
+  assert.match(llms, /\n## Primary pages\n/);
+  assert.match(llms, /\n## Technical and trust resources\n/);
+  assert.match(llms, /\n## Optional\n/);
+
+  for (const url of [
+    'https://watermarkzero.org/',
+    'https://watermarkzero.org/nano-banana-watermark-remover/',
+    'https://watermarkzero.org/batch-gemini-watermark-remover/',
+    'https://watermarkzero.org/blog/visible-gemini-watermark-vs-synthid/',
+    'https://github.com/liuyan-wjy/watermarkzero'
+  ]) {
+    assert.ok(llms.includes(`](${url})`), url);
+  }
+
+  assert.match(llms, /visible .*watermark/i);
+  assert.match(llms, /does not remove SynthID/i);
+  assert.match(llms, /processed locally/i);
+});
