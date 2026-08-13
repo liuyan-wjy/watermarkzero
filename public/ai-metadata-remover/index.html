@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Metadata Remover | Clean PNG &amp; JPEG Locally</title>
+  <meta name="description" content="Remove EXIF, GPS, XMP, IPTC, comments, and C2PA metadata from PNG and JPEG images locally in your browser. No uploads or recompression.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://watermarkzero.org/ai-metadata-remover/">
+  <meta name="theme-color" content="#10B981">
+  <meta property="og:title" content="AI Metadata Remover">
+  <meta property="og:description" content="Inspect and clean private image metadata locally without uploading or recompressing your PNG and JPEG files.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://watermarkzero.org/ai-metadata-remover/">
+  <meta property="og:image" content="https://watermarkzero.org/og-cover.png">
+  <meta property="og:image:alt" content="WatermarkZero AI metadata remover">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Metadata Remover">
+  <meta name="twitter:description" content="Remove private PNG and JPEG metadata locally in your browser.">
+  <meta name="twitter:image" content="https://watermarkzero.org/og-cover.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/metadata-page.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="brand">Watermark<span>Zero</span></a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#uploadArea">Watermark remover</a>
+        <a href="/blog/">Guides</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="/">Home</a><span>/</span><span>AI Metadata Remover</span>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Local image privacy tool</p>
+        <h1>AI image metadata remover</h1>
+        <p class="intro">Inspect and remove EXIF, GPS, XMP, IPTC, comments, and C2PA container metadata from PNG and JPEG files. The image stays on your device and its encoded pixels are not recompressed.</p>
+        <div class="badges">
+          <span>No uploads</span>
+          <span>PNG + JPEG</span>
+          <span>Batch ZIP</span>
+        </div>
+        <p class="scope-note"><strong>Scope:</strong> this removes file-container metadata. It does not detect or remove SynthID, pixel watermarks, visible logos, or other signals embedded in image content.</p>
+      </div>
+
+      <div class="tool-card">
+        <div id="metadataUploadArea" role="button" tabindex="0" aria-controls="metadataFileInput" aria-describedby="metadataUploadHelp" class="upload-area">
+          <div class="upload-icon" aria-hidden="true">⌁</div>
+          <h2>Choose PNG or JPEG files</h2>
+          <p id="metadataUploadHelp">Click to browse or drag files here. Multiple files are supported, up to 20 MB each.</p>
+          <span class="button button-green">Select images</span>
+          <input id="metadataFileInput" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple hidden>
+        </div>
+      </div>
+    </section>
+
+    <section id="metadataResults" hidden class="results" aria-labelledby="metadataResultsTitle">
+      <div class="results-head">
+        <div>
+          <p class="eyebrow">Local report</p>
+          <h2 id="metadataResultsTitle">Metadata results</h2>
+          <p id="metadataProgress" class="progress" aria-live="polite"></p>
+        </div>
+        <div class="actions">
+          <button id="metadataDownloadAll" hidden type="button" class="button button-green">Download ZIP</button>
+          <button id="metadataReset" type="button" class="button button-light">Clear</button>
+        </div>
+      </div>
+      <div id="metadataResultsList" class="results-list"></div>
+    </section>
+
+    <section class="content-grid">
+      <article class="info-card">
+        <p class="eyebrow">Removed</p>
+        <h2>Private and provenance metadata</h2>
+        <ul>
+          <li>EXIF device details and GPS location pointers</li>
+          <li>XMP, IPTC, comments, and application-specific fields</li>
+          <li>C2PA and Content Credentials container segments when present</li>
+        </ul>
+      </article>
+      <article class="info-card">
+        <p class="eyebrow eyebrow-muted">Preserved</p>
+        <h2>Encoded image data and color</h2>
+        <ul>
+          <li>Original PNG/JPEG encoded pixel stream—no Canvas re-export</li>
+          <li>ICC and display-related color information</li>
+          <li>JPEG Orientation only, so supported photos keep their display direction</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="faq">
+      <p class="eyebrow">FAQ</p>
+      <h2>What this cleaner can—and cannot—change</h2>
+      <div class="faq-grid">
+        <article><h3>Are files uploaded?</h3><p>No. File reading, inspection, cleaning, and ZIP creation happen in your browser.</p></article>
+        <article><h3>Does it reduce quality?</h3><p>No image decoding or recompression is used. Only supported metadata segments are removed.</p></article>
+        <article><h3>Does it remove SynthID?</h3><p>No. SynthID and pixel-domain signals are outside this tool's scope.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>Use only on files you own or are allowed to edit.</p>
+      <div class="footer-links">
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/blog/">Guides</a>
+        <a href="https://github.com/guillaumemeyer/watermarks-remover" target="_blank" rel="noopener noreferrer">MIT source reference</a>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="/metadata-app.js"></script>
+</body>
+</html>

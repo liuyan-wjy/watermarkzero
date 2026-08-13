@@ -46,6 +46,7 @@ test('indexable content routes consistently redirect to trailing slashes', async
     '/gemini-watermark-remover',
     '/nano-banana-watermark-remover',
     '/batch-gemini-watermark-remover',
+    '/ai-metadata-remover',
     '/blog/how-to-remove-gemini-watermark'
   ]) {
     const response = await siteWorker.fetch(
@@ -80,6 +81,7 @@ test('new landing pages stay in the canonical sitemap', async () => {
 
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/nano-banana-watermark-remover\//);
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/batch-gemini-watermark-remover\//);
+  assert.match(sitemap, /https:\/\/watermarkzero\.org\/ai-metadata-remover\//);
 });
 
 test('public copy does not expose internal SEO production language', async () => {
@@ -110,6 +112,7 @@ test('core content pages use distinct titles instead of repeating the main keywo
     ['public/gemini-watermark-remover/index.html', 'WatermarkZero Features | Supported Gemini Images'],
     ['public/remove-gemini-watermark/index.html', 'How to Remove a Visible Gemini Watermark Safely'],
     ['public/remove-gemini-watermark-from-image/index.html', 'Gemini Image File Support | JPG, PNG & WebP'],
+    ['public/ai-metadata-remover/index.html', 'AI Metadata Remover | Clean PNG & JPEG Locally'],
     ['public/blog/remove-gemini-watermark-online/index.html', 'Private Browser Processing for Gemini Images | WatermarkZero']
   ]);
 
@@ -138,11 +141,44 @@ test('homepage search snippet stays within common preview limits', async () => {
   assert.ok(description.length <= 160, `${description.length}/160`);
 });
 
-test('homepage links directly to the Nano Banana and batch workflows', async () => {
+test('homepage links directly to the Nano Banana, batch, and metadata tools', async () => {
   const home = await readFile('public/index.html', 'utf8');
 
   assert.match(home, /href="\/nano-banana-watermark-remover\/"/);
   assert.match(home, /href="\/batch-gemini-watermark-remover\/"/);
+  assert.match(home, /href="\/ai-metadata-remover\/"/);
+});
+
+test('AI metadata remover exposes the local batch tool with an honest scope', async () => {
+  const page = await readFile('public/ai-metadata-remover/index.html', 'utf8');
+  const app = await readFile('src/metadataApp.js', 'utf8');
+  const description = page.match(/<meta name="description" content="([^"]+)">/i)?.[1] || '';
+
+  assert.ok(description.length <= 160, `${description.length}/160`);
+  assert.match(page, /id="metadataFileInput"[^>]*multiple/);
+  assert.match(page, /src="\/metadata-app\.js"/);
+  assert.match(page, /href="\/metadata-page\.css"/);
+  assert.match(page, /does not detect or remove SynthID/i);
+  assert.match(page, /No uploads/i);
+  assert.doesNotMatch(page, /SynthID remover|bypass.*detect/i);
+  assert.doesNotMatch(page, /<script[^>]+src="https?:\/\//i);
+  assert.doesNotMatch(app, /\bfetch\s*\(/);
+});
+
+test('AI metadata remover blocks third-party scripts, connections, and analytics injection', async () => {
+  const env = createEnv();
+  env.GA4_MEASUREMENT_ID = 'G-TEST123';
+  const response = await siteWorker.fetch(
+    new Request(`${SITE_ORIGIN}/ai-metadata-remover/`),
+    env
+  );
+  const html = await response.text();
+  const csp = response.headers.get('content-security-policy') || '';
+
+  assert.doesNotMatch(html, /googletagmanager|gtag\(/i);
+  assert.match(csp, /script-src 'self'/);
+  assert.match(csp, /connect-src 'self'/);
+  assert.doesNotMatch(csp, /https:|google|cloudflare|profitable|highperformance/i);
 });
 
 test('landing-page JSON-LD remains valid after schema cleanup', async () => {
@@ -174,6 +210,7 @@ test('llms.txt follows the proposed format and links core site resources', async
     'https://watermarkzero.org/',
     'https://watermarkzero.org/nano-banana-watermark-remover/',
     'https://watermarkzero.org/batch-gemini-watermark-remover/',
+    'https://watermarkzero.org/ai-metadata-remover/',
     'https://watermarkzero.org/blog/visible-gemini-watermark-vs-synthid/',
     'https://github.com/liuyan-wjy/watermarkzero'
   ]) {

@@ -193,6 +193,16 @@ const websiteCtx = await esbuild.context({
   plugins: [copyAssetsPlugin],
 });
 
+const metadataWebsiteCtx = await esbuild.context({
+  ...commonConfig,
+  entryPoints: ['src/metadataApp.js'],
+  outfile: 'dist/metadata-app.js',
+  platform: 'browser',
+  target: ['es2020'],
+  banner: { js: jsBanner },
+  sourcemap: !isProd,
+});
+
 // Build website worker
 const workerCtx = await esbuild.context({
   ...commonConfig,
@@ -251,6 +261,7 @@ mkdirSync('dist/workers', { recursive: true });
 if (isProd) {
   await Promise.all([
     websiteCtx.rebuild(),
+    metadataWebsiteCtx.rebuild(),
     workerCtx.rebuild(),
     userscriptCtx.rebuild()
   ]);
@@ -259,6 +270,7 @@ if (isProd) {
 } else {
   await Promise.all([
     websiteCtx.watch(),
+    metadataWebsiteCtx.watch(),
     workerCtx.watch(),
     userscriptCtx.watch()
   ]);

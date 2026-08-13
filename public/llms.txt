@@ -18,6 +18,7 @@ Important notes:
 - [Image file support](https://watermarkzero.org/remove-gemini-watermark-from-image/): Supported JPG, PNG, and WebP inputs and practical file-handling notes.
 - [Nano Banana watermark remover](https://watermarkzero.org/nano-banana-watermark-remover/): Compatibility guidance for images associated with Nano Banana models.
 - [Batch Gemini watermark remover](https://watermarkzero.org/batch-gemini-watermark-remover/): Local multi-file queue, skipped-file reporting, and ZIP download workflow.
+- [AI metadata remover](https://watermarkzero.org/ai-metadata-remover/): Local PNG and JPEG metadata inspection and cleaning for EXIF, GPS, XMP, IPTC, comments, and C2PA container data.
 
 ## Technical and trust resources
 

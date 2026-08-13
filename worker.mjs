@@ -25,6 +25,7 @@ const SITEMAP_PATHS = [
   '/remove-gemini-watermark-from-image/',
   '/nano-banana-watermark-remover/',
   '/batch-gemini-watermark-remover/',
+  '/ai-metadata-remover/',
   '/blog/',
   '/blog/how-gemini-watermarks-work/',
   '/blog/how-to-remove-gemini-watermark/',
@@ -40,6 +41,7 @@ const SITEMAP_PATHS = [
   '/blog/lossless-gemini-watermark-removal/'
 ];
 const NOINDEX_PATHS = new Set(['/privacy/', '/terms/', '/privacy.html', '/terms.html']);
+const PRIVACY_TOOL_PATHS = new Set(['/ai-metadata-remover/', '/ai-metadata-remover/index.html']);
 const TRAILING_SLASH_PATHS = new Set(
   [...SITEMAP_PATHS, '/privacy/', '/terms/']
     .filter((path) => path !== '/' && path.endsWith('/'))
@@ -81,7 +83,7 @@ function buildSitemap(origin) {
 
 function withHeaders(response, options = {}) {
   const headers = new Headers(response.headers);
-  const { robotsTag = '' } = options;
+  const { pathname = '', robotsTag = '' } = options;
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   headers.set('X-Content-Type-Options', 'nosniff');
@@ -92,9 +94,12 @@ function withHeaders(response, options = {}) {
 
   const contentType = headers.get('content-type') || '';
   if (contentType.includes('text/html')) {
+    const privacyTool = PRIVACY_TOOL_PATHS.has(pathname);
     headers.set(
       'Content-Security-Policy',
-      `default-src 'self'; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com ${GOOGLE_TAG_SCRIPT_ORIGIN} ${CLOUDFLARE_INSIGHTS_ORIGIN} ${AD_SCRIPT_ORIGINS.join(' ')}; connect-src 'self' ${GOOGLE_ANALYTICS_ORIGINS.join(' ')} https:; frame-src 'self' https:; worker-src 'self' blob:; base-uri 'self'; form-action 'self';`
+      privacyTool
+        ? "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self'; worker-src 'self' blob:; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
+        : `default-src 'self'; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com ${GOOGLE_TAG_SCRIPT_ORIGIN} ${CLOUDFLARE_INSIGHTS_ORIGIN} ${AD_SCRIPT_ORIGINS.join(' ')}; connect-src 'self' ${GOOGLE_ANALYTICS_ORIGINS.join(' ')} https:; frame-src 'self' https:; worker-src 'self' blob:; base-uri 'self'; form-action 'self';`
     );
   }
 
@@ -162,7 +167,9 @@ async function rewriteHtmlMetadata(response, url, env) {
   const measurementId = isValidGoogleTagId(env?.GA4_MEASUREMENT_ID)
     ? env.GA4_MEASUREMENT_ID.trim()
     : '';
-  const shouldInjectGa4 = measurementId && isCanonicalRequest(url, siteOrigin);
+  const shouldInjectGa4 = measurementId
+    && isCanonicalRequest(url, siteOrigin)
+    && !PRIVACY_TOOL_PATHS.has(url.pathname);
   const html = await response.text();
   let rewrittenHtml = html
     .replace(/<link rel="canonical" href="[^"]*">/i, `<link rel="canonical" href="${canonicalUrl}">`)
@@ -236,6 +243,7 @@ export default {
       ? await rewriteHtmlMetadata(assetResponse, url, env)
       : assetResponse;
     return withHeaders(rewrittenResponse, {
+      pathname: url.pathname,
       robotsTag: getRobotsTag(url, canonicalRequest)
     });
   }
