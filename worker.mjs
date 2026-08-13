@@ -95,6 +95,12 @@ function withHeaders(response, options = {}) {
   const contentType = headers.get('content-type') || '';
   if (contentType.includes('text/html')) {
     const privacyTool = PRIVACY_TOOL_PATHS.has(pathname);
+    if (privacyTool) {
+      const cacheControl = headers.get('cache-control') || 'public, max-age=0, must-revalidate';
+      if (!cacheControl.includes('no-transform')) {
+        headers.set('Cache-Control', `${cacheControl}, no-transform`);
+      }
+    }
     headers.set(
       'Content-Security-Policy',
       privacyTool

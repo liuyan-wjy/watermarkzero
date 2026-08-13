@@ -176,6 +176,7 @@ test('AI metadata remover blocks third-party scripts, connections, and analytics
   const csp = response.headers.get('content-security-policy') || '';
 
   assert.doesNotMatch(html, /googletagmanager|gtag\(/i);
+  assert.match(response.headers.get('cache-control') || '', /no-transform/);
   assert.match(csp, /script-src 'self'/);
   assert.match(csp, /connect-src 'self'/);
   assert.doesNotMatch(csp, /https:|google|cloudflare|profitable|highperformance/i);
