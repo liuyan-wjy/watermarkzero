@@ -143,10 +143,11 @@ test('homepage search snippet stays within common preview limits', async () => {
 
 test('homepage links directly to the Nano Banana, batch, and metadata tools', async () => {
   const home = await readFile('public/index.html', 'utf8');
+  const header = home.match(/<header[\s\S]*?<\/header>/i)?.[0] || '';
 
   assert.match(home, /href="\/nano-banana-watermark-remover\/"/);
   assert.match(home, /href="\/batch-gemini-watermark-remover\/"/);
-  assert.match(home, /href="\/ai-metadata-remover\/"/);
+  assert.match(header, /href="\/ai-metadata-remover\/"/);
 });
 
 test('AI metadata remover exposes the local batch tool with an honest scope', async () => {
@@ -158,6 +159,9 @@ test('AI metadata remover exposes the local batch tool with an honest scope', as
   assert.match(page, /id="metadataFileInput"[^>]*multiple/);
   assert.match(page, /src="\/metadata-app\.js"/);
   assert.match(page, /href="\/metadata-page\.css"/);
+  assert.match(page, /<h1>AI metadata remover<\/h1>/);
+  assert.match(page, /Claude, ChatGPT, and Gemini/i);
+  assert.match(page, /format-based, not model detection/i);
   assert.match(page, /does not detect or remove SynthID/i);
   assert.match(page, /No uploads/i);
   assert.doesNotMatch(page, /SynthID remover|bypass.*detect/i);

@@ -43,7 +43,7 @@
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">Local image privacy tool</p>
-        <h1>AI image metadata remover</h1>
+        <h1>AI metadata remover</h1>
         <p class="intro">Inspect and remove EXIF, GPS, XMP, IPTC, comments, and C2PA container metadata from PNG and JPEG files. The image stays on your device and its encoded pixels are not recompressed.</p>
         <div class="badges">
           <span>No uploads</span>
@@ -93,7 +93,7 @@
         <p class="eyebrow eyebrow-muted">Preserved</p>
         <h2>Encoded image data and color</h2>
         <ul>
-          <li>Original PNG/JPEG encoded pixel stream—no Canvas re-export</li>
+          <li>Original PNG/JPEG encoded pixel stream; no Canvas re-export</li>
           <li>ICC and display-related color information</li>
           <li>JPEG Orientation only, so supported photos keep their display direction</li>
         </ul>
@@ -102,7 +102,8 @@
 
     <section class="faq">
       <p class="eyebrow">FAQ</p>
-      <h2>What this cleaner can—and cannot—change</h2>
+      <h2>What this cleaner can and cannot change</h2>
+      <p class="intro"><strong>Claude, ChatGPT, and Gemini files:</strong> for PNG or JPEG files, supported container metadata can be removed when present. Cleaning is format-based, not model detection, so the same EXIF, XMP, IPTC, comment, and C2PA rules apply to files from other AI tools too.</p>
       <div class="faq-grid">
         <article><h3>Are files uploaded?</h3><p>No. File reading, inspection, cleaning, and ZIP creation happen in your browser.</p></article>
         <article><h3>Does it reduce quality?</h3><p>No image decoding or recompression is used. Only supported metadata segments are removed.</p></article>
