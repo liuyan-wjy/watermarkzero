@@ -26,6 +26,8 @@ const SITEMAP_PATHS = [
   '/nano-banana-watermark-remover/',
   '/batch-gemini-watermark-remover/',
   '/ai-metadata-remover/',
+  '/turn-off-gemini-watermark/',
+  '/pt/remover-marca-dagua-gemini/',
   '/blog/',
   '/blog/how-gemini-watermarks-work/',
   '/blog/how-to-remove-gemini-watermark/',
@@ -38,7 +40,8 @@ const SITEMAP_PATHS = [
   '/blog/gemini-watermark-remover-github/',
   '/blog/gemini-watermark-remover-extension/',
   '/blog/gemini-watermark-remover-pdf/',
-  '/blog/lossless-gemini-watermark-removal/'
+  '/blog/lossless-gemini-watermark-removal/',
+  '/blog/does-gemini-watermark-text/'
 ];
 const NOINDEX_PATHS = new Set(['/privacy/', '/terms/', '/privacy.html', '/terms.html']);
 const PRIVACY_TOOL_PATHS = new Set(['/ai-metadata-remover/', '/ai-metadata-remover/index.html']);

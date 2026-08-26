@@ -107,7 +107,7 @@
   "learn.howto.desc": "まず安全な削除手順を知りたいユーザー向けの直接的なタスクページです。",
   "learn.image.eyebrow": "画像ページ",
   "learn.image.title": "画像から Gemini 透かしを削除",
-  "learn.image.desc": "JPG、PNG、WebP の画像クリーンアップ検索に向けたロングテールページです。",
+  "learn.image.desc": "JPG、PNG、WebP 画像のクリーンアップに役立つファイル対応ページです。",
   "learn.article1.eyebrow": "記事 01",
   "learn.article1.title": "Gemini 透かしの仕組み",
   "learn.article1.desc": "可視 Gemini 透かしの配置、逆アルファ復元、汎用インペイントとの違いを平易に説明します。",

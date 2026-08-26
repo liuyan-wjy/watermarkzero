@@ -47,6 +47,9 @@ test('indexable content routes consistently redirect to trailing slashes', async
     '/nano-banana-watermark-remover',
     '/batch-gemini-watermark-remover',
     '/ai-metadata-remover',
+    '/turn-off-gemini-watermark',
+    '/pt/remover-marca-dagua-gemini',
+    '/blog/does-gemini-watermark-text',
     '/blog/how-to-remove-gemini-watermark'
   ]) {
     const response = await siteWorker.fetch(
@@ -82,6 +85,85 @@ test('new landing pages stay in the canonical sitemap', async () => {
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/nano-banana-watermark-remover\//);
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/batch-gemini-watermark-remover\//);
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/ai-metadata-remover\//);
+  assert.match(sitemap, /https:\/\/watermarkzero\.org\/turn-off-gemini-watermark\//);
+  assert.match(sitemap, /https:\/\/watermarkzero\.org\/pt\/remover-marca-dagua-gemini\//);
+  assert.match(sitemap, /https:\/\/watermarkzero\.org\/blog\/does-gemini-watermark-text\//);
+});
+
+test('new keyword pages have unique metadata, clear intent, and substantial copy', async () => {
+  const pages = [
+    {
+      file: 'public/turn-off-gemini-watermark/index.html',
+      canonical: `${SITE_ORIGIN}/turn-off-gemini-watermark/`,
+      h1: /how to turn off the gemini watermark/i,
+      required: [/Media watermark/i, /does not affect SynthID/i]
+    },
+    {
+      file: 'public/pt/remover-marca-dagua-gemini/index.html',
+      canonical: `${SITE_ORIGIN}/pt/remover-marca-dagua-gemini/`,
+      h1: /remover marca d['’]água do gemini/i,
+      required: [/processamento local/i, /\/pt\/#uploadArea/i]
+    },
+    {
+      file: 'public/blog/does-gemini-watermark-text/index.html',
+      canonical: `${SITE_ORIGIN}/blog/does-gemini-watermark-text/`,
+      h1: /does gemini watermark text/i,
+      required: [/SynthID Text/i, /token/i]
+    }
+  ];
+  const titles = new Set();
+  const descriptions = new Set();
+
+  for (const page of pages) {
+    const html = await readFile(page.file, 'utf8');
+    const title = html.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
+    const description = html.match(/<meta name="description" content="([^"]+)">/i)?.[1] || '';
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)">/i)?.[1] || '';
+    const main = html.match(/<main\b[\s\S]*?<\/main>/i)?.[0] || '';
+    const visibleWords = main
+      .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&[a-z0-9#]+;/gi, ' ')
+      .trim()
+      .split(/\s+/u)
+      .filter(Boolean);
+
+    assert.ok(title.length >= 30 && title.length <= 60, `${page.file} title ${title.length}/60`);
+    assert.ok(description.length >= 120 && description.length <= 160, `${page.file} description ${description.length}/160`);
+    assert.equal(canonical, page.canonical, page.file);
+    assert.match(html, new RegExp(`<h1[^>]*>[^<]*${page.h1.source}[^<]*<\\/h1>`, 'i'), page.file);
+    assert.ok(visibleWords.length >= 1500, `${page.file} has ${visibleWords.length}/1500 words`);
+    assert.match(html, /<html lang="(?:en|pt-BR)">/i, page.file);
+    assert.match(html, /href="\/(?:pt\/)?"/, page.file);
+    for (const pattern of page.required) assert.match(html, pattern, page.file);
+
+    for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+      assert.doesNotThrow(() => JSON.parse(json), page.file);
+    }
+
+    titles.add(title);
+    descriptions.add(description);
+  }
+
+  assert.equal(titles.size, pages.length);
+  assert.equal(descriptions.size, pages.length);
+});
+
+test('new keyword pages are linked from site hubs and llms.txt', async () => {
+  const home = await readFile('public/index.html', 'utf8');
+  const blog = await readFile('public/blog/index.html', 'utf8');
+  const llms = await readFile('public/llms.txt', 'utf8');
+  const paths = [
+    '/turn-off-gemini-watermark/',
+    '/pt/remover-marca-dagua-gemini/',
+    '/blog/does-gemini-watermark-text/'
+  ];
+
+  for (const path of paths) {
+    assert.ok(home.includes(`href="${path}"`) || blog.includes(`href="${path}"`), path);
+    assert.ok(llms.includes(`https://watermarkzero.org${path}`), path);
+  }
 });
 
 test('public copy does not expose internal SEO production language', async () => {

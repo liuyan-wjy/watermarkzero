@@ -107,7 +107,7 @@
   "learn.howto.desc": "Una página directa para usuarios que quieren primero el flujo de eliminación más seguro.",
   "learn.image.eyebrow": "Página de imagen",
   "learn.image.title": "Quitar marca de agua de Gemini de una imagen",
-  "learn.image.desc": "Una página long-tail para búsquedas de limpieza de imágenes JPG, PNG y WebP.",
+  "learn.image.desc": "Una página de soporte para limpiar imágenes JPG, PNG y WebP.",
   "learn.article1.eyebrow": "Artículo 01",
   "learn.article1.title": "Cómo funcionan las marcas de agua de Gemini",
   "learn.article1.desc": "Una explicación clara sobre la ubicación de la marca visible de Gemini, la restauración alfa inversa y por qué el inpainting genérico es otro problema.",

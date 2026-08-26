@@ -107,7 +107,7 @@
   "learn.howto.desc": "Une page directe pour les utilisateurs qui veulent d'abord le flux de suppression le plus sûr.",
   "learn.image.eyebrow": "Page image",
   "learn.image.title": "Supprimer le filigrane Gemini d'une image",
-  "learn.image.desc": "Une page longue traîne pour les recherches de nettoyage JPG, PNG et WebP.",
+  "learn.image.desc": "Une page de référence pour nettoyer les images JPG, PNG et WebP.",
   "learn.article1.eyebrow": "Article 01",
   "learn.article1.title": "Comment fonctionnent les filigranes Gemini",
   "learn.article1.desc": "Une explication simple du placement du filigrane visible Gemini, de la restauration alpha inverse et de la différence avec l'inpainting générique.",

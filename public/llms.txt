@@ -19,11 +19,14 @@ Important notes:
 - [Nano Banana watermark remover](https://watermarkzero.org/nano-banana-watermark-remover/): Compatibility guidance for images associated with Nano Banana models.
 - [Batch Gemini watermark remover](https://watermarkzero.org/batch-gemini-watermark-remover/): Local multi-file queue, skipped-file reporting, and ZIP download workflow.
 - [AI metadata remover](https://watermarkzero.org/ai-metadata-remover/): Local PNG and JPEG metadata inspection and cleaning for EXIF, GPS, XMP, IPTC, comments, and C2PA container data.
+- [Gemini media watermark setting](https://watermarkzero.org/turn-off-gemini-watermark/): Current instructions for turning the visible Gemini watermark on or off, including account and region limits.
+- [Removedor de marca d'água do Gemini](https://watermarkzero.org/pt/remover-marca-dagua-gemini/): Brazilian Portuguese guide to local visible-watermark cleanup and supported files.
 
 ## Technical and trust resources
 
 - [How Gemini watermarks work](https://watermarkzero.org/blog/how-gemini-watermarks-work/): Explanation of visible overlay blending and reverse alpha restoration.
 - [Visible Gemini watermark vs SynthID](https://watermarkzero.org/blog/visible-gemini-watermark-vs-synthid/): Distinguishes the removable visible logo from hidden provenance signals.
+- [Does Gemini watermark text?](https://watermarkzero.org/blog/does-gemini-watermark-text/): Explains SynthID Text, token probability modulation, detection limits, and how text watermarking differs from image cleanup.
 - [Test results](https://watermarkzero.org/blog/gemini-watermark-remover-test-results/): Documented support patterns, observed results, and failure cases.
 - [Troubleshooting](https://watermarkzero.org/blog/gemini-watermark-remover-troubleshooting/): Reasons an image may be skipped or produce an imperfect result.
 - [GitHub source](https://github.com/liuyan-wjy/watermarkzero): Source code and implementation details for the website and watermark-removal engine.
