@@ -12,7 +12,7 @@ import { TRANSLATIONS } from '../src/i18n/translations.js';
 const SITE_ORIGIN = 'https://watermarkzero.org';
 const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const distRoot = join(repoRoot, 'dist');
-const sourcePath = join(distRoot, 'index.html');
+const sourcePath = join(repoRoot, 'public', 'index.html');
 
 function escapeHtml(value) {
   return String(value)
@@ -97,14 +97,24 @@ function replaceI18nText(html, locale) {
 function writeLocalizedPage(template, locale) {
   const slug = LOCALE_CONFIG[locale].slug;
   const outputPath = slug ? join(distRoot, slug, 'index.html') : join(distRoot, 'index.html');
-  const html = replaceI18nText(replaceMeta(template, locale), locale);
+  const guides = {
+    'it-IT': ['come-rimuovere-logo-gemini', 'Come rimuovere il logo Gemini: guida con esempi'],
+    'es-ES': ['como-quitar-marca-de-agua-gemini', 'Cómo quitar la marca de agua de Gemini: guía con ejemplos'],
+    'pt-BR': ['remover-marca-dagua-gemini', "Como remover a marca d’água do Gemini: guia com exemplos"]
+  };
+  const guide = guides[locale];
+  const guideLink = guide
+    ? `<p class="mb-8"><a class="font-semibold text-emerald-700 underline underline-offset-4 dark:text-emerald-300" href="/${slug}/${guide[0]}/">${escapeHtml(guide[1])}</a></p>`
+    : '';
+  const html = replaceI18nText(replaceMeta(template, locale), locale)
+    .replace('<!-- LOCALIZED_GUIDE -->', guideLink);
 
   mkdirSync(dirname(outputPath), { recursive: true });
   writeFileSync(outputPath, html);
 }
 
 if (!existsSync(sourcePath)) {
-  throw new Error(`Missing built homepage at ${sourcePath}`);
+  throw new Error(`Missing homepage template at ${sourcePath}`);
 }
 
 const template = readFileSync(sourcePath, 'utf8');

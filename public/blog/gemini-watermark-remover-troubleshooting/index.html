@@ -28,7 +28,7 @@
           "description": "Troubleshoot Gemini watermark remover issues, unsupported files, visible artifacts, browser limits, screenshots, and failed downloads.",
           "image": "https://watermarkzero.org/og-cover.png",
           "datePublished": "2026-05-12",
-          "dateModified": "2026-05-12",
+          "dateModified": "2026-09-05",
           "author": {
             "@type": "Organization",
             "name": "Gemini Watermark Remover"
@@ -142,7 +142,7 @@
 
     <p class="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Troubleshooting</p>
     <h1 class="mt-4 text-4xl font-bold text-slate-900">Gemini watermark remover troubleshooting</h1>
-    <p class="mt-3 text-sm text-slate-500">Published May 12, 2026</p>
+    <p class="mt-3 text-sm text-slate-500">Published May 12, 2026 · Updated September 5, 2026</p>
     <p class="mt-5 text-sm leading-7 text-slate-600">If the Gemini watermark remover does not process your image, that does not always mean the tool is broken. The visible watermark may have been cropped, scaled, recompressed, or changed enough that a safe remover should stop rather than guess.</p>
 
     <section class="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50/90 p-6 shadow-sm">
@@ -183,7 +183,12 @@
               <tr>
                 <td class="border-b border-slate-100 py-4 pr-4 font-medium text-slate-900">A faint star outline remains</td>
                 <td class="border-b border-slate-100 py-4 pr-4">Compression or background texture made the blended watermark harder to reverse.</td>
-                <td class="border-b border-slate-100 py-4">Compare the preview at full size; try PNG or WebP source when available.</td>
+                <td class="border-b border-slate-100 py-4">Compare the preview at full size, check whether the outline follows the Gemini star shape, and try PNG or WebP source when available.</td>
+              </tr>
+              <tr>
+                <td class="border-b border-slate-100 py-4 pr-4 font-medium text-slate-900">A pale square remains but the star is gone</td>
+                <td class="border-b border-slate-100 py-4 pr-4">The image background was smooth or heavily compressed, so local restoration had less texture to match.</td>
+                <td class="border-b border-slate-100 py-4">Use the original export, avoid extra compression, and judge the result at the size where the image will be used.</td>
               </tr>
               <tr>
                 <td class="border-b border-slate-100 py-4 pr-4 font-medium text-slate-900">The lower-right corner looks blurred</td>
@@ -254,6 +259,7 @@
         <h2 class="text-2xl font-bold text-slate-900">How to judge the output</h2>
         <p class="mt-4 text-sm leading-7 text-slate-600">After processing, do not rely only on the small preview. Open the image at normal size and look at the lower-right corner for a few seconds. A good result should not show a bright star edge, a soft square, or an area that looks less detailed than the surrounding texture.</p>
         <p class="mt-4 text-sm leading-7 text-slate-600">If you see a faint artifact, decide based on the final use. A tiny mark may be acceptable for a draft or moodboard, but not for a product listing, client deliverable, or portfolio image. When in doubt, use the original export and try again before using a generic editor that may blur the corner more aggressively.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">If the question is about hidden AI provenance rather than the visible star/logo mark, check <a href="/blog/visible-gemini-watermark-vs-synthid/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">Visible Gemini watermark vs SynthID</a>. If you are trying to prevent marks on future generations, use <a href="/turn-off-gemini-watermark/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">turn off Gemini watermark</a>.</p>
       </section>
 
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -263,6 +269,8 @@
           <a href="/blog/visible-gemini-watermark-vs-synthid/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Visible Gemini watermark vs SynthID</a>
           <a href="/blog/how-to-remove-gemini-watermark/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">How to remove Gemini watermark safely</a>
           <a href="/blog/remove-gemini-watermark-online/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Remove Gemini watermark online</a>
+          <a href="/blog/does-gemini-watermark-text/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Does Gemini watermark text?</a>
+          <a href="/turn-off-gemini-watermark/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Turn off Gemini watermark</a>
         </div>
       </section>
     </article>

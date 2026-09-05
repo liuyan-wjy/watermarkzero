@@ -1,11 +1,47 @@
 import assert from 'node:assert/strict';
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, mkdtemp, mkdir, cp, rm } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 
 import siteWorker from '../../worker.mjs';
 import { TRANSLATIONS } from '../../src/i18n/translations.js';
 
 const SITE_ORIGIN = 'https://watermarkzero.org';
+
+test('localized generation keeps tutorial links and hreflang stable across repeated builds', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'watermarkzero-locales-'));
+  try {
+    for (const path of ['scripts', 'src/i18n', 'public']) await mkdir(join(directory, path), { recursive: true });
+    for (const path of ['package.json', 'scripts/generate-localized-pages.js', 'src/i18n/locales.js', 'src/i18n/translations.js', 'public/index.html']) {
+      await cp(path, join(directory, path));
+    }
+    const generate = () => execFileSync(process.execPath, [join(directory, 'scripts/generate-localized-pages.js')]);
+    generate();
+    const first = await readFile(join(directory, 'dist/it/index.html'), 'utf8');
+    generate();
+    assert.equal(await readFile(join(directory, 'dist/it/index.html'), 'utf8'), first);
+    assert.equal((first.match(/hreflang=/g) || []).length, 18);
+    for (const [locale, route] of [['it', 'come-rimuovere-logo-gemini'], ['es', 'como-quitar-marca-de-agua-gemini'], ['pt', 'remover-marca-dagua-gemini']]) {
+      const html = await readFile(join(directory, `dist/${locale}/index.html`), 'utf8');
+      assert.ok(html.includes(`href="/${locale}/${route}/"`), locale);
+      assert.doesNotMatch(html, /处理进度/);
+    }
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('initial batch progress uses the same translation key as runtime updates', async () => {
+  const html = await readFile('public/index.html', 'utf8');
+  const app = await readFile('src/app.js', 'utf8');
+  assert.match(html, /id="progressText"><span data-i18n="progress.text">Progress<\/span>: 0\/0/);
+  assert.match(app, /i18n\.t\('progress.text'\)/);
+  for (const [locale, dictionary] of Object.entries(TRANSLATIONS)) {
+    assert.ok(dictionary['progress.text'], locale);
+  }
+});
 
 function createEnv(html = '<!doctype html><html><head><link rel="canonical" href="/"></head><body></body></html>') {
   return {
@@ -49,6 +85,8 @@ test('indexable content routes consistently redirect to trailing slashes', async
     '/ai-metadata-remover',
     '/turn-off-gemini-watermark',
     '/pt/remover-marca-dagua-gemini',
+    '/it/come-rimuovere-logo-gemini',
+    '/es/como-quitar-marca-de-agua-gemini',
     '/blog/does-gemini-watermark-text',
     '/blog/how-to-remove-gemini-watermark'
   ]) {
@@ -87,11 +125,25 @@ test('new landing pages stay in the canonical sitemap', async () => {
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/ai-metadata-remover\//);
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/turn-off-gemini-watermark\//);
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/pt\/remover-marca-dagua-gemini\//);
+  assert.ok(sitemap.includes(`${SITE_ORIGIN}/it/come-rimuovere-logo-gemini/`));
+  assert.ok(sitemap.includes(`${SITE_ORIGIN}/es/como-quitar-marca-de-agua-gemini/`));
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/blog\/does-gemini-watermark-text\//);
 });
 
 test('new keyword pages have unique metadata, clear intent, and substantial copy', async () => {
   const pages = [
+    {
+      file: 'public/it/come-rimuovere-logo-gemini/index.html',
+      canonical: `${SITE_ORIGIN}/it/come-rimuovere-logo-gemini/`,
+      h1: /come rimuovere il logo gemini/i,
+      required: [/\/it\/#uploadArea/, /gemini-remover-it\.png/]
+    },
+    {
+      file: 'public/es/como-quitar-marca-de-agua-gemini/index.html',
+      canonical: `${SITE_ORIGIN}/es/como-quitar-marca-de-agua-gemini/`,
+      h1: /c[oó]mo quitar la marca de agua de gemini/i,
+      required: [/\/es\/#uploadArea/, /gemini-remover-es\.png/]
+    },
     {
       file: 'public/turn-off-gemini-watermark/index.html',
       canonical: `${SITE_ORIGIN}/turn-off-gemini-watermark/`,
@@ -132,11 +184,20 @@ test('new keyword pages have unique metadata, clear intent, and substantial copy
     assert.ok(title.length >= 30 && title.length <= 60, `${page.file} title ${title.length}/60`);
     assert.ok(description.length >= 120 && description.length <= 160, `${page.file} description ${description.length}/160`);
     assert.equal(canonical, page.canonical, page.file);
+    assert.equal((html.match(/<h1\b/gi) || []).length, 1, page.file);
     assert.match(html, new RegExp(`<h1[^>]*>[^<]*${page.h1.source}[^<]*<\\/h1>`, 'i'), page.file);
     assert.ok(visibleWords.length >= 1500, `${page.file} has ${visibleWords.length}/1500 words`);
-    assert.match(html, /<html lang="(?:en|pt-BR)">/i, page.file);
-    assert.match(html, /href="\/(?:pt\/)?"/, page.file);
+    assert.match(html, /<html lang="(?:en|pt-BR|it|es)">/i, page.file);
+    assert.match(html, /href="\/(?:(?:pt|it|es)\/)?"/, page.file);
     for (const pattern of page.required) assert.match(html, pattern, page.file);
+    if (/public\/(?:it|es)\//.test(page.file)) {
+      assert.doesNotMatch(html, /hreflang=/i, 'Tutorials must not be grouped with tool homepages');
+      assert.match(html, /"@type":\s*"Article"/);
+      assert.match(html, /"@type":\s*"BreadcrumbList"/);
+      for (const [, path] of html.matchAll(/<img[^>]+src="(\/[^\"]+)"/g)) {
+        assert.ok((await readFile(`public${path}`)).length > 0, `${page.file}: ${path}`);
+      }
+    }
 
     for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
       assert.doesNotThrow(() => JSON.parse(json), page.file);
@@ -155,6 +216,8 @@ test('new keyword pages are linked from site hubs and llms.txt', async () => {
   const blog = await readFile('public/blog/index.html', 'utf8');
   const llms = await readFile('public/llms.txt', 'utf8');
   const paths = [
+    '/it/come-rimuovere-logo-gemini/',
+    '/es/como-quitar-marca-de-agua-gemini/',
     '/turn-off-gemini-watermark/',
     '/pt/remover-marca-dagua-gemini/',
     '/blog/does-gemini-watermark-text/'
@@ -174,7 +237,7 @@ test('public copy does not expose internal SEO production language', async () =>
     const blog = await readFile(`public/blog/${file}`, 'utf8');
     assert.doesNotMatch(
       blog,
-      /keyword-focused|search-focused|search intent|search pages|give Google|long-tail[^<]*quer(?:y|ies)/i,
+      /keyword-focused|search-focused|search intent|search pages|give Google|long-tail[^<]*quer(?:y|ies)|this page targets people searching|product landing page|PDF intent|The MVP/i,
       file
     );
   }

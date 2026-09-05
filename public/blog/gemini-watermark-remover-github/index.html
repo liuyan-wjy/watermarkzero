@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gemini Watermark Remover GitHub Guide | Open Source Notes</title>
-  <meta name="description" content="Looking for Gemini watermark remover GitHub resources? Learn what the open-source remover does, how it differs from the hosted tool, and what to verify before self-hosting.">
+  <title>Gemini Watermark Remover on GitHub | Run Locally</title>
+  <meta name="description" content="Run the open-source Gemini watermark remover locally, compare the hosted WatermarkZero site with the upstream package, and test a sample image.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://watermarkzero.org/blog/gemini-watermark-remover-github/">
   <meta name="theme-color" content="#10B981">
-  <meta property="og:title" content="Gemini Watermark Remover GitHub Guide">
-  <meta property="og:description" content="How to evaluate Gemini watermark remover GitHub code, hosted tools, UserJS options, and self-hosting tradeoffs.">
+  <meta property="og:title" content="Gemini Watermark Remover on GitHub | Run Locally">
+  <meta property="og:description" content="Repository roles, local setup commands, sample processing, and safe self-hosting notes for the Gemini watermark remover.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://watermarkzero.org/blog/gemini-watermark-remover-github/">
   <meta property="og:image" content="https://watermarkzero.org/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Gemini Watermark Remover GitHub Guide">
-  <meta name="twitter:description" content="How to evaluate Gemini watermark remover GitHub code, hosted tools, UserJS options, and self-hosting tradeoffs.">
+  <meta name="twitter:title" content="Gemini Watermark Remover on GitHub | Run Locally">
+  <meta name="twitter:description" content="Repository roles, local setup commands, sample processing, and safe self-hosting notes for the Gemini watermark remover.">
   <meta name="twitter:image" content="https://watermarkzero.org/og-cover.png">
   <script type="application/ld+json">
     {
@@ -23,11 +23,11 @@
       "@graph": [
         {
           "@type": "Article",
-          "headline": "Gemini Watermark Remover GitHub Guide",
-          "description": "Looking for Gemini watermark remover GitHub resources? Learn what the open-source remover does, how it differs from the hosted tool, and what to verify before self-hosting.",
+          "headline": "Gemini Watermark Remover on GitHub | Run Locally",
+          "description": "Run the open-source Gemini watermark remover locally, compare the hosted WatermarkZero site with the upstream package, and test a sample image.",
           "image": "https://watermarkzero.org/og-cover.png",
           "datePublished": "2026-05-15",
-          "dateModified": "2026-05-15",
+          "dateModified": "2026-09-05",
           "author": {
             "@type": "Organization",
             "name": "WatermarkZero"
@@ -60,7 +60,7 @@
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Gemini Watermark Remover GitHub Guide",
+              "name": "Gemini Watermark Remover on GitHub",
               "item": "https://watermarkzero.org/blog/gemini-watermark-remover-github/"
             }
           ]
@@ -102,17 +102,17 @@
       <span>GitHub Guide</span>
     </nav>
 
-    <p class="mt-8 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Open source intent</p>
-    <h1 class="mt-4 text-4xl font-bold text-slate-900">Gemini watermark remover GitHub guide</h1>
-    <p class="mt-3 text-sm text-slate-500">Published May 15, 2026</p>
-    <p class="mt-5 text-sm leading-7 text-slate-600">People who search for <strong>Gemini watermark remover GitHub</strong> are usually not looking for another generic uploader. They want source code, self-hosting notes, a UserJS option, or proof that the remover is doing something specific to Gemini instead of sending images to an unknown API.</p>
+    <p class="mt-8 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Open-source setup</p>
+    <h1 class="mt-4 text-4xl font-bold text-slate-900">Gemini watermark remover on GitHub</h1>
+    <p class="mt-3 text-sm text-slate-500">Published May 15, 2026 · Updated September 5, 2026</p>
+    <p class="mt-5 text-sm leading-7 text-slate-600">Use this page when you want to inspect the source, run the remover locally, or self-host the same visible Gemini watermark workflow behind WatermarkZero. The hosted site is at <a href="https://github.com/liuyan-wjy/watermarkzero" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">liuyan-wjy/watermarkzero</a>; the upstream package and original engine live at <a href="https://github.com/GargantuaX/gemini-watermark-remover" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">GargantuaX/gemini-watermark-remover</a>.</p>
 
     <section class="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50/90 p-6 shadow-sm">
       <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Hosted option</p>
-          <h2 class="mt-3 text-2xl font-bold text-slate-900">Use the live tool before self-hosting</h2>
-          <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-600">Try one supported image first. If the workflow fits your use case, then inspect the source and deployment path.</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Fastest path</p>
+          <h2 class="mt-3 text-2xl font-bold text-slate-900">Try one image, then run the code</h2>
+          <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-600">The live tool is best for a quick browser check. The GitHub package is best when you need command-line cleanup, code review, or a self-hosted copy.</p>
         </div>
         <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Try the remover</a>
       </div>
@@ -120,14 +120,32 @@
 
     <article class="mt-10 space-y-8">
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">What to look for in GitHub code</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">A useful <strong>Gemini watermark remover GitHub</strong> repository should explain the algorithm, the supported image formats, and the exact watermark scope. Look for code that describes visible watermark restoration, not a vague AI inpainting endpoint. The important question is whether image pixels are processed locally and whether the code needs network access after the page loads.</p>
+        <h2 class="text-2xl font-bold text-slate-900">Repository roles</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600"><strong>WatermarkZero</strong> is the website you open in a browser, with image tools, batch downloads, tutorials, and deployment files. <strong>GargantuaX/gemini-watermark-remover</strong> is the upstream MIT-licensed package that exposes the core remover, SDK, command-line tool, and userscript notes.</p>
         <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-          <li>Check the license and whether commercial use is allowed for your project.</li>
-          <li>Review file permissions, browser APIs, and any external scripts before running a UserJS build.</li>
-          <li>Confirm that the README distinguishes visible Gemini marks from hidden watermark systems.</li>
+          <li>Use <a href="https://github.com/liuyan-wjy/watermarkzero" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">liuyan-wjy/watermarkzero</a> when you want the deployed website source.</li>
+          <li>Use <a href="https://github.com/GargantuaX/gemini-watermark-remover" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">GargantuaX/gemini-watermark-remover</a> when you want the reusable package, CLI, SDK, or userscript workflow.</li>
+          <li>Check the MIT license before copying package code into another app.</li>
           <li>Test an original Gemini export before relying on the code for batch work.</li>
         </ul>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">Run this website locally</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">These steps use the WatermarkZero repository. They were checked with Node.js 22 and pnpm 10.11.0. Install both before starting. In your first terminal, clone the site and start the development server:</p>
+        <div class="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 text-sm text-slate-100">
+          <pre class="overflow-x-auto p-5"><code>git clone https://github.com/liuyan-wjy/watermarkzero.git
+cd watermarkzero
+pnpm install --frozen-lockfile
+pnpm dev</code></pre>
+        </div>
+        <p class="mt-4 text-sm leading-7 text-slate-600">Open the local address printed by the server. Keep that terminal running while you use the tool. When finished, stop the development server with Ctrl+C before building, because both commands write to <code>dist</code>. From the same <code>watermarkzero</code> directory, build the site and process the included sample:</p>
+        <div class="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 text-sm text-slate-100">
+          <pre class="overflow-x-auto p-5"><code>pnpm build
+node bin/gwr.mjs remove src/assets/samples/debug1-source.png --output cleaned.png</code></pre>
+        </div>
+        <p class="mt-4 text-sm leading-7 text-slate-600">The included <code>debug1-source.png</code> sample is 1376 × 768 pixels. The command writes a PNG at the same dimensions to <code>cleaned.png</code>; open it beside the source and inspect the lower-right corner. For your own files, replace the input path and choose a new output filename so you keep the original. Prefer original Gemini exports over screenshots or social-media copies, which can change the watermark pixels.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">For the standalone SDK or userscript, follow the <a href="https://github.com/GargantuaX/gemini-watermark-remover#readme" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">upstream README</a>; its available commands may differ from this website fork.</p>
       </section>
 
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -163,9 +181,10 @@
       </section>
 
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Why this is not just a browser API wrapper</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">A credible Gemini watermark remover should not simply call a generic browser API and hope for a clean repaint. The value is in detecting the likely Gemini mark position, estimating the overlay behavior, and restoring the underlying pixels where possible. That is why the GitHub and self-hosting question matters: users want to know whether the code reflects a Gemini-specific restoration method.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">If you are reviewing an open-source implementation, compare it against the explanation in <a href="/blog/how-gemini-watermarks-work/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">How Gemini watermarks work</a>. The code and the public explanation should tell the same story.</p>
+        <h2 class="text-2xl font-bold text-slate-900">Where to inspect the algorithm</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">Start with <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">src/core/watermarkConfig.js</code> for the known Gemini size and anchor rules, then read <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">src/core/watermarkProcessor.js</code> for detection, candidate selection, reverse-alpha restoration, and final safety metadata. The file-oriented path enters through <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">bin/gwr.mjs</code> and <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">src/cli/gwrRemoveCommand.js</code>.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">The code should line up with the public explanation in <a href="/blog/how-gemini-watermarks-work/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">How Gemini watermarks work</a>: supported files are checked against expected visible Gemini mark patterns, restored locally where possible, and skipped when the match is too weak.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">This code path is for the visible Gemini mark. If your goal is to turn off future marks in Gemini exports, read <a href="/turn-off-gemini-watermark/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">how to turn off Gemini watermark prompts and exports</a>. If you are checking whether Gemini-generated writing can carry SynthID Text, read <a href="/blog/does-gemini-watermark-text/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">whether Gemini watermarks text</a>.</p>
       </section>
 
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -173,6 +192,7 @@
         <div class="mt-4 space-y-3 text-sm leading-7 text-slate-600">
           <p><a href="/blog/gemini-watermark-remover-extension/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">Extension and UserJS options</a> explains the browser automation path.</p>
           <p><a href="/blog/lossless-gemini-watermark-removal/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">Lossless Gemini watermark removal</a> explains what the algorithm can and cannot promise.</p>
+          <p><a href="/turn-off-gemini-watermark/" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">Turn off Gemini watermark</a> helps when you want to avoid the mark on future images instead of cleaning an existing export.</p>
           <p><a href="https://github.com/GargantuaX/gemini-watermark-remover" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">View the upstream open-source project on GitHub</a>.</p>
         </div>
       </section>

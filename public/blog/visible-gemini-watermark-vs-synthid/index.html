@@ -28,7 +28,7 @@
           "description": "Understand the difference between the visible Gemini watermark, Google SynthID, and what a Gemini watermark remover can and cannot remove.",
           "image": "https://watermarkzero.org/og-cover.png",
           "datePublished": "2026-05-12",
-          "dateModified": "2026-05-12",
+          "dateModified": "2026-09-05",
           "author": {
             "@type": "Organization",
             "name": "Gemini Watermark Remover"
@@ -121,8 +121,8 @@
 
     <p class="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Scope and trust</p>
     <h1 class="mt-4 text-4xl font-bold text-slate-900">Visible Gemini watermark vs SynthID</h1>
-    <p class="mt-3 text-sm text-slate-500">Published May 12, 2026</p>
-    <p class="mt-5 text-sm leading-7 text-slate-600">A lot of searches for <strong>remove Gemini watermark</strong> mix two different ideas: the visible Gemini mark you can see in the lower-right corner, and invisible provenance signals such as Google SynthID. WatermarkZero is intentionally about the first one only.</p>
+    <p class="mt-3 text-sm text-slate-500">Published May 12, 2026 · Updated September 5, 2026</p>
+    <p class="mt-5 text-sm leading-7 text-slate-600">Two different things are often called a Gemini watermark: the visible Gemini mark you can see in the lower-right corner, and invisible provenance signals such as Google SynthID. WatermarkZero is intentionally about the visible mark only.</p>
 
     <section class="mt-8 grid gap-4 md:grid-cols-3">
       <div class="rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
@@ -145,18 +145,30 @@
     <article class="mt-10 space-y-8">
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
         <h2 class="text-2xl font-bold text-slate-900">The visible Gemini watermark is a visual overlay</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">When people search for a <strong>Gemini logo remover</strong>, they are usually talking about the visible mark placed over image pixels. This mark changes what you see because it blends a light logo shape into the exported image.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">A <strong>Gemini logo remover</strong> handles the visible mark placed over image pixels. This mark changes what you see because it blends a light logo shape into the exported image.</p>
         <p class="mt-4 text-sm leading-7 text-slate-600">That makes visible watermark cleanup a pixel restoration task. A specialized remover can look for the known location and shape, then estimate the pixels underneath. This is why WatermarkZero can be useful while still being honest about its limits.</p>
       </section>
 
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
         <h2 class="text-2xl font-bold text-slate-900">SynthID is a different layer</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">Google DeepMind describes SynthID as technology for watermarking and identifying AI-generated content. In Google's own framing, it is about provenance and detection rather than a visible corner logo that a user can visually inspect.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">Google describes SynthID as an invisible watermarking technology used to help identify content generated or edited by Google AI models. Google also describes Content Credentials as provenance information that can summarize origin, edit history, and whether AI tools were involved.</p>
         <p class="mt-4 text-sm leading-7 text-slate-600">That is why this site avoids claiming hidden watermark removal. Removing or changing a visible Gemini mark is not the same thing as removing SynthID, bypassing detection, or changing how Google identifies AI-generated media.</p>
         <div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm leading-7 text-slate-600">
           <p class="font-semibold text-slate-900">Source context</p>
-          <p class="mt-2">For official background, see Google DeepMind's <a href="https://deepmind.google/models/synthid/" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">SynthID overview</a>.</p>
+          <p class="mt-2">For official background, see Google’s <a href="https://support.google.com/gemini/answer/16722517?hl=en" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">Gemini verification help page</a> and Google DeepMind’s <a href="https://deepmind.google/models/synthid/" target="_blank" rel="noopener noreferrer" class="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-4">SynthID overview</a>.</p>
         </div>
+      </section>
+
+      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900">How to verify AI-generated content with Gemini</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">Google’s current help page says signed-in Gemini users can upload one supported image, video, or audio file and ask a verification question such as whether the file was created or edited by Google AI. Google lists SynthID and Content Credentials as the two technologies used in that verification flow.</p>
+        <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-600">
+          <li>Go to Gemini while signed in with a personal or qualified Workspace account.</li>
+          <li>Add one file for verification; Google’s help page lists a 100 MB limit for a single file.</li>
+          <li>Ask whether the image, video, or audio was created or edited by Google AI.</li>
+          <li>If you are verifying a screenshot, crop tightly around the image and do not upload a collage.</li>
+        </ul>
+        <p class="mt-4 text-sm leading-7 text-slate-600">Use Google’s verification flow for provenance questions. Use WatermarkZero only when you need to clean the visible lower-right Gemini mark from a supported still image.</p>
       </section>
 
       <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -176,6 +188,7 @@
               <li>Hidden watermark removal.</li>
               <li>SynthID removal or detection bypass.</li>
               <li>Universal support for every AI image.</li>
+              <li>A guarantee that Google, C2PA tools, or other detectors will treat the file differently.</li>
             </ul>
           </div>
         </div>
@@ -199,6 +212,8 @@
           <a href="/blog/gemini-watermark-remover-troubleshooting/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Troubleshooting unsupported images</a>
           <a href="/blog/how-gemini-watermarks-work/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">How Gemini watermarks work</a>
           <a href="/blog/remove-gemini-watermark-online/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Remove Gemini watermark online</a>
+          <a href="/blog/does-gemini-watermark-text/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Does Gemini watermark text?</a>
+          <a href="/turn-off-gemini-watermark/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Turn off Gemini watermark</a>
         </div>
       </section>
     </article>

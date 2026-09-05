@@ -28,6 +28,8 @@ const SITEMAP_PATHS = [
   '/ai-metadata-remover/',
   '/turn-off-gemini-watermark/',
   '/pt/remover-marca-dagua-gemini/',
+  '/it/come-rimuovere-logo-gemini/',
+  '/es/como-quitar-marca-de-agua-gemini/',
   '/blog/',
   '/blog/how-gemini-watermarks-work/',
   '/blog/how-to-remove-gemini-watermark/',

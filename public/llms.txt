@@ -21,6 +21,8 @@ Important notes:
 - [AI metadata remover](https://watermarkzero.org/ai-metadata-remover/): Local PNG and JPEG metadata inspection and cleaning for EXIF, GPS, XMP, IPTC, comments, and C2PA container data.
 - [Gemini media watermark setting](https://watermarkzero.org/turn-off-gemini-watermark/): Current instructions for turning the visible Gemini watermark on or off, including account and region limits.
 - [Removedor de marca d'água do Gemini](https://watermarkzero.org/pt/remover-marca-dagua-gemini/): Brazilian Portuguese guide to local visible-watermark cleanup and supported files.
+- [Come rimuovere il logo Gemini](https://watermarkzero.org/it/come-rimuovere-logo-gemini/): Italian instructions for choosing an original image, checking the restored corner, and downloading individual images or a batch.
+- [Cómo quitar la marca de agua de Gemini](https://watermarkzero.org/es/como-quitar-marca-de-agua-gemini/): Spanish instructions for free local image cleanup, mobile downloads, and troubleshooting remaining marks.
 
 ## Technical and trust resources
 
