@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Batch Gemini Watermark Remover | Local Bulk Processing</title>
-  <meta name="description" content="Remove visible Gemini watermarks from multiple supported images with a local browser batch queue, ZIP download, and no image uploads.">
+  <meta name="description" content="Bulk remove visible Gemini watermarks locally from PNG, JPG, and WebP images up to 20 MB each. Review every result and download the PNG files together as a ZIP.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://watermarkzero.org/batch-gemini-watermark-remover/">
   <meta name="theme-color" content="#10B981">
@@ -115,42 +115,28 @@
       <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 1</p>
         <h2 class="mt-3 text-2xl font-bold text-slate-900">Choose the batch</h2>
-        <p class="mt-3 text-sm leading-7 text-slate-600">Select several original Gemini exports at once. Mixed JPG, PNG, and WebP files are accepted.</p>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Select several original Gemini exports at once. Mixed JPG, PNG, and WebP files are accepted, up to 20 MB per image. Start with a few files on a phone.</p>
       </article>
       <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 2</p>
         <h2 class="mt-3 text-2xl font-bold text-slate-900">Watch the queue</h2>
-        <p class="mt-3 text-sm leading-7 text-slate-600">Each file is checked and processed locally. Unsupported images are skipped instead of being blindly repainted.</p>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Keep the tab open while each file is checked locally. Read any error or skipped status: a completed queue does not mean a watermark was removed from every image.</p>
       </article>
       <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Step 3</p>
         <h2 class="mt-3 text-2xl font-bold text-slate-900">Review and download</h2>
-        <p class="mt-3 text-sm leading-7 text-slate-600">Inspect important images, then download the completed outputs together when the queue is done.</p>
+        <p class="mt-3 text-sm leading-7 text-slate-600">Compare each result, then use Download All for a ZIP of completed PNG outputs. The ZIP can include skipped images with no confirmed removal; check them before publishing.</p>
       </article>
     </section>
 
-    <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
-      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Why local batch processing</p>
-      <h2 class="mt-3 text-3xl font-bold text-slate-900">Fewer uploads, fewer repetitive clicks</h2>
-      <div class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-        <article class="rounded-3xl bg-slate-50 p-6">
-          <h3 class="text-lg font-bold text-slate-900">Private by design</h3>
-          <p class="mt-3 text-sm leading-7 text-slate-600">Image pixels remain on the device during processing.</p>
-        </article>
-        <article class="rounded-3xl bg-slate-50 p-6">
-          <h3 class="text-lg font-bold text-slate-900">Purpose-built</h3>
-          <p class="mt-3 text-sm leading-7 text-slate-600">The queue uses the same visible Gemini watermark restoration path for every supported file.</p>
-        </article>
-        <article class="rounded-3xl bg-slate-50 p-6">
-          <h3 class="text-lg font-bold text-slate-900">No signup</h3>
-          <p class="mt-3 text-sm leading-7 text-slate-600">Open the tool, select the batch, and process it without creating an account.</p>
-        </article>
-        <article class="rounded-3xl bg-slate-50 p-6">
-          <h3 class="text-lg font-bold text-slate-900">Clear failures</h3>
-          <p class="mt-3 text-sm leading-7 text-slate-600">A skipped file remains visible so you can retry with a better source.</p>
-        </article>
+    <section class="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
+      <h2 class="text-3xl font-bold text-slate-900">Check a sample before processing the folder</h2>
+      <p class="mt-4 text-sm leading-7 text-slate-600">These existing product images show the same scene before and after visible watermark cleanup. Look at the lower-right texture and shadow, then make the same comparison on one of your original exports. This example is not a success-rate or speed guarantee for a batch.</p>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <figure><img src="/examples/product-before.webp" alt="Gemini product sample before corner watermark cleanup" width="1264" height="848" loading="lazy" class="h-auto w-full rounded-2xl"><figcaption class="mt-2 text-sm text-slate-600">Before: check the visible mark near the corner.</figcaption></figure>
+        <figure><img src="/examples/product-after.webp" alt="The same product sample after visible watermark cleanup" width="1264" height="848" loading="lazy" class="h-auto w-full rounded-2xl"><figcaption class="mt-2 text-sm text-slate-600">After: compare the texture at full size.</figcaption></figure>
       </div>
-      <p class="mt-6 text-xs leading-6 text-slate-500">Capabilities checked July 2026 against the current <a href="https://github.com/liuyan-wjy/watermarkzero" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">WatermarkZero source</a>: multiple-file input, local queue processing, skipped-file reporting, and ZIP download.</p>
+      <p class="mt-5 text-sm leading-7 text-slate-600">See the <a href="/blog/gemini-watermark-remover-test-results/" class="font-semibold text-emerald-700 underline underline-offset-4">sample test results</a> for evidence and limits. The tool keeps image dimensions and exports PNG; it cannot promise recovery of details lost to compression or earlier edits.</p>
     </section>
 
     <section class="mt-10 grid gap-6 lg:grid-cols-2">
@@ -180,11 +166,11 @@
       <div class="mt-7 grid gap-5 lg:grid-cols-3">
         <article class="rounded-3xl bg-slate-50 p-6">
           <h3 class="text-lg font-bold text-slate-900">How many files can I select?</h3>
-          <p class="mt-3 text-sm leading-7 text-slate-600">Select a practical batch for your device. Very large files or batches may use more browser memory.</p>
+          <p class="mt-3 text-sm leading-7 text-slate-600">There is a 20 MB limit per image. The usable batch size depends on image dimensions and device memory; there is no guaranteed unlimited batch. Split the set if your browser becomes slow or reloads.</p>
         </article>
         <article class="rounded-3xl bg-slate-50 p-6">
           <h3 class="text-lg font-bold text-slate-900">Does it work offline?</h3>
-          <p class="mt-3 text-sm leading-7 text-slate-600">Processing is local after the page and required assets have loaded. Keep the tab open until downloads finish.</p>
+          <p class="mt-3 text-sm leading-7 text-slate-600">Processing is local after the page and required assets have loaded. Keep the tab open until downloads finish. On a phone, extract the ZIP in Files or a file manager before saving individual PNGs to Photos.</p>
         </article>
         <article class="rounded-3xl bg-slate-50 p-6">
           <h3 class="text-lg font-bold text-slate-900">Why was one file skipped?</h3>
@@ -198,7 +184,7 @@
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-300">Start the queue</p>
           <h2 class="mt-3 text-3xl font-bold">Process your Gemini image batch locally</h2>
-          <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Test one original export first, then select the rest when the result looks right.</p>
+          <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Test one original export first, then select the rest when the result looks right. Follow the <a href="/blog/remove-gemini-watermark-on-iphone-android/" class="font-semibold text-emerald-300 underline underline-offset-4">mobile download guide</a> if you cannot find the saved file.</p>
         </div>
         <a href="/#uploadArea" class="inline-flex shrink-0 items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-400">Open batch remover</a>
       </div>

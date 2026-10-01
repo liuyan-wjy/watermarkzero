@@ -182,11 +182,12 @@ function setupEventListeners() {
 
     // Paste support
     document.addEventListener('paste', (e) => {
-        const items = e.clipboardData.items;
+        const items = e.clipboardData?.items || [];
         const files = [];
         for (let i = 0; i < items.length; i++) {
-            if (items[i].kind === 'file' && items[i].type.startsWith('image/')) {
-                files.push(items[i].getAsFile());
+            if (items[i].kind === 'file') {
+                const file = items[i].getAsFile();
+                if (file) files.push(file);
             }
         }
         if (files.length > 0) handleFiles(files, 'paste');
@@ -217,12 +218,21 @@ function handleFileSelect(e) {
 
 function handleFiles(files, source = 'picker') {
     setStatusMessage('');
+    fileInput.value = '';
 
+    const errors = new Set();
     const validFiles = files.filter(file => {
-        if (!file.type.match('image/(jpeg|png|webp)')) return false;
-        if (file.size > 20 * 1024 * 1024) return false;
+        if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
+            errors.add(i18n.t('upload.error.format'));
+            return false;
+        }
+        if (file.size > 20 * 1024 * 1024) {
+            errors.add(i18n.t('upload.error.size'));
+            return false;
+        }
         return true;
     });
+    if (errors.size > 0) setStatusMessage([...errors].join(' '), 'warn');
 
     if (validFiles.length === 0) return;
 
@@ -329,7 +339,7 @@ function renderImageCardStatus(item) {
     }
 
     if (item.status === 'error') {
-        updateStatus(item.id, i18n.t('status.failed'));
+        updateStatus(item.id, i18n.t('upload.error.process'));
         return;
     }
 
@@ -390,6 +400,7 @@ async function processSingle(item) {
 
         document.getElementById('comparisonContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (error) {
+        setStatusMessage(i18n.t('upload.error.process'), 'warn');
         console.error(error);
         trackEvent('image_processing_failed', {
             processing_mode: 'single',
@@ -435,14 +446,6 @@ function createImageCard(item) {
 }
 
 async function processQueue() {
-    await Promise.all(imageQueue.map(async item => {
-        const img = await loadImage(item.file);
-        item.originalImg = img;
-        item.originalUrl = img.src;
-        document.getElementById(`result-${item.id}`).src = img.src;
-        zoom.attach(`#result-${item.id}`);
-    }));
-
     const concurrency = 3;
     for (let i = 0; i < imageQueue.length; i += concurrency) {
         await Promise.all(imageQueue.slice(i, i + concurrency).map(async item => {
@@ -452,6 +455,11 @@ async function processQueue() {
             renderImageCardStatus(item);
 
             try {
+                const img = await loadImage(item.file);
+                item.originalImg = img;
+                item.originalUrl = img.src;
+                document.getElementById(`result-${item.id}`).src = img.src;
+                zoom.attach(`#result-${item.id}`);
                 const processed = await processImageWithBestPath(item.file, item.originalImg);
                 item.processedMeta = processed.meta;
                 item.processedBlob = processed.blob;
@@ -471,12 +479,12 @@ async function processQueue() {
                 downloadBtn.onclick = () => downloadImage(item);
 
                 processedCount++;
-                updateProgress();
             } catch (error) {
                 item.status = 'error';
                 renderImageCardStatus(item);
                 console.error(error);
             }
+            updateProgress();
         }));
     }
 
@@ -527,7 +535,8 @@ function updateStatus(id, text, isHtml = false) {
 }
 
 function updateProgress() {
-    progressText.textContent = `${i18n.t('progress.text')}: ${processedCount}/${imageQueue.length}`;
+    const finishedCount = imageQueue.filter(item => item.status === 'completed' || item.status === 'error').length;
+    progressText.textContent = `${i18n.t('progress.text')}: ${finishedCount}/${imageQueue.length}`;
 }
 
 function updateDynamicTexts() {
@@ -603,8 +612,8 @@ async function downloadAll() {
     });
 
     const zip = new JSZip();
-    completed.forEach(item => {
-        const filename = `unwatermarked_${item.name.replace(/\.[^.]+$/, '')}.png`;
+    completed.forEach((item, index) => {
+        const filename = `${index + 1}_unwatermarked_${item.name.replace(/\.[^.]+$/, '')}.png`;
         zip.file(filename, item.processedBlob);
     });
 

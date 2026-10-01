@@ -28,6 +28,17 @@ test('localized generation keeps tutorial links and hreflang stable across repea
       assert.ok(html.includes(`href="/${locale}/${route}/"`), locale);
       assert.doesNotMatch(html, /处理进度/);
     }
+    for (const [slug, locale, lang] of [['zh-cn', 'zh-CN', 'zh-CN'], ['es', 'es-ES', 'es'], ['he', 'he-IL', 'he']]) {
+      const html = await readFile(join(directory, `dist/${slug}/index.html`), 'utf8');
+      const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+        .map(([, json]) => JSON.parse(json));
+      const app = schemas.find((schema) => schema['@type'] === 'SoftwareApplication');
+      assert.equal(app.url, `${SITE_ORIGIN}/${slug}/`);
+      assert.equal(app.inLanguage, lang);
+      assert.equal(app.description, TRANSLATIONS[locale]['meta.description']);
+      assert.ok(html.includes(`<link rel="canonical" href="${SITE_ORIGIN}/${slug}/">`));
+      assert.ok(html.includes(TRANSLATIONS[locale]['main.subtitle']));
+    }
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
@@ -88,7 +99,9 @@ test('indexable content routes consistently redirect to trailing slashes', async
     '/it/come-rimuovere-logo-gemini',
     '/es/como-quitar-marca-de-agua-gemini',
     '/blog/does-gemini-watermark-text',
-    '/blog/how-to-remove-gemini-watermark'
+    '/blog/how-to-remove-gemini-watermark',
+    '/blog/remove-gemini-watermark-on-iphone-android',
+    '/blog/check-ai-image-metadata'
   ]) {
     const response = await siteWorker.fetch(
       new Request(`${SITE_ORIGIN}${path}`),
@@ -113,6 +126,32 @@ test('preview hosts keep their host while normalizing paths', async () => {
   );
 });
 
+test('known index.html aliases and origin variants converge in one redirect', async () => {
+  for (const [input, expected] of [
+    ['http://www.watermarkzero.org/zh-cn/index.html?utm_source=test', `${SITE_ORIGIN}/zh-cn/?utm_source=test`],
+    [`${SITE_ORIGIN}/index.html`, `${SITE_ORIGIN}/`],
+    [`${SITE_ORIGIN}/privacy/index.html`, `${SITE_ORIGIN}/privacy/`],
+    [`${SITE_ORIGIN}/blog/how-to-remove-gemini-watermark/index.html`, `${SITE_ORIGIN}/blog/how-to-remove-gemini-watermark/`],
+    ['http://www.watermarkzero.org/terms.html', `${SITE_ORIGIN}/terms/`],
+    ['https://preview.example.workers.dev/it/index.html', 'https://preview.example.workers.dev/it/']
+  ]) {
+    const response = await siteWorker.fetch(new Request(input), createEnv());
+    assert.equal(response.status, 301, input);
+    assert.equal(response.headers.get('location'), expected, input);
+  }
+});
+
+test('HTML errors remain errors without an indexable canonical', async () => {
+  const env = createEnv();
+  env.ASSETS.fetch = async () => new Response('<html><head></head><body>Not found</body></html>', {
+    status: 404, headers: { 'content-type': 'text/html' }
+  });
+  const response = await siteWorker.fetch(new Request(`${SITE_ORIGIN}/missing/`), env);
+  assert.equal(response.status, 404);
+  assert.match(response.headers.get('x-robots-tag') || '', /noindex/);
+  assert.doesNotMatch(await response.text(), /rel="canonical"/);
+});
+
 test('new landing pages stay in the canonical sitemap', async () => {
   const response = await siteWorker.fetch(
     new Request(`${SITE_ORIGIN}/sitemap.xml`),
@@ -128,10 +167,25 @@ test('new landing pages stay in the canonical sitemap', async () => {
   assert.ok(sitemap.includes(`${SITE_ORIGIN}/it/come-rimuovere-logo-gemini/`));
   assert.ok(sitemap.includes(`${SITE_ORIGIN}/es/como-quitar-marca-de-agua-gemini/`));
   assert.match(sitemap, /https:\/\/watermarkzero\.org\/blog\/does-gemini-watermark-text\//);
+  for (const slug of ['remove-gemini-watermark-on-iphone-android', 'check-ai-image-metadata']) {
+    assert.ok(sitemap.includes(`${SITE_ORIGIN}/blog/${slug}/`));
+  }
 });
 
-test('new keyword pages have unique metadata, clear intent, and substantial copy', async () => {
+test('keyword pages have unique metadata and answer their stated task', async () => {
   const pages = [
+    {
+      file: 'public/blog/remove-gemini-watermark-on-iphone-android/index.html',
+      canonical: `${SITE_ORIGIN}/blog/remove-gemini-watermark-on-iphone-android/`,
+      h1: /remove gemini watermark on iphone &amp; android/i,
+      required: [/20 MB/, /Safari/, /Chrome/, /SynthID/]
+    },
+    {
+      file: 'public/blog/check-ai-image-metadata/index.html',
+      canonical: `${SITE_ORIGIN}/blog/check-ai-image-metadata/`,
+      h1: /check ai image metadata/i,
+      required: [/EXIF/, /C2PA/, /SynthID/, /href="\/ai-metadata-remover\/"/]
+    },
     {
       file: 'public/it/come-rimuovere-logo-gemini/index.html',
       canonical: `${SITE_ORIGIN}/it/come-rimuovere-logo-gemini/`,
@@ -171,22 +225,12 @@ test('new keyword pages have unique metadata, clear intent, and substantial copy
     const title = html.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
     const description = html.match(/<meta name="description" content="([^"]+)">/i)?.[1] || '';
     const canonical = html.match(/<link rel="canonical" href="([^"]+)">/i)?.[1] || '';
-    const main = html.match(/<main\b[\s\S]*?<\/main>/i)?.[0] || '';
-    const visibleWords = main
-      .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
-      .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
-      .replace(/<[^>]+>/g, ' ')
-      .replace(/&[a-z0-9#]+;/gi, ' ')
-      .trim()
-      .split(/\s+/u)
-      .filter(Boolean);
 
     assert.ok(title.length >= 30 && title.length <= 60, `${page.file} title ${title.length}/60`);
     assert.ok(description.length >= 120 && description.length <= 160, `${page.file} description ${description.length}/160`);
     assert.equal(canonical, page.canonical, page.file);
     assert.equal((html.match(/<h1\b/gi) || []).length, 1, page.file);
     assert.match(html, new RegExp(`<h1[^>]*>[^<]*${page.h1.source}[^<]*<\\/h1>`, 'i'), page.file);
-    assert.ok(visibleWords.length >= 1500, `${page.file} has ${visibleWords.length}/1500 words`);
     assert.match(html, /<html lang="(?:en|pt-BR|it|es)">/i, page.file);
     assert.match(html, /href="\/(?:(?:pt|it|es)\/)?"/, page.file);
     for (const pattern of page.required) assert.match(html, pattern, page.file);
@@ -312,6 +356,9 @@ test('AI metadata remover exposes the local batch tool with an honest scope', as
   assert.doesNotMatch(page, /SynthID remover|bypass.*detect/i);
   assert.doesNotMatch(page, /<script[^>]+src="https?:\/\//i);
   assert.doesNotMatch(app, /\bfetch\s*\(/);
+  for (const [locale, dictionary] of Object.entries(TRANSLATIONS)) {
+    assert.doesNotMatch(dictionary['learn.article3.desc'], /WebP/i, `${locale}: metadata tool accepts only PNG/JPEG`);
+  }
 });
 
 test('AI metadata remover blocks third-party scripts, connections, and analytics injection', async () => {

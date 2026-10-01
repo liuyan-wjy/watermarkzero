@@ -89,8 +89,9 @@ test.afterEach(() => {
   restoreGlobals();
 });
 
-test('should infer pt-BR locale from navigator language', async () => {
+test('canonical English homepage keeps its language despite browser or saved preferences', async () => {
   setupRuntime({
+    savedLocale: 'es-ES',
     navigatorLanguage: 'pt-PT',
     navigatorLanguages: ['pt-PT', 'en-US'],
     fetchImpl: async () => ({
@@ -102,7 +103,7 @@ test('should infer pt-BR locale from navigator language', async () => {
   });
 
   const i18n = await importFreshI18n();
-  assert.equal(i18n.locale, 'pt-BR');
+  assert.equal(i18n.locale, 'en-US');
 });
 
 test('loadTranslations should fetch stable locale url without timestamp busting', async () => {
@@ -147,6 +148,7 @@ test('init should fallback to en-US and always clear loading class when locale l
   const requested = [];
   const { removedClasses } = setupRuntime({
     savedLocale: 'fr-FR',
+    pathname: '/fr/',
     navigatorLanguage: 'fr-FR',
     navigatorLanguages: ['fr-FR'],
     fetchImpl: async (url) => {

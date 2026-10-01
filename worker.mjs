@@ -43,7 +43,9 @@ const SITEMAP_PATHS = [
   '/blog/gemini-watermark-remover-extension/',
   '/blog/gemini-watermark-remover-pdf/',
   '/blog/lossless-gemini-watermark-removal/',
-  '/blog/does-gemini-watermark-text/'
+  '/blog/does-gemini-watermark-text/',
+  '/blog/remove-gemini-watermark-on-iphone-android/',
+  '/blog/check-ai-image-metadata/'
 ];
 const NOINDEX_PATHS = new Set(['/privacy/', '/terms/', '/privacy.html', '/terms.html']);
 const PRIVACY_TOOL_PATHS = new Set(['/ai-metadata-remover/', '/ai-metadata-remover/index.html']);
@@ -207,12 +209,24 @@ export default {
     const siteUrl = new URL(siteOrigin);
     const apexHostname = siteUrl.hostname;
     const redirectOrigin = canonicalRequest ? siteOrigin : url.origin;
+    let canonicalPath = LEGACY_PATH_REDIRECTS.get(url.pathname) || url.pathname;
+    if (canonicalPath.endsWith('/index.html')) {
+      const directory = canonicalPath.slice(0, -'index.html'.length);
+      if (SITEMAP_PATHS.includes(directory) || NOINDEX_PATHS.has(directory)) {
+        canonicalPath = directory;
+      }
+    }
+    if (TRAILING_SLASH_PATHS.has(canonicalPath)) canonicalPath += '/';
 
     if (
       (url.protocol === 'http:' && siteUrl.protocol === 'https:' && url.hostname === apexHostname) ||
       url.hostname === `www.${apexHostname}`
     ) {
-      return Response.redirect(`${siteOrigin}${url.pathname}${url.search}`, 301);
+      return Response.redirect(`${siteOrigin}${canonicalPath}${url.search}`, 301);
+    }
+
+    if (canonicalPath !== url.pathname) {
+      return Response.redirect(`${redirectOrigin}${canonicalPath}${url.search}`, 301);
     }
 
     if (url.pathname === '/robots.txt') {
@@ -239,23 +253,14 @@ export default {
       });
     }
 
-    const legacyTarget = LEGACY_PATH_REDIRECTS.get(url.pathname);
-    if (legacyTarget) {
-      return Response.redirect(`${redirectOrigin}${legacyTarget}${url.search}`, 301);
-    }
-
-    if (TRAILING_SLASH_PATHS.has(url.pathname)) {
-      return Response.redirect(`${redirectOrigin}${url.pathname}/${url.search}`, 301);
-    }
-
     const assetResponse = await env.ASSETS.fetch(request);
     const contentType = assetResponse.headers.get('content-type') || '';
-    const rewrittenResponse = contentType.includes('text/html')
+    const rewrittenResponse = assetResponse.ok && contentType.includes('text/html')
       ? await rewriteHtmlMetadata(assetResponse, url, env)
       : assetResponse;
     return withHeaders(rewrittenResponse, {
       pathname: url.pathname,
-      robotsTag: getRobotsTag(url, canonicalRequest)
+      robotsTag: assetResponse.status >= 400 ? 'noindex, follow' : getRobotsTag(url, canonicalRequest)
     });
   }
 };

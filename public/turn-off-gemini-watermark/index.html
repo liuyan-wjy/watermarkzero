@@ -28,7 +28,7 @@
           "description": "Turn off the visible Gemini Media watermark for future images, videos, and music. Check account limits, SynthID details, and options for downloaded files.",
           "image": "https://watermarkzero.org/og-cover.png",
           "datePublished": "2026-08-26",
-          "dateModified": "2026-08-26",
+          "dateModified": "2026-10-01",
           "author": {
             "@type": "Organization",
             "name": "WatermarkZero"
@@ -95,7 +95,7 @@
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
   <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-      <a href="/" class="text-sm font-bold tracking-tight text-emerald-600 md:text-xl">Gemini <span class="font-medium text-slate-700">Watermark Remover</span></a>
+      <a href="/" class="text-sm font-bold tracking-tight text-emerald-600 md:text-xl">Watermark<span class="font-medium text-slate-700">Zero</span></a>
       <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
         <a href="/" class="hover:text-emerald-600">Tool</a>
         <a href="/blog/" class="hover:text-emerald-600">Articles</a>
@@ -113,113 +113,43 @@
 
     <p class="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Gemini settings guide</p>
     <h1 class="mt-4 text-4xl font-bold text-slate-900">How to turn off the Gemini watermark</h1>
-    <p class="mt-3 text-sm text-slate-500">Published August 26, 2026</p>
-    <p class="mt-5 text-sm leading-7 text-slate-600">To <strong>turn off the Gemini watermark</strong> for future media, open Gemini Apps settings, find the Media watermark control, and switch it off if the setting is available in your account and region. Google documents this as a setting for visible watermarks on media created in Gemini Apps, including images, videos, and music. It is not a hidden watermark control, and it does not remove marks from files you have already downloaded.</p>
+    <p class="mt-3 text-sm text-slate-500">Updated October 1, 2026 · Settings checked against Google Help</p>
+    <p class="mt-5 text-base leading-8 text-slate-600">To <strong>turn off the Gemini watermark</strong>, open Gemini, go to <strong>Settings → Media watermark</strong>, and switch it off. The change applies to media you create afterward. It does not update images you have already downloaded.</p>
 
-    <section class="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50/90 p-6 shadow-sm">
-      <h2 class="text-2xl font-bold text-slate-900">Quick answer</h2>
-      <ol class="mt-4 list-decimal space-y-3 pl-5 text-sm leading-7 text-slate-700">
-        <li>Open Gemini Apps in the account you use to generate images or other media.</li>
-        <li>Open Settings and look for the Media watermark setting described in Google's official Gemini Help article.</li>
-        <li>Turn Media watermark off if the option appears for your account.</li>
-        <li>Create a new image or media file after changing the setting. The switch is for future Gemini Apps output, not for older downloads.</li>
-        <li>If you already exported an image with a visible Gemini corner mark, use a visible watermark cleanup workflow and inspect the result manually.</li>
-      </ol>
-      <p class="mt-4 text-sm leading-7 text-slate-700">Official reference: Google's <a href="https://support.google.com/gemini/answer/17405358?hl=en-GB" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">Gemini Apps Media watermark Help page</a>. Google notes that the feature depends on account and region availability, so two users may not see the same setting on the same date.</p>
-      <div class="mt-5 flex flex-col gap-3 sm:flex-row">
-        <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Clean an existing image</a>
-        <a href="/blog/visible-gemini-watermark-vs-synthid/" class="inline-flex items-center justify-center rounded-full border border-emerald-200 bg-white px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:border-emerald-400">Visible mark vs SynthID</a>
-      </div>
-    </section>
-
-    <article class="mt-10 space-y-8">
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">What the Gemini Media watermark setting actually controls</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">The setting is best understood as a preference for visible media labels on future Gemini Apps creations. When the setting is on, Gemini may add a visible watermark to generated media. When the setting is off, Gemini may stop adding that visible watermark to newly generated media where the feature is available. The important part is the word visible. This is about the mark a person can see in the corner or on the generated asset, not every provenance signal that may exist inside or around an AI-generated file.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">Several requests are easy to mix together: turning off the Gemini watermark, disabling it for future media, removing it from an existing image, and checking the file for provenance metadata. They sound similar, but they do not mean the same thing. Turning off a Gemini setting is a prevention step for new output. Removing a visible mark from a downloaded image is an editing step. Checking whether an image carries AI provenance metadata is a separate metadata question. SynthID is separate again.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">If your goal is to stop visible marks from appearing on media you will create next, start with the Gemini Apps setting. If your goal is to clean an image you already saved, use the browser tool on this site and compare before downloading. If your goal is to understand hidden AI provenance, read the scope notes below before assuming a visible watermark setting can change it.</p>
+    <article class="mt-8 space-y-6">
+      <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">Turn off Media watermark for new images</h2>
+        <ol class="mt-4 list-decimal space-y-3 pl-5 text-sm leading-7 text-slate-700">
+          <li>Open Gemini with the Google account you use to create images.</li>
+          <li>Open <strong>Settings</strong>, then <strong>Media watermark</strong>.</li>
+          <li>Switch off the visible watermark.</li>
+          <li>Generate and download a new image. Check the downloaded file, rather than an older preview or an image saved before the change.</li>
+        </ol>
+        <p class="mt-4 text-sm leading-7 text-slate-600">Google describes this control for visible watermarks on images, videos, and music created in Gemini Apps. For the current interface and availability, see <a href="https://support.google.com/gemini/answer/17405358?hl=en-GB" class="font-semibold text-emerald-700 underline underline-offset-4">Google's Media watermark instructions</a>, checked October 1, 2026.</p>
       </section>
 
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Step-by-step: turn off visible watermarks for future Gemini output</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">Start in Gemini Apps, not in a downloaded file. Use the same Google account that generates your images or media, because availability can depend on the account type and region. Open the settings area and look for Media watermark. If the control is present, turn it off, then generate a fresh media item to confirm the output you get after the change. Do not use an old file as the test, because exported images do not update themselves after you change a preference.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">If you do not see the setting, first check whether you are signed in to the expected account. Many people use one personal account, one work account, and sometimes a browser profile that silently switches between them. A missing Media watermark setting can also be caused by regional availability or account restrictions. In that case, the practical next step is not to dig through image editors. It is to verify the account context and re-check Google's Help page for your locale.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">After switching the setting off, generate a simple test image. Use a prompt that is easy to inspect, such as a plain product photo, poster mockup, or clean illustration with a light background. Then look at the usual watermark area at full size. If the visible mark is gone in newly generated files, the setting is doing what you need. If it remains, treat that as either an availability limitation, an account state issue, or a Gemini product behavior that has changed since you last checked.</p>
+      <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">Why is the Gemini watermark toggle missing?</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">In <strong>India, South Korea, and Vietnam</strong>, Google says only <strong>Google AI Ultra subscribers</strong> can see this setting. That is a specific regional restriction; do not assume every account worldwide needs Ultra.</p>
+        <ul class="mt-4 list-disc space-y-3 pl-5 text-sm leading-7 text-slate-600">
+          <li>Check the signed-in account. A second browser profile may use a different account from the one where you generate images.</li>
+          <li>Compare your settings with Google's instructions for your device and region. Menu placement can differ between the app and browser.</li>
+          <li>If the option is unavailable, use an existing-image workflow for a downloaded image. WatermarkZero does not change your Gemini account settings.</li>
+        </ul>
+        <p class="mt-4 text-sm leading-7 text-slate-600">If a new image still shows a mark, first confirm that it was generated after you changed the setting in the same account. Keep the original download so you can compare it with any edited copy.</p>
       </section>
 
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">What to do with images you already downloaded</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">A settings change does not rewrite image files that are already on your computer. If an existing PNG, JPG, or WebP contains a visible Gemini watermark, that mark is part of the pixels in that file. You need a cleanup step, not a Gemini account setting. That is where the main WatermarkZero tool fits: it attempts local browser cleanup of the visible Gemini mark and lets you inspect the result before saving.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">Use the <a href="/#uploadArea" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">homepage uploader</a> when you already have the file. The workflow is intentionally narrow: load the image in the browser, process it locally, compare the before and after state, and download only when the result is good enough. This is different from a server queue or a generic retouching service. The file should not need to leave your device for the visible watermark cleanup task.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">For best results, use the original Gemini export rather than a screenshot, a compressed social media copy, or an image that has already been resized several times. Every extra edit can change the watermark edges and make a specialized remover less confident. If you only have a screenshot, the tool may still help, but inspect the corner closely and keep the original file until you are sure the cleaned copy is acceptable.</p>
+      <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">Remove the visible mark from an existing download</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600">A watermark in an older PNG, JPG, or WebP is already part of that file's pixels. Open the original export in the <a href="/#uploadArea" class="font-semibold text-emerald-700 underline underline-offset-4">local image tool</a>, compare the lower-right corner, and save the PNG if the result looks clean. The limit is 20 MB per image. Your image is processed in the browser.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">Start with the original Gemini download. Screenshots, cropped edges, and compressed chat attachments can change the watermark pattern and leave a faint outline. If a file is skipped or the repaired area looks wrong, use the <a href="/blog/gemini-watermark-remover-troubleshooting/" class="font-semibold text-emerald-700 underline underline-offset-4">troubleshooting guide</a>. Repeatedly processing a damaged copy is not a reliable fix.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">For several images, use the <a href="/batch-gemini-watermark-remover/" class="font-semibold text-emerald-700 underline underline-offset-4">batch queue and ZIP download</a>. On a phone, follow the <a href="/blog/remove-gemini-watermark-on-iphone-android/" class="font-semibold text-emerald-700 underline underline-offset-4">iPhone and Android save-and-download steps</a>.</p>
       </section>
 
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Media watermark is not SynthID or Content Credentials</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">This is the point that prevents most confusion. The Media watermark setting documented by Google is about visible watermarks in Gemini Apps media. It does not affect SynthID. It does not remove Content Credentials. It does not promise that an AI-generated image becomes undetectable, anonymous, or free of provenance signals. If a page or tool claims one visible switch can remove every trace of AI generation, treat that as an overclaim.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">SynthID is Google's invisible watermarking and identification technology for AI-generated content. It is not the same as a corner logo. Content Credentials are also a different layer, usually discussed in the context of provenance, origin, and editing history. A visible mark can be annoying when you are preparing a design mockup or social image, but it is only one visible layer. It should not be confused with provenance systems that are designed for transparency and verification.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">WatermarkZero follows the same separation. The main image tool is for visible Gemini watermark cleanup. The <a href="/ai-metadata-remover/" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">AI metadata remover</a> is for local container metadata cleanup in PNG and JPEG files. Neither tool claims to remove SynthID, bypass AI detection, or change the ethical status of a generated image. That narrower wording is intentional because it matches what a browser-based utility can responsibly do.</p>
-      </section>
-
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Why "hide Gemini watermark" is usually the wrong mental model</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">People often search for "hide Gemini watermark" when they mean one of two things. The first meaning is "stop Gemini from adding it next time." For that, use the Media watermark setting if available. The second meaning is "make the visible mark disappear on this existing picture." For that, you need local image restoration or manual retouching. "Hide" is vague because it can imply covering the mark with a crop, sticker, blur, or overlay, and those shortcuts often reduce image quality.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">Cropping may work when the watermark sits in an empty margin, but it changes composition and output size. Painting over the mark with a solid color may work on a flat background, but it looks poor on textured areas. Generic object removal can work on some images, but it may hallucinate detail or blur fine edges. A Gemini-specific visible watermark remover is narrower, which can be an advantage when the task is exactly that watermark and the original file is clean enough.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">The practical rule is simple: prevent first, clean second. Use Gemini's setting before creating new media. Use a visible watermark cleanup tool for existing exports. Use metadata tools only when the question is file metadata. Keep SynthID and Content Credentials in a separate mental bucket. That structure saves time because each task points to the right kind of tool instead of one overloaded search phrase.</p>
-      </section>
-
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Troubleshooting when the setting is missing or does not work</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">If you cannot find Media watermark, confirm the basics before assuming Gemini removed the option. Check the account in the top corner. Try the official Gemini Apps interface instead of a third-party wrapper. Review Google's Help article in your own language or region. Some features roll out unevenly, and the Help page itself notes availability limits. A setting that appears in one account may not appear in another account, even on the same computer.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">If the setting is present but new images still show a visible mark, generate another test after refreshing the page. Also check whether you are looking at a cached or previously downloaded image. If you use automated workflows, browser extensions, or shared team accounts, confirm which account actually generated the file. In mixed workflows, the person who downloaded the image may not be the person whose settings controlled the output.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">If the mark remains on an older file, that is expected. Use the main <a href="/remove-gemini-watermark/" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">remove Gemini watermark</a> page or the homepage uploader. If cleanup fails, see the <a href="/blog/gemini-watermark-remover-troubleshooting/" class="font-semibold text-emerald-700 underline decoration-emerald-300 underline-offset-4">troubleshooting guide</a> for file quality, screenshots, resizing, and unsupported cases.</p>
-      </section>
-
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Decision guide: setting, remover, or metadata cleaner</h2>
-        <div class="mt-5 grid gap-4 md:grid-cols-3">
-          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-            <h3 class="text-lg font-bold text-slate-900">Use Gemini settings</h3>
-            <p class="mt-3 text-sm leading-6 text-slate-600">Choose this when you want future Gemini Apps media to stop showing the visible watermark and the Media watermark setting is available.</p>
-          </div>
-          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-            <h3 class="text-lg font-bold text-slate-900">Use WatermarkZero</h3>
-            <p class="mt-3 text-sm leading-6 text-slate-600">Choose this when you already downloaded an image and need local cleanup of the visible Gemini corner mark.</p>
-          </div>
-          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-            <h3 class="text-lg font-bold text-slate-900">Use metadata cleanup</h3>
-            <p class="mt-3 text-sm leading-6 text-slate-600">Choose this when your concern is EXIF, GPS, XMP, IPTC, comments, or C2PA-style container metadata in PNG or JPEG files.</p>
-          </div>
-        </div>
-        <p class="mt-5 text-sm leading-7 text-slate-600">The cleanest workflow uses all three ideas in the right order. First, disable the visible watermark for future output if Gemini gives your account that setting. Second, process existing files locally only when the visible mark is actually present. Third, clean metadata only when you have a privacy or publishing reason to remove file-level metadata. This keeps the work specific and avoids unnecessary edits.</p>
-      </section>
-
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Practical publishing checklist</h2>
-        <p class="mt-4 text-sm leading-7 text-slate-600">Before publishing a Gemini-generated image, inspect it at full size. Look at the lower-right area and any light background where a visible watermark may be easy to miss. Confirm whether the image came from a new generation after your setting change or from an older export. If you cleaned a visible mark, compare the result against the original and zoom into edges, shadows, and text-like areas.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">For client work, ads, app store graphics, thumbnails, or marketplace listings, keep a clean folder structure. Store the original export, the cleaned visible-watermark copy, and the final compressed publishing copy separately. That way you can go back if compression introduces artifacts or if you later need to prove what changed. A simple file naming convention is enough: project-original, project-cleaned, and project-final.</p>
-        <p class="mt-4 text-sm leading-7 text-slate-600">Also decide what level of disclosure your use case requires. Removing a visible mark for layout quality does not decide whether you should disclose AI assistance, whether a platform requires provenance labels, or whether a client expects original photography. Those decisions sit outside the tool. The tool's job is narrower: help with visible Gemini mark cleanup and metadata privacy where appropriate.</p>
-      </section>
-
-      <section class="rounded-3xl border border-emerald-200 bg-emerald-50/90 p-6 shadow-sm">
-        <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Existing download?</p>
-            <h2 class="mt-3 text-2xl font-bold text-slate-900">Clean the visible Gemini mark locally</h2>
-            <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-600">If the image already has a visible mark, changing Gemini settings will not update it. Upload the file locally, compare the result, and download only if the cleanup looks right.</p>
-          </div>
-          <a href="/#uploadArea" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Open the local tool</a>
-        </div>
-      </section>
-
-      <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-slate-900">Related reading</h2>
-        <div class="mt-4 grid gap-3 text-sm leading-7 text-slate-600 md:grid-cols-2">
-          <a href="/blog/visible-gemini-watermark-vs-synthid/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">Visible Gemini watermark vs SynthID</a>
-          <a href="/blog/how-to-remove-gemini-watermark/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">How to remove Gemini watermark safely</a>
-          <a href="/blog/how-gemini-watermarks-work/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">How Gemini watermarks work</a>
-          <a href="/ai-metadata-remover/" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-medium text-emerald-700 hover:border-emerald-300">AI metadata remover</a>
-        </div>
+      <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">Does switching it off remove SynthID or Content Credentials?</h2>
+        <p class="mt-4 text-sm leading-7 text-slate-600"><strong>No.</strong> Google states that the Media watermark setting does not affect SynthID or Content Credentials (C2PA). An image without a visible logo can still carry provenance signals.</p>
+        <p class="mt-4 text-sm leading-7 text-slate-600">WatermarkZero's image tool works on the visible Gemini mark. Its separate <a href="/ai-metadata-remover/" class="font-semibold text-emerald-700 underline underline-offset-4">PNG and JPEG metadata cleaner</a> removes supported file-container metadata; it does not detect or remove SynthID. Read <a href="/blog/check-ai-image-metadata/" class="font-semibold text-emerald-700 underline underline-offset-4">how to check AI image metadata</a> if you need to distinguish EXIF, C2PA, and signals in the image content.</p>
       </section>
     </article>
   </main>

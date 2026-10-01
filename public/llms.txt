@@ -6,7 +6,8 @@ WatermarkZero specializes in reversing a known visible overlay pattern rather th
 
 Important notes:
 - The tool targets the visible Gemini logo watermark only.
-- It does not remove SynthID or other hidden provenance signals.
+- The visible-watermark tool does not remove SynthID or claim to make AI images undetectable. The separate metadata tool removes supported container metadata; it does not remove pixel-level watermarks.
+- The visible-watermark tool accepts JPG, PNG, and WebP up to 20 MB per file and exports PNG. The metadata tool accepts PNG and JPEG up to 20 MB per file.
 - Results depend on the watermark pattern and image dimensions. Unsupported files may be skipped without modification.
 - Users should only edit images they own or are authorized to modify.
 
@@ -31,6 +32,8 @@ Important notes:
 - [Does Gemini watermark text?](https://watermarkzero.org/blog/does-gemini-watermark-text/): Explains SynthID Text, token probability modulation, detection limits, and how text watermarking differs from image cleanup.
 - [Test results](https://watermarkzero.org/blog/gemini-watermark-remover-test-results/): Documented support patterns, observed results, and failure cases.
 - [Troubleshooting](https://watermarkzero.org/blog/gemini-watermark-remover-troubleshooting/): Reasons an image may be skipped or produce an imperfect result.
+- [iPhone and Android guide](https://watermarkzero.org/blog/remove-gemini-watermark-on-iphone-android/): Save an original Gemini image, process it in a mobile browser, and download the result.
+- [Check AI image metadata](https://watermarkzero.org/blog/check-ai-image-metadata/): Inspect container metadata and distinguish EXIF, C2PA, and pixel-level SynthID before choosing a cleanup tool.
 - [GitHub source](https://github.com/liuyan-wjy/watermarkzero): Source code and implementation details for the website and watermark-removal engine.
 
 ## Optional

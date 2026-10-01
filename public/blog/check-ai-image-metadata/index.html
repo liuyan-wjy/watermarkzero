@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check AI Image Metadata: EXIF, C2PA &amp; SynthID</title>
+  <meta name="description" content="Check PNG and JPEG image metadata before sharing. Learn what EXIF, GPS, XMP and Content Credentials reveal, what cleanup preserves, and why SynthID differs.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://watermarkzero.org/blog/check-ai-image-metadata/">
+  <meta name="theme-color" content="#10B981">
+  <meta property="og:title" content="Check AI Image Metadata: EXIF, C2PA &amp; SynthID">
+  <meta property="og:description" content="Check PNG and JPEG image metadata before sharing. Learn what EXIF, GPS, XMP and Content Credentials reveal, what cleanup preserves, and why SynthID differs.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://watermarkzero.org/blog/check-ai-image-metadata/">
+  <meta property="og:image" content="https://watermarkzero.org/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Check AI Image Metadata: EXIF, C2PA &amp; SynthID">
+  <meta name="twitter:description" content="Check PNG and JPEG image metadata before sharing. Learn what EXIF, GPS, XMP and Content Credentials reveal, what cleanup preserves, and why SynthID differs.">
+  <meta name="twitter:image" content="https://watermarkzero.org/og-cover.png">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Check AI Image Metadata: EXIF, C2PA & SynthID",
+      "description": "Check PNG and JPEG image metadata before sharing. Learn what EXIF, GPS, XMP and Content Credentials reveal, what cleanup preserves, and why SynthID differs.",
+      "image": "https://watermarkzero.org/og-cover.png",
+      "datePublished": "2026-10-01",
+      "dateModified": "2026-10-01",
+      "author": {
+        "@type": "Organization",
+        "name": "WatermarkZero"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WatermarkZero"
+      },
+      "mainEntityOfPage": "https://watermarkzero.org/blog/check-ai-image-metadata/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://watermarkzero.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://watermarkzero.org/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Check AI Image Metadata: EXIF, C2PA & SynthID",
+          "item": "https://watermarkzero.org/blog/check-ai-image-metadata/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    main { overflow-wrap: anywhere; }
+    pre { overflow-wrap: normal; }
+    h1, h2, h3 { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+
+<div class="mx-auto flex min-h-16 flex-wrap gap-2 py-3 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <a href="/" class="text-sm font-bold tracking-tight text-emerald-600 md:text-xl">Gemini <span class="font-medium text-slate-700">Watermark Remover</span></a>
+      <nav class="flex items-center gap-3 text-sm font-medium text-slate-600">
+        <a href="/" class="hover:text-emerald-600">Tool</a>
+        <a href="/blog/" class="hover:text-emerald-600">Articles</a>
+      </nav>
+    </div>
+  </header>
+
+<main class="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
+<nav aria-label="Breadcrumb" class="text-sm text-slate-500"><a href="/" class="font-medium text-emerald-700 underline underline-offset-4">Home</a> / <a href="/blog/" class="font-medium text-emerald-700 underline underline-offset-4">Guides</a></nav>
+<h1 class="mt-6 text-3xl font-bold text-slate-900 sm:text-4xl">Check AI Image Metadata: EXIF, C2PA &amp; SynthID</h1>
+
+<p class="mt-3 text-sm text-slate-500">By WatermarkZero · <time datetime="2026-10-01">Published October 1, 2026</time></p>
+
+<p class="mt-4 text-sm leading-7 text-slate-600">AI image metadata can include editing software, comments, location fields, and provenance records. Check the file itself before sharing: an image can have no visible logo but still contain metadata. WatermarkZero reports supported metadata categories in PNG and JPEG files; it does not identify which AI model made an image or verify C2PA signatures.</p>
+
+<article class="mt-8 space-y-6">
+<section class="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm">
+<h2 class="text-2xl font-bold text-slate-900">EXIF, XMP, C2PA and SynthID are different</h2>
+<div class="mt-5 max-w-full overflow-x-auto" role="region" aria-label="Metadata and watermark comparison" tabindex="0">
+<table class="w-full min-w-[580px] text-left text-sm">
+<thead>
+<tr><th scope="col" class="border-b border-slate-200 p-3">Information</th><th scope="col" class="border-b border-slate-200 p-3">Where it lives</th><th scope="col" class="border-b border-slate-200 p-3">What a metadata check can tell you</th></tr></thead>
+<tbody>
+<tr><td class="border-b border-slate-100 p-3 align-top text-slate-600">EXIF and GPS</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">Metadata attached to the image file</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">Camera, orientation, or location information may be present. GPS fields are not required in every image.</td></tr>
+<tr><td class="border-b border-slate-100 p-3 align-top text-slate-600">XMP, IPTC and text comments</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">Embedded metadata blocks</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">May contain creator, editing, caption, or generation information. Their presence alone does not prove AI generation.</td></tr>
+<tr><td class="border-b border-slate-100 p-3 align-top text-slate-600">C2PA / Content Credentials</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">A provenance manifest, embedded or associated externally</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">Can record creation and editing history. Detecting a container is different from validating its signature and trust chain.</td></tr>
+<tr><td class="border-b border-slate-100 p-3 align-top text-slate-600">SynthID</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">An imperceptible signal in image pixels</td><td class="border-b border-slate-100 p-3 align-top text-slate-600">A normal metadata inspector cannot establish its presence or absence. Clearing metadata does not remove it.</td></tr></tbody></table></div>
+<p class="mt-4 text-sm leading-7 text-slate-600">Google explains that <a href="https://deepmind.google/blog/identifying-ai-generated-images-with-synthid/" class="font-medium text-emerald-700 underline underline-offset-4">SynthID is embedded in pixels and can remain after metadata is lost</a>. The <a href="https://c2pa.org/faqs/" class="font-medium text-emerald-700 underline underline-offset-4">C2PA FAQ</a> explains that external credentials may also be rediscovered through fingerprints or other bindings.</p></section>
+<section class="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm">
+<h2 class="text-2xl font-bold text-slate-900">Check a PNG or JPEG locally</h2>
+<ol class="mt-4 list-decimal space-y-3 pl-5 text-sm leading-7 text-slate-600">
+<li>Keep the original file, then open the <a href="/ai-metadata-remover/" class="font-medium text-emerald-700 underline underline-offset-4">AI metadata remover</a>. Choose PNG or JPEG files, up to 20 MB each. This tool does not accept WebP, HEIC, PDF, or video.</li>
+<li>Read the detected categories and removal summary. The page processes the file locally and prepares a separate cleaned copy; choosing it does not change the original.</li>
+<li>Look for categories relevant to your goal, such as EXIF/GPS for location privacy or comments/XMP for text fields. The report lists categories, not a complete display of every field and its value.</li>
+<li>Download the cleaned copy only if the changes match what you want. Compare it with the original before sharing.</li></ol>
+<p class="mt-4 text-sm leading-7 text-slate-600">For example, a report listing EXIF and GPS indicates that recognized EXIF metadata includes a GPS directory. It does not display coordinates. A report of “No removable metadata found” means this cleaner did not find a supported removable block, not that every possible hidden signal is absent.</p></section>
+<section class="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm">
+<h2 class="text-2xl font-bold text-slate-900">How to inspect the actual field values</h2>
+<p class="mt-4 text-sm leading-7 text-slate-600">If you need to see exact timestamps, coordinates, or software names, use a local metadata inspector such as <a href="https://exiftool.org/faq.html" class="font-medium text-emerald-700 underline underline-offset-4">ExifTool</a>. Once installed, these read-only commands list metadata from the original and cleaned files:</p>
+<pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950 p-5 text-sm text-slate-100"><code>exiftool -a -G1 -s original.jpg
+exiftool -a -G1 -s original.cleaned.jpg</code></pre>
+<p class="mt-4 text-sm leading-7 text-slate-600">Look at both the tag name and its group. File-system fields such as FileName and FileModifyDate describe the copy on your device and are not proof that private embedded fields remain. For C2PA validation, use a Content Credentials verifier that checks the manifest and its signatures. Do not infer authenticity from the filename or the mere presence of an XMP block.</p></section>
+<section class="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm">
+<h2 class="text-2xl font-bold text-slate-900">What cleanup preserves</h2>
+<p class="mt-4 text-sm leading-7 text-slate-600">The metadata tool removes supported embedded metadata without re-encoding the image pixels. PNG image-data chunks and JPEG compressed image data are retained. Color-related information is retained, and JPEG orientation may be preserved in a minimal EXIF block so the photo still displays upright.</p>
+<p class="mt-4 text-sm leading-7 text-slate-600">An EXIF category in a cleaned JPEG can therefore be expected if only orientation remains. Do not keep stripping or converting the file just to remove that label. Inspect its remaining fields if you need to confirm what was retained.</p>
+<p class="mt-4 text-sm leading-7 text-slate-600">This differs from the <a href="/" class="font-medium text-emerald-700 underline underline-offset-4">visible watermark remover</a>, which edits pixels around the corner mark and exports PNG. Choose the tool that matches the change you need.</p></section>
+<section class="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm">
+<h2 class="text-2xl font-bold text-slate-900">Verify the copy you will actually share</h2>
+<ul class="mt-4 list-disc space-y-3 pl-5 text-sm leading-7 text-slate-600">
+<li>Open the cleaned file and confirm its orientation, colors, dimensions, and visible content.</li>
+<li>Inspect the cleaned file again, checking the categories or fields relevant to your privacy goal.</li>
+<li>Keep the source if you need its provenance or editing history later. Removing embedded credentials can discard useful attribution records.</li>
+<li>Check the final file after exporting from another editor. Later software can add new metadata; cleaning an earlier version says nothing about a later copy.</li></ul></section>
+<section class="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm">
+<h2 class="text-2xl font-bold text-slate-900">Does removing metadata make an image undetectable as AI?</h2>
+<p class="mt-4 text-sm leading-7 text-slate-600">No. Metadata cleanup does not remove SynthID, does not prove an image is human-made, and does not guarantee an AI detector result. Content Credentials may exist outside the downloaded file. Removing a recognized embedded container is not the same as erasing an image’s history.</p>
+<p class="mt-4 text-sm leading-7 text-slate-600">For a visible star or logo, use the <a href="/" class="font-medium text-emerald-700 underline underline-offset-4">Gemini watermark tool</a>. For the distinction between that mark and invisible provenance, read <a href="/blog/visible-gemini-watermark-vs-synthid/" class="font-medium text-emerald-700 underline underline-offset-4">visible Gemini watermark versus SynthID</a>.</p></section></article>
+</main></body></html>

@@ -80,6 +80,16 @@ function replaceMeta(html, locale) {
     return `<option value="${optionLocale}"${selected}>`;
   });
 
+  localized = localized.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (block, json) => {
+    const schema = JSON.parse(json);
+    if (schema['@type'] !== 'SoftwareApplication') return block;
+    schema.url = canonical;
+    schema['@id'] = `${canonical}#tool`;
+    schema.inLanguage = config.htmlLang;
+    schema.description = description;
+    return `<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<', '\\u003c')}</script>`;
+  });
+
   return localized;
 }
 

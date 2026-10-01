@@ -100,6 +100,18 @@
       </article>
     </section>
 
+    <section class="faq" aria-labelledby="metadataStepsTitle">
+      <p class="eyebrow">Check, clean, verify</p>
+      <h2 id="metadataStepsTitle">Remove EXIF and GPS metadata locally</h2>
+      <div class="faq-grid">
+        <article><h3>1. Choose the original</h3><p>Select PNG or JPEG files up to 20 MB each. WebP, HEIC, PDFs, and videos are not supported by this metadata tool. Keep an original copy if you need its capture details or provenance later.</p></article>
+        <article><h3>2. Read the result</h3><p>The card lists detected metadata categories and whether they were removed. It does not display a complete field-by-field report or certify who created the image. An EXIF badge alone does not mean GPS was present.</p></article>
+        <article><h3>3. Download and check</h3><p>Download the cleaned image, then select that downloaded copy to check it again. Removed categories should no longer appear. Retained JPEG orientation may still be reported so the photo displays correctly.</p></article>
+      </div>
+      <p class="intro">For example, a JPEG with GPS and camera EXIF can lose those fields while keeping its encoded picture and necessary orientation. A PNG without removable fields will report “No removable metadata found.” These are explanations of result states, not a claim that every image contains location data.</p>
+      <p class="intro">Read <a href="/blog/check-ai-image-metadata/"><strong>how to check AI image metadata</strong></a> for the difference between EXIF, Content Credentials, and SynthID. To remove a visible corner logo instead, use the <a href="/#uploadArea"><strong>Gemini watermark remover</strong></a>.</p>
+    </section>
+
     <section class="faq">
       <p class="eyebrow">FAQ</p>
       <h2>What this cleaner can and cannot change</h2>
@@ -107,7 +119,10 @@
       <div class="faq-grid">
         <article><h3>Are files uploaded?</h3><p>No. File reading, inspection, cleaning, and ZIP creation happen in your browser.</p></article>
         <article><h3>Does it reduce quality?</h3><p>No image decoding or recompression is used. Only supported metadata segments are removed.</p></article>
-        <article><h3>Does it remove SynthID?</h3><p>No. SynthID and pixel-domain signals are outside this tool's scope.</p></article>
+        <article><h3>Does it remove SynthID?</h3><p>No. SynthID and pixel-domain signals are outside this tool's scope. A clean metadata report cannot establish that an image was not AI-generated.</p></article>
+        <article><h3>Why is the download almost the same size?</h3><p>Metadata can be small compared with image data. Compare the reported categories, not file size alone, to check what changed.</p></article>
+        <article><h3>Will the format or dimensions change?</h3><p>A PNG stays PNG and a JPEG stays JPEG. The cleaner removes supported container segments rather than resizing or re-encoding the picture.</p></article>
+        <article><h3>How do I save several files on a phone?</h3><p>With at least two successful results, use Download ZIP. Open the ZIP in your phone's file manager to extract the images. Process smaller groups if the browser runs low on memory.</p></article>
       </div>
     </section>
   </main>

@@ -21,6 +21,9 @@ function safeGetStoredLocale() {
 
 function safeGetPathLocale() {
   try {
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      return FALLBACK_LOCALE;
+    }
     return getLocaleFromPath(window.location.pathname);
   } catch {
     return null;
